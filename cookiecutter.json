@@ -1,0 +1,10 @@
+{
+    "author_name": "Daniele Arosio",
+    "email": "darosio@duck.com",
+    "project_name": "Complexity",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "project_short_description": "",
+    "date": "2023-07-27",
+    "year": "2023",
+    "version": "0.0.1"
+}
