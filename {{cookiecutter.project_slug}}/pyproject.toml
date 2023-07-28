@@ -29,3 +29,277 @@ name = "{{ cookiecutter.project_slug }}",
 readme = "README.md"
 requires-python = ">=3.9, <3.12"
 version = "{{ cookiecutter.version }}"
+
+[project.optional-dependencies]
+dev = [
+  "commitizen < 3.5.4",
+  "ipykernel",
+  "jupyter",
+  "jupyterlab",
+  "ruff == 0.0.280",
+  "pre-commit == 3.3.3",
+  "pylsp-mypy",
+  "python-lsp-ruff"
+]
+docs = [
+  "autodocsumm == 0.2.11",
+  "nbsphinx == 0.9.2",
+  "pydata-sphinx-theme == 0.13.3",
+  "Sphinx == 7.1.1",
+  "sphinx-click == 4.4.0",
+  "sphinx_autodoc_typehints == 1.24.0",
+  "sphinxcontrib-plantuml == 0.25"
+]
+tests = [
+  "coverage[toml] < 7.2.8",
+  "mypy < 1.5",
+  "pandas-stubs == 2.0.2.230605",
+  "Pygments < 2.15.2",
+  "pytest < 7.4.1",
+  "types-click == 7.1.8",
+  "xdoctest < 1.1.2"
+]
+
+[project.scripts]
+{{ cookiecutter.cliname }} = "{{ cookiecutter.project_slug }}.__main__:{{ cookiecutter.cliname }}"
+
+[project.urls]
+"Bug Tracker" = "https://github.com/darosio/{{ cookiecutter.project_name }}/issues"
+Changelog = "https://github.com/darosio/{{ cookiecutter.project_name }}/blob/main/CHANGELOG.md"
+Discussions = "https://github.com/darosio/{{ cookiecutter.project_name }}/discussions"
+Documentation = "https://{{ cookiecutter.project_slug }}.readthedocs.io"
+"Github releases" = "https://github.com/darosio/{{ cookiecutter.project_name }}/releases"
+Homepage = "https://github.com/darosio/{{ cookiecutter.project_name }}"
+
+[tool.black]
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+line-length = 88
+skip-string-normalization = false
+
+[tool.commitizen]
+name = "cz_customize"
+tag_format = "v$version"
+version = "0.10.0"
+version_files = [
+  "pyproject.toml:version",
+  "docs/conf.py:release",
+  "README.md:Version"
+]
+
+[tool.commitizen.customize]
+bump_map = {"^.+!:" = "MAJOR", "BREAKING CHANGE" = "MAJOR", "feat" = "MINOR", "fix" = "PATCH", "perf" = "PATCH", "refactor" = "PATCH"}
+bump_pattern = "^(BREAKING CHANGE|feat|fix|perf|refactor)"
+change_type_map = {"feat" = "Feat", "fix" = "Fix", "docs" = "Docs", "build" = "Build", "style" = "Style", "refactor" = "Refactor", "perf" = "Perf", "test" = "Test", "ci" = "CI/CD"}
+change_type_order = ["BREAKING CHANGE", "Feat", "Fix", "Docs", "Style", "Perf", "Test", "Build", "CI/CD"]
+changelog_pattern = "^(feat|fix|docs|style|refactor|perf|test|build|ci)?(\\(.*\\))?(!)?"
+commit_parser = "^(?P<change_type>feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(?:\\((?P<scope>[^()\r\n]*)\\)|\\()?(?P<breaking>!)?:\\s(?P<message>.*)?"
+example = """fix(parser): correct minor typos in code\n
+see the issue for details on the typos fixed\n
+closes issue #12
+"""
+info_path = "cz_customize_info.txt"
+# XXX: add double {} to [change_type], [message], % preceduto da {  [if show_message], [endif]
+message_template = "change_type: if show_message  message endif"
+schema = """
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+(BREAKING CHANGE: )<footer>
+"""
+schema_pattern = "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|bump)(?:\\(([^()\r\n]*)\\)|\\()?(!)?:\\s(.*)?"
+
+[[tool.commitizen.customize.questions]]
+choices = [
+  {value = "feat", name = "feat: A new feature. Correlates with MINOR in SemVer"},
+  {value = "fix", name = "fix: A bug fix. Correlates with PATCH in SemVer"},
+  {value = "perf", name = "perf: A code change that improves performance. Correlates with PATCH in SemVer"},
+  {value = "docs", name = "docs: Documentation only changes"},
+  {value = "style", name = "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"},
+  {value = "refactor", name = "refactor: A code change that neither fixes a bug nor adds a feature"},
+  {value = "test", name = "test: Adding missing or correcting existing tests"},
+  {value = "build", name = "build: Changes that update the build system, development tools or external dependencies"},
+  {value = "ci", name = "ci: Changes to our CI configuration files and scripts (example scopes: GitLabCI)"},
+  {value = "revert", name = "revert: Reverting to previous commit(s)."}
+]
+message = "Select the type of change you are committing"
+name = "change_type"
+type = "list"
+
+[[tool.commitizen.customize.questions]]
+message = "Body."
+name = "message"
+type = "input"
+
+[[tool.commitizen.customize.questions]]
+message = "Do you want to add body message in commit?"
+name = "show_message"
+type = "confirm"
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+tests = ["tests", "*/tests"]
+
+[tool.coverage.report]
+# fail_under = 100
+exclude_lines = [
+  "pragma: no cover"
+]
+show_missing = true
+
+[tool.coverage.run]
+branch = true
+omit = ["*__init__.py", "*/old/*"]
+source = ["{{ cookiecutter.project_slug }}", "tests"]
+
+[tool.hatch.envs.default]
+features = ["dev", "tests", "docs"]
+
+[tool.hatch.envs.default.scripts]
+bump = [
+  "cz bump --major-version-zero -ch {args}",  # e.g. "--increment PATCH"
+  "hatch build",
+  "hatch publish -r test"
+]
+ch = "cz ch --incremental --unreleased-version HEAD"
+clean = "rm -rf ./build .coverage ./__pycache__ ./.mypy_cache ./.pytest_cache ./docs/_build ./tests/__pycache__ ./dist ./src/{{ cookiecutter.project_slug }}/__pycache__"
+docs = "sphinx-build docs docs/_build"
+docserve = "python -m http.server 8000 -d docs/_build"
+init = [
+  "pre-commit --version",
+  "pre-commit install",
+  "pre-commit install --hook-type commit-msg --hook-type pre-push"
+]
+lint = [
+  "pre-commit --version",
+  "pre-commit run --all-files --hook-stage=manual --show-diff-on-failure {args}"
+]
+
+[tool.hatch.envs.tests]
+features = ["tests"]
+template = "tests"
+
+[[tool.hatch.envs.tests.matrix]]
+python = ["3.11", "3.10", "3.9"]  # reverse order to ensure the presence in older python of module included in newer versions
+
+[tool.hatch.envs.tests.scripts]
+all = ["test", "type", "xdoc", "cov"]
+cov = [
+  "coverage combine",
+  "coverage report",
+  "coverage xml"
+]
+test = "coverage run -p -m pytest"
+type = "mypy src tests docs/conf.py"
+xdoc = "python -m xdoctest {{ cookiecutter.project_slug }} all"
+
+[tool.isort]
+combine_as_imports = true
+force_single_line = false
+include_trailing_comma = true
+known_first_party = "{{ cookiecutter.project_slug }}"
+line_length = 88  # to match black's default line length
+multi_line_output = 3
+profile = "black"
+
+[tool.mypy]
+# enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+enable_error_code = ["redundant-expr", "truthy-bool"]
+exclude = ""
+files = ["src", "tests", "docs/conf.py"]
+plugins = "numpy.typing.mypy_plugin"
+pretty = true
+show_column_numbers = true
+show_error_codes = true
+show_error_context = true
+strict = true
+warn_unreachable = true
+warn_unused_configs = true
+
+[tool.pylsp-mypy]
+dmypy = false
+enabled = true
+live_mode = true
+strict = true
+
+[tool.pytest.ini_options]
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+# xfail_strict = true
+# filterwarnings = ["ignore::DeprecationWarning", "ignore:OVER"]
+filterwarnings = ["ignore::DeprecationWarning"]
+log_cli_level = "INFO"
+minversion = "6.0"
+testpaths = [
+  "tests"
+]
+
+[tool.ruff]
+extend-exclude = [""]
+force-exclude = true
+ignore = ["ANN101", "ANN102"]
+line-length = 88
+select = [
+  "A",  # builtins
+  "ANN",  # typing annotation
+  "ARG",  # unused arguments
+  "B",  # bugbear
+  "C",
+  "C4",  # comprehensions
+  "C90",  # mccabe
+  "D",  # pydocstyle
+  "DTZ",  # dates
+  "E",  # pycodestyle
+  "TRY",  # exceptions
+  "EM",  # exceptions
+  "ERA",  # eradicate
+  "F",  # pyflakes
+  # "FBT",    # boolean-trap
+  "I",  # isort
+  "ICN",  # import conventions (opinionated)
+  "ISC",  # implicit-str-concat
+  "N",  # pep8-naming
+  "PD",  # pandas-vet
+  # "PGH",  # pygrep WAIT
+  "PL",  # pylint see PLR2004...
+  "PT",  # pytest-style
+  "PTH",  # use-pathlib
+  "Q",  # quotes
+  "RUF",  # Ruff
+  "S",  # bandit XXX
+  "SIM",  # simplify
+  "TID",  # tidy-imports
+  "UP",  # pyupgrade
+  "YTT",  # 2020
+  "W"  # pycodestyle
+]
+
+[tool.ruff.isort]
+combine-as-imports = true
+force-single-line = false
+known-first-party = ["{{ cookiecutter.project_slug }}"]
+split-on-trailing-comma = true
+
+[tool.ruff.mccabe]
+max-complexity = 12
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["I002"]  # don't need annotations
+"tests/*" = [
+  "PLR2004",
+  "S101"
+]
+
+[tool.ruff.pydocstyle]
+convention = "numpy"

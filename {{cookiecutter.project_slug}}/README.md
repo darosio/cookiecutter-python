@@ -25,11 +25,11 @@ To enable auto completion for the `cli` command, follow these steps:
 
 1.  Generate the completion script by running the following command:
 
-        _CLINAME_COMPLETE=bash_source cliname > ~/.local/bin/cliname-complete.bash
+        _{{ cookiecutter.cliname.upper() }}_COMPLETE=bash_source {{ cookiecutter.cliname }} > ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
 
 2.  Source the generated completion script to enable auto completion:
 
-        source ~/.local/bin/cliname-complete.bash
+        source ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
 
 ## Usage
 
