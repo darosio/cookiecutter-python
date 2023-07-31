@@ -9,9 +9,9 @@
 # TODO: Remove the unneeded.
 
 project = "{{ cookiecutter.project_name }}"
-copyright = "{{ cookiecutter.year }}, {{ cookiecutter.author_name }}"  # noqa: A001
-author = "{{ cookiecutter.author_name }}"
 release = "{{ cookiecutter.version }}"
+author = "{{ cookiecutter.author_name }}"
+copyright = f"{{ cookiecutter.year }}, {author}"  # noqa: A001
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -28,11 +28,12 @@ extensions = [
 ]
 # Napoleon settings to Default
 napoleon_use_ivar = False
-
+# Use __init__ docstring
 napoleon_include_init_with_doc = False
+# Use _private docstring
 napoleon_include_private_with_doc = True
+# Use __special__ docstring
 napoleon_include_special_with_doc = True
-napoleon_use_rtype = False
 
 autodoc_default_options = {
     "members": True,
