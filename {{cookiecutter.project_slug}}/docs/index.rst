@@ -1,7 +1,7 @@
 .. {{ cookiecutter.project_name }} documentation master file, created by
    darosio/cookiecutter-python on {{ cookiecutter.date }}
    You can adapt this file completely to your liking, or rewrite using
-   sphinx-quickstart, but it should at least contain the root `toctree` directive.
+   sphinx-quickstart, but it should at least contain the root ’toctree’ directive.
 
 
 Welcome to the documentation for our project! Here you will find information on

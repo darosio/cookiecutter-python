@@ -71,7 +71,7 @@ And only in case you need a system wide easy accessible kernel:
 
 ::
 
-   python -m ipykernel install --user --name="{{ cookiecutter.cliname }}"
+   python -m ipykernel install --user --name="{{ cookiecutter.project_slug }}"
 
 Testing and coverage
 ~~~~~~~~~~~~~~~~~~~~
