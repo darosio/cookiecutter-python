@@ -67,7 +67,8 @@ repos:
     rev: 1.7.5 # Update me!
     hooks:
       - id: bandit
-        args: ["-c", "bandit.yml"]
+        args: ["-c", "pyproject.toml"]
+        additional_dependencies: ["bandit[toml]"]
 
   - repo: https://github.com/terrencepreilly/darglint
     rev: v1.8.1

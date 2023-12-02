@@ -71,6 +71,11 @@ Documentation = "https://{{ cookiecutter.project_slug }}.readthedocs.io"
 "Github releases" = "https://github.com/darosio/{{ cookiecutter.project_name }}/releases"
 Homepage = "https://github.com/darosio/{{ cookiecutter.project_name }}"
 
+[tool.bandit]
+skips = ["B101", "B603"]
+exclude_dirs = ["*/test_*.py"]
+tests = ["B201", "B301"]
+
 [tool.black]
 exclude = '''
 /(
