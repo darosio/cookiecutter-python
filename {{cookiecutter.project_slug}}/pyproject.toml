@@ -93,6 +93,14 @@ exclude = '''
 line-length = 88
 skip-string-normalization = false
 
+ 
+[tool.codespell]
+count = ''
+ignore-words-list = 'ciao'
+quiet-level = 3
+skip = 'src/{{cookiecutter.project_slug}}/__main__.py'
+
+
 [tool.commitizen]
 name = "cz_customize"
 tag_format = "v$version"
