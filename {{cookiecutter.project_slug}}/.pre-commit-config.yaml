@@ -70,11 +70,11 @@ repos:
         args: ["-c", "pyproject.toml"]
         additional_dependencies: ["bandit[toml]"]
 
-  - repo: https://github.com/terrencepreilly/darglint
-    rev: v1.8.1
+  # should be replaced in the future ref https://github.com/astral-sh/ruff/issues/458
+  - repo: https://github.com/jsh9/pydoclint
+    rev: 0.3.4
     hooks:
-      - id: darglint
-        stages: [manual]
+      - id: pydoclint
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.6

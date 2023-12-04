@@ -197,7 +197,7 @@ init = [
 ]
 lint = [
   "pre-commit --version",
-  "pre-commit run --all-files --hook-stage=manual --show-diff-on-failure {args}"
+  "pre-commit run --all-files --show-diff-on-failure {args}"  # No need for --hook-stage=manual
 ]
 
 [tool.hatch.envs.tests]
