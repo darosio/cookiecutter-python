@@ -8,6 +8,9 @@ Python best practices project cookiecutter.
 
    - Any action or reusable workflow can be used, regardless of who authored it,
      or where it is defined.
+     **Workflow permissions**
+     Read and Write Permissions
+     [x] Allow Github Actions to create and approve pull requests
 
 2. Pages
 
