@@ -15,6 +15,7 @@ Python best practices project cookiecutter.
 2. Pages
 
    - Source: Github Actions <https://github.com/darosio/imgread/settings/pages>.
+     Deploy from a branch gh-pages as using `jamesives/github-pages-deploy-action@v4`
 
 3. RtD
 
