@@ -1,0 +1,13 @@
+* To download data
+
+#+begin_src sh :results output :exports both
+rclone --drive-shared-with-me sync --copy-links --progress gdpa:iClima\ 1Photon data/
+#+end_src
+
+* Initial project setup
+- [ ] Create a new (empty) repo at: https://gin.g-node.org/repo/create
+- [ ]  git annex init $HOSTNAME 
+  - [ ] git config annex.sshcaching true
+
+- [ ] set .gitignore
+- [ ] git annex add data/20240228\ MEF/

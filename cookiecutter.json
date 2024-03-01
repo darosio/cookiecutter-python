@@ -1,11 +1,12 @@
 {
+    "project_type": ["Python Project", "Data Analysis Project"],
     "author_name": "Daniele Arosio",
     "email": "darosio@duck.com",
     "project_name": "Complexity",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
     "project_short_description": "",
-    "date": "2023-07-27",
-    "year": "2023",
+    "date": "2024-03-01",
+    "year": "2024",
     "version": "0.0.1",
     "cliname": "cliname"
 }

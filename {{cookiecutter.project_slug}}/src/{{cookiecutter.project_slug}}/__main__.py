@@ -11,14 +11,17 @@ import click
 @click.pass_context
 @click.version_option(message="%(version)s")
 @click.option("--verbose", "-v", count=True, help="Verbosity of messages.")
-@click.option("--out", "-o", type=cPath(), help="Output folder.")
-def ppr(ctx: Context, verbose: int, out: str) -> None:  # pragma: no cover
-    """Parse Plate Reader `ppr` group command."""
+@click.option("--out", "-o", type=click.Path(), help="Output folder.")
+def {{ cookiecutter.cliname }}(ctx: Context, verbose: int, out: str) -> None:  # pragma: no cover
+    """Create `{{ cookiecutter.cliname }}` group command."""
     ctx.ensure_object(dict)
     ctx.obj["VERBOSE"] = verbose
     if out:
         ctx.obj["OUT"] = out
 
-@ppr.command()
+@{{ cookiecutter.cliname }}.command()
 @click.pass_context
-@click.argument("list_file", type=cPath(exists=True))
+@click.argument("fpath", type=click.Path(exists=True))
+def subcommand(ctx: click.Context, fpath: Path) -> None:
+    """Do something."""
+    pass

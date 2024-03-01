@@ -2,6 +2,9 @@
 
 Python best practices project cookiecutter.
 
+    cookiecutter workspace/cookiecutter-python/
+    cookiecutter https://github.com/darosio/cookiecutter-python
+
 ## Settings on github
 
 1. Actions permissions
