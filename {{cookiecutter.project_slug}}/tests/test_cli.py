@@ -10,6 +10,7 @@ from {{cookiecutter.project_slug}}.__main__ import clop
 tpath = Path(__file__).parent
 
 # TODO: use cookiecutter names
+# TODO: Fix the .github CI
 def test_eq1() -> None:
     """It runs XXX pr.tecan and generates correct results and graphs."""
     runner = CliRunner()

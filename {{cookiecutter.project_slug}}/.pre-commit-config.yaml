@@ -1,3 +1,5 @@
+{% if cookiecutter.project_type == "Data Analysis Project" %}exclude: ^data/.*$
+{% endif %}
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -8,7 +10,7 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
       - id: check-merge-conflict
-      - id: check-symlinks
+{% if cookiecutter.project_type == "Python Project" %}      - id: check-symlinks{% endif %}
       - id: destroyed-symlinks
       - id: check-yaml
       - id: check-toml
