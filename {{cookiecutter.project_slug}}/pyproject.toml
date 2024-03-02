@@ -251,7 +251,11 @@ cov = [
   "coverage xml"
 ]
 test = "coverage run -p -m pytest"
+{% if cookiecutter.project_type == "Data Analysis Project" %}
+type = "mypy src tests"
+{% else %}
 type = "mypy src tests docs/conf.py"
+{% endif %}
 xdoc = "python -m xdoctest {{ cookiecutter.project_slug }} all"
 
 [tool.isort]
