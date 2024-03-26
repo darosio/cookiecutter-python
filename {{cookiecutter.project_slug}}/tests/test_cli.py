@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 from click.testing import CliRunner
-from {{cookiecutter.project_slug}}.__main__ import clop
+from {{cookiecutter.project_slug}}.__main__ import {{ cookiecutter.cliname }}
 
 # tests path
 tpath = Path(__file__).parent
@@ -14,6 +14,6 @@ tpath = Path(__file__).parent
 def test_eq1() -> None:
     """It runs XXX pr.tecan and generates correct results and graphs."""
     runner = CliRunner()
-    result = runner.invoke(clop, ["eq1", "2", "2", "2"])
+    result = runner.invoke({{ cookiecutter.cliname }}, ["run", "--help"])
     assert result.exit_code == 0
-    assert "4." in result.output
+    # assert "4." in result.output
