@@ -2,6 +2,62 @@
 build-backend = "hatchling.build"
 requires = ["hatchling"]
 
+[lint]
+ignore = ["ANN101", "ANN102"]
+select = [
+  "A",  # builtins
+  "ANN",  # typing annotation
+  "ARG",  # unused arguments
+  "B",  # bugbear
+  "C",
+  "C4",  # comprehensions
+  "C90",  # mccabe
+  "D",  # pydocstyle
+  "DTZ",  # dates
+  "E",  # pycodestyle
+  "TRY",  # exceptions
+  "EM",  # exceptions
+  "ERA",  # eradicate
+  "F",  # pyflakes
+  # "FBT",    # boolean-trap
+  "I",  # isort
+  "ICN",  # import conventions (opinionated)
+  "ISC",  # implicit-str-concat
+  "N",  # pep8-naming
+  "PD",  # pandas-vet
+  # "PGH",  # pygrep WAIT
+  "PL",  # pylint see PLR2004...
+  "PT",  # pytest-style
+  "PTH",  # use-pathlib
+  "Q",  # quotes
+  "RUF",  # Ruff
+  "S",  # bandit XXX
+  "SIM",  # simplify
+  "TID",  # tidy-imports
+  "UP",  # pyupgrade
+  "YTT",  # 2020
+  "W"  # pycodestyle
+]
+
+[lint.isort]
+combine-as-imports = true
+force-single-line = false
+known-first-party = ["{{ cookiecutter.project_slug }}"]
+split-on-trailing-comma = true
+
+[lint.mccabe]
+max-complexity = 12
+
+[lint.per-file-ignores]
+"__init__.py" = ["I002"]  # don't need annotations
+"tests/*" = [
+  "PLR2004",
+  "S101"
+]
+
+[lint.pydocstyle]
+convention = "numpy"
+
 [project]
 authors = [
   {name = '{{ cookiecutter.author_name }}', email = '{{ cookiecutter.email }}'}
@@ -10,9 +66,9 @@ classifiers = [
   "Environment :: Console",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Programming Language :: Unix Shell",
   "Intended Audience :: Science/Research",
   "Topic :: Scientific/Engineering",
@@ -20,25 +76,25 @@ classifiers = [
 ]
 {% if cookiecutter.project_type == "Data Analysis Project" %}
 dependencies = [
-  "click < 8.1.7",
-  "numpy <= 1.26.4",
-  "scipy <= 1.12.0",
-  "pandas <= 2.2.1",
-  "pyarrow <= 15.0.0",
-  "scikit-image <= 0.22.0",
-  "matplotlib <= 3.8.3",
-  "tifffile <= 2024.2.12",
-  "scyjava <= 1.9.1",
-  "bioio-bioformats <= 1.0.0",
-  "readlif <= 0.6.5",
-  "dask[distributed] <= 2024.2.1",
-  "dask-image <= 2023.8.1",
-  "zarr <= 2.17.0",
-  "sigfig <= 1.3.3"
+  "click <= 8.1.7",
+  "numpy",
+  "scipy",
+  "pandas",
+  "pyarrow",
+  "scikit-image",
+  "matplotlib",
+  "tifffile",
+  "scyjava",
+  "bioio-bioformats",
+  "readlif",
+  "dask[distributed]",
+  "dask-image",
+  "zarr",
+  "sigfig"
 ]
 {% else %}
 dependencies = [
-  "click < 8.1.7"
+  "click <= 8.1.7"
 ]
 {% endif %}
 description = "{{ cookiecutter.project_short_description }}"
@@ -48,15 +104,15 @@ license-files = {paths = ["LICENSE.txt"]}
 name = "{{ cookiecutter.project_slug }}"
 {% if cookiecutter.project_type == "Python Project" %}readme = "README.md"{% endif %}
 
-requires-python = ">=3.9, <3.13"
+requires-python = ">=3.10"
 version = "{{ cookiecutter.version }}"
 {% if cookiecutter.project_type == "Data Analysis Project" %}
 [project.optional-dependencies]
 dev = [
   "ipykernel",
   "jupyter",
-  "ruff <= 0.3.0",
-  "pre-commit <= 3.6.2",
+  "ruff",
+  "pre-commit",
   "pylsp-mypy",
   "python-lsp-ruff",
 ]
@@ -64,31 +120,31 @@ docs = []
 {% else %}
 [project.optional-dependencies]
 dev = [
-  "commitizen <= 3.16.0",
+  "commitizen",
   "ipykernel",
   "jupyter",
-  "ruff <= 0.3.0",
-  "pre-commit <= 3.6.2",
+  "ruff",
+  "pre-commit",
   "pylsp-mypy",
   "python-lsp-ruff",
 ]
 docs = [
-  "autodocsumm <= 0.2.12",
-  "nbsphinx <= 0.9.3",
-  "pydata-sphinx-theme <= 0.15.2",
-  "Sphinx <= 7.2.6",
-  "sphinx-click <= 5.1.0",
-  "sphinx_autodoc_typehints <= 2.0.0",
-  "sphinxcontrib-plantuml <= 0.28"
+  "autodocsumm",
+  "nbsphinx",
+  "pydata-sphinx-theme",
+  "Sphinx",
+  "sphinx-click",
+  "sphinx_autodoc_typehints",
+  "sphinxcontrib-plantuml"
 ]
 {% endif %}
 tests = [
-  "coverage[toml] <= 7.4.3",
-  "mypy <= 1.8.0",
-  "pygments <= 2.17.2",  # color xdoctest
-  "pytest <= 8.0.2",
-  "types-click <= 7.1.8",
-  "xdoctest <= 1.1.3"
+  "coverage[toml]",
+  "mypy",
+  "pygments",  # color xdoctest
+  "pytest",
+  "types-click",
+  "xdoctest"
 ]
 
 [project.scripts]
@@ -241,7 +297,7 @@ features = ["tests"]
 template = "tests"
 
 [[tool.hatch.envs.tests.matrix]]
-python = ["3.12", "3.11", "3.10", "3.9"]  # reverse order to ensure the presence in older python of module included in newer versions
+python = ["3.12", "3.11", "3.10"]
 
 [tool.hatch.envs.tests.scripts]
 all = ["test", "type", "xdoc", "cov"]
@@ -301,58 +357,4 @@ testpaths = [
 [tool.ruff]
 extend-exclude = [""]
 force-exclude = true
-ignore = ["ANN101", "ANN102"]
 line-length = 88
-select = [
-  "A",  # builtins
-  "ANN",  # typing annotation
-  "ARG",  # unused arguments
-  "B",  # bugbear
-  "C",
-  "C4",  # comprehensions
-  "C90",  # mccabe
-  "D",  # pydocstyle
-  "DTZ",  # dates
-  "E",  # pycodestyle
-  "TRY",  # exceptions
-  "EM",  # exceptions
-  "ERA",  # eradicate
-  "F",  # pyflakes
-  # "FBT",    # boolean-trap
-  "I",  # isort
-  "ICN",  # import conventions (opinionated)
-  "ISC",  # implicit-str-concat
-  "N",  # pep8-naming
-  "PD",  # pandas-vet
-  # "PGH",  # pygrep WAIT
-  "PL",  # pylint see PLR2004...
-  "PT",  # pytest-style
-  "PTH",  # use-pathlib
-  "Q",  # quotes
-  "RUF",  # Ruff
-  "S",  # bandit XXX
-  "SIM",  # simplify
-  "TID",  # tidy-imports
-  "UP",  # pyupgrade
-  "YTT",  # 2020
-  "W"  # pycodestyle
-]
-
-[tool.ruff.isort]
-combine-as-imports = true
-force-single-line = false
-known-first-party = ["{{ cookiecutter.project_slug }}"]
-split-on-trailing-comma = true
-
-[tool.ruff.mccabe]
-max-complexity = 12
-
-[tool.ruff.per-file-ignores]
-"__init__.py" = ["I002"]  # don't need annotations
-"tests/*" = [
-  "PLR2004",
-  "S101"
-]
-
-[tool.ruff.pydocstyle]
-convention = "numpy"
