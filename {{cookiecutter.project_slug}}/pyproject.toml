@@ -2,62 +2,6 @@
 build-backend = "hatchling.build"
 requires = ["hatchling"]
 
-[lint]
-ignore = ["ANN101", "ANN102"]
-select = [
-  "A",  # builtins
-  "ANN",  # typing annotation
-  "ARG",  # unused arguments
-  "B",  # bugbear
-  "C",
-  "C4",  # comprehensions
-  "C90",  # mccabe
-  "D",  # pydocstyle
-  "DTZ",  # dates
-  "E",  # pycodestyle
-  "TRY",  # exceptions
-  "EM",  # exceptions
-  "ERA",  # eradicate
-  "F",  # pyflakes
-  # "FBT",    # boolean-trap
-  "I",  # isort
-  "ICN",  # import conventions (opinionated)
-  "ISC",  # implicit-str-concat
-  "N",  # pep8-naming
-  "PD",  # pandas-vet
-  # "PGH",  # pygrep WAIT
-  "PL",  # pylint see PLR2004...
-  "PT",  # pytest-style
-  "PTH",  # use-pathlib
-  "Q",  # quotes
-  "RUF",  # Ruff
-  "S",  # bandit XXX
-  "SIM",  # simplify
-  "TID",  # tidy-imports
-  "UP",  # pyupgrade
-  "YTT",  # 2020
-  "W"  # pycodestyle
-]
-
-[lint.isort]
-combine-as-imports = true
-force-single-line = false
-known-first-party = ["{{ cookiecutter.project_slug }}"]
-split-on-trailing-comma = true
-
-[lint.mccabe]
-max-complexity = 12
-
-[lint.per-file-ignores]
-"__init__.py" = ["I002"]  # don't need annotations
-"tests/*" = [
-  "PLR2004",
-  "S101"
-]
-
-[lint.pydocstyle]
-convention = "numpy"
-
 [project]
 authors = [
   {name = '{{ cookiecutter.author_name }}', email = '{{ cookiecutter.email }}'}
@@ -114,7 +58,7 @@ dev = [
   "ruff",
   "pre-commit",
   "pylsp-mypy",
-  "python-lsp-ruff",
+  "ruff-lsp",
 ]
 docs = []
 {% else %}
@@ -358,3 +302,60 @@ testpaths = [
 extend-exclude = [""]
 force-exclude = true
 line-length = 88
+target-version = "py312"
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+ignore = ["ANN101", "ANN102", "ISC001"]
+select = [
+  "A",  # builtins
+  "ANN",  # typing annotation
+  "ARG",  # unused arguments
+  "B",  # bugbear
+  "C",
+  "C4",  # comprehensions
+  "C90",  # mccabe
+  "D",  # pydocstyle
+  "DTZ",  # dates
+  "E",  # pycodestyle
+  "TRY",  # exceptions
+  "EM",  # exceptions
+  "ERA",  # eradicate
+  "F",  # pyflakes
+  # "FBT",    # boolean-trap
+  "I",  # isort
+  "ICN",  # import conventions (opinionated)
+  "ISC",  # implicit-str-concat
+  "N",  # pep8-naming
+  "PD",  # pandas-vet
+  # "PGH",  # pygrep WAIT
+  "PL",  # pylint see PLR2004...
+  "PT",  # pytest-style
+  "PTH",  # use-pathlib
+  "Q",  # quotes
+  "RUF",  # Ruff
+  "S",  # bandit XXX
+  "SIM",  # simplify
+  "TID",  # tidy-imports
+  "UP",  # pyupgrade
+  "YTT",  # 2020
+  "W"  # pycodestyle
+]
+isort.combine-as-imports = true
+isort.force-single-line = false
+isort.known-first-party = ["{{ cookiecutter.project_slug }}"]
+isort.split-on-trailing-comma = true
+mccabe.max-complexity = 12
+
+[tool.ruff.lint.per-file-ignores]
+"*.ipynb" = ["ERA"]
+"__init__.py" = ["I002"]  # don't need annotations
+"tests/*" = [
+  "PLR2004",
+  "S101"
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
