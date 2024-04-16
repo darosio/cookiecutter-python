@@ -1,8 +1,12 @@
 {% if cookiecutter.project_type == "Data Analysis Project" %}exclude: ^data/.*$
 {% endif %}
+ci:
+  autoupdate_commit_msg: "chore: update pre-commit hooks"
+  autofix_commit_msg: "style: pre-commit fixes"
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -24,7 +28,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-    rev: v2.12.0
+    rev: v2.13.0
     hooks:
       - id: pretty-format-ini
         args: [--autofix]
@@ -32,7 +36,7 @@ repos:
         args: [--autofix]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.5
+    rev: v0.3.7
     hooks:
       - id: ruff
         types_or: [python, pyi, jupyter]
@@ -57,7 +61,7 @@ repos:
       - id: rst-inline-touching-normal
 {% if cookiecutter.project_type == "Python Project" %}
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.5 # Update me!
+    rev: 1.7.8
     hooks:
       - id: bandit
         args: ["-c", "pyproject.toml"]
@@ -77,13 +81,13 @@ repos:
           - tomli
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.9.0.6
+    rev: v0.10.0.1
     hooks:
       - id: shellcheck
         args: [-x]
 {% if cookiecutter.project_type == "Python Project" %}
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v3.16.0
+    rev: v3.22.0
     hooks:
       - id: commitizen
       - id: commitizen-branch
