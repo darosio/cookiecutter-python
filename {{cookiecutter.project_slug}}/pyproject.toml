@@ -156,8 +156,7 @@ see the issue for details on the typos fixed\n
 closes issue #12
 """
 info_path = "cz_customize_info.txt"
-# XXX: add double {} to [change_type], [message], % preceduto da {  [if show_message], [endif]
-message_template = "change_type: if show_message  message endif"
+{% raw %}message_template = "{{change_type}}:{% if show_message %} {{message}}{% endif %}"{% endraw %}
 schema = """
 <type>(<scope>): <subject>
 <BLANK LINE>

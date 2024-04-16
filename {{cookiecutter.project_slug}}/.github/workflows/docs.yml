@@ -4,7 +4,7 @@ name: Docs
 on:
   push:
   workflow_dispatch:
-
+{% raw %}
 # Allow one concurrent deployment
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -72,3 +72,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+{% endraw %}
