@@ -299,6 +299,7 @@ testpaths = [
 
 [tool.ruff]
 extend-exclude = [""]
+extend-include = ["*.ipynb"]
 force-exclude = true
 line-length = 88
 target-version = "py312"
