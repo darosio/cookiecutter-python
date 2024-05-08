@@ -1,4 +1,5 @@
 """Post generation hook."""
+
 import shutil
 from pathlib import Path
 
@@ -23,3 +24,5 @@ for path_str in remove_paths:
             path.unlink()
         elif path.is_dir():
             shutil.rmtree(path)
+
+shutil.move("project.toml", "pyproject.toml")

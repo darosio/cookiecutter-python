@@ -12,7 +12,7 @@ import click
 @click.version_option(message="%(version)s")
 @click.option("--verbose", "-v", count=True, help="Verbosity of messages.")
 @click.option("--out", "-o", type=click.Path(), help="Output folder.")
-def {{ cookiecutter.cliname }}(ctx: Context, verbose: int, out: str) -> None:  # pragma: no cover
+def {{ cookiecutter.cliname }}(ctx: click.Context, verbose: int, out: str) -> None:  # pragma: no cover
     """Create `{{ cookiecutter.cliname }}` group command."""
     ctx.ensure_object(dict)
     ctx.obj["VERBOSE"] = verbose

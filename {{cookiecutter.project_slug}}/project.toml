@@ -22,23 +22,11 @@ classifiers = [
 dependencies = [
   "click <= 8.1.7",
   "numpy",
-  "scipy",
-  "pandas",
-  "pyarrow",
-  "scikit-image",
-  "matplotlib",
-  "tifffile",
-  "scyjava",
-  "bioio-bioformats",
-  "readlif",
-  "dask[distributed]",
-  "dask-image",
-  "zarr",
-  "sigfig"
 ]
 {% else %}
 dependencies = [
-  "click <= 8.1.7"
+  "click <= 8.1.7",
+  "numpy",
 ]
 {% endif %}
 description = "{{ cookiecutter.project_short_description }}"

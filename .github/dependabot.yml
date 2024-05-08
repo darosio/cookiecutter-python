@@ -4,20 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: daily
-  - package-ecosystem: pip
-    directory: "/.github/workflows"
-    schedule:
-      interval: daily
-  - package-ecosystem: pip
-    directory: "/"
-    schedule:
-      interval: daily
-      time: "05:00"
+      time: "19:05"
       timezone: "Europe/Rome"
   - package-ecosystem: pip
     directory: "/{{cookiecutter.project_slug}}"
     schedule:
       interval: daily
-      time: "16:18"
+      time: "19:05"
       timezone: "Europe/Rome"
     open-pull-requests-limit: 15
