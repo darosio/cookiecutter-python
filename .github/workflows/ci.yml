@@ -2,13 +2,14 @@ name: Cookiecutter Test
 
 on:
   push:
+  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -46,3 +47,27 @@ jobs:
         run: |
           cd complexity
           hatch run tests:all
+
+  auto_merge_deps:
+    name: Auto Merge dependencies labeled PRs
+    needs: [tests]
+    # Run only on pull_request labeled dependencies (e.g. by dependabot) or
+    # with the pre-commit ci commit message.
+    if: >
+      startsWith(github.event.pull_request.title, 'build(pre-commit): update hooks') ||
+      contains(github.event.pull_request.labels.*.name, 'dependencies')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Merge PR
+        uses: pascalgn/automerge-action@v0.16.3
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: ""
+          MERGE_METHOD: squash
+          DELETE_BRANCH_AFTER_MERGE: true
+          LOG: "TRACE" # or DEBUG
