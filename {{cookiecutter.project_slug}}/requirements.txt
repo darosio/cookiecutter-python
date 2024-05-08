@@ -12,7 +12,7 @@ scipy==1.13.0
 scyjava==1.9.1
 seaborn==0.13.2
 tifffile==2023.2.28
-zarr==2.15.0
+zarr==2.18.0
 
 ipykernel==6.29.4
 ipython==8.18.0
