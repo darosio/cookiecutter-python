@@ -21,7 +21,7 @@ ruff==0.3.5
 pre-commit==3.7.0
 pylsp-mypy==0.6.8
 ruff-lsp==0.0.53
-commitizen==3.21.3
+commitizen==3.25.0
 
 autodocsumm==0.2.12
 nbsphinx==0.9.3
