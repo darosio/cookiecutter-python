@@ -24,7 +24,7 @@ ruff-lsp==0.0.53
 commitizen==3.25.0
 
 autodocsumm==0.2.12
-nbsphinx==0.9.3
+nbsphinx==0.9.4
 pydata-sphinx-theme==0.15.2
 Sphinx==7.3.7
 sphinx-autodoc-typehints==2.0.0
