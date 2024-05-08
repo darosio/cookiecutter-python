@@ -4,11 +4,11 @@ updates:
     directory: "/"
     schedule:
       interval: daily
-      time: "19:05"
+      time: "05:00"
       timezone: "Europe/Rome"
   - package-ecosystem: pip
     directory: "/{{cookiecutter.project_slug}}"
     schedule:
       interval: daily
-      time: "19:05"
+      time: "05:00"
       timezone: "Europe/Rome"
