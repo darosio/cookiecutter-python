@@ -26,7 +26,7 @@ commitizen==3.25.0
 autodocsumm==0.2.12
 nbsphinx==0.9.3
 pydata-sphinx-theme==0.15.2
-Sphinx==7.2.6
+Sphinx==7.3.7
 sphinx-autodoc-typehints==2.0.0
 sphinx-click==5.1.0
 sphinxcontrib-plantuml==0.29
