@@ -14,4 +14,10 @@ updates:
       interval: daily
       time: "05:00"
       timezone: "Europe/Rome"
+  - package-ecosystem: pip
+    directory: "/{{cookiecutter.project_slug}}"
+    schedule:
+      interval: daily
+      time: "16:18"
+      timezone: "Europe/Rome"
     open-pull-requests-limit: 15

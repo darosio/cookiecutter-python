@@ -54,6 +54,13 @@ Python best practices project cookiecutter.
 ## TODO
 
 - Tut2 is empty file.
-- Complete ci.yml and docs.yml. {{name}}…
 - Update readedocs.yml.
 - Update deps use dependabot?
+
+## Check and edit
+
+- pyproject.toml
+- .github/
+- .gitignore
+- .pre-commit-config.yaml
+- .readthedocs.yml
