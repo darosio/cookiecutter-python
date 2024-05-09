@@ -1,5 +1,5 @@
-{% if cookiecutter.project_type == "Data Analysis Project" %}exclude: ^data/.*$
-{% endif %}
+exclude: ^data/.*$
+
 ci:
   autoupdate_commit_msg: "build(pre-commit): update hooks"
   autofix_commit_msg: "style: pre-commit fixes"
@@ -14,7 +14,7 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
       - id: check-merge-conflict
-{% if cookiecutter.project_type == "Python Project" %}      - id: check-symlinks{% endif %}
+      # - id: check-symlinks
       - id: destroyed-symlinks
       - id: check-yaml
       - id: check-toml
@@ -59,14 +59,14 @@ repos:
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
-{% if cookiecutter.project_type == "Python Project" %}
+
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.8
     hooks:
       - id: bandit
         args: ["-c", "pyproject.toml"]
         additional_dependencies: ["bandit[toml]"]
-{% endif %}
+
   # should be replaced in the future ref https://github.com/astral-sh/ruff/issues/458
   - repo: https://github.com/jsh9/pydoclint
     rev: 0.4.1
@@ -85,11 +85,10 @@ repos:
     hooks:
       - id: shellcheck
         args: [-x]
-{% if cookiecutter.project_type == "Python Project" %}
+
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v3.25.0
     hooks:
       - id: commitizen
       - id: commitizen-branch
         stages: [push]
-{% endif %}
