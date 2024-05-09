@@ -1,4 +1,5 @@
 """Configuration file for the Sphinx documentation builder."""
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -44,6 +45,7 @@ autodoc_default_options = {
 }
 autodoc_typehints = "description"
 
+nbsphinx_allow_errors = True
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]

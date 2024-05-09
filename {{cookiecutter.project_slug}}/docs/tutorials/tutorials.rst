@@ -10,4 +10,4 @@ usage patterns.
    :numbered:
 
    tut1
-   tut2
+   tutorial

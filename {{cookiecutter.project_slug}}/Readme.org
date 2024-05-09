@@ -1,3 +1,7 @@
+#+title: Data project for {{ cookiecutter.project_name }}
+
+- Version: "{{ cookiecutter.version }}"
+
 * To download data
 
 #+begin_src sh :results output :exports both
@@ -5,9 +9,37 @@ rclone --drive-shared-with-me sync --copy-links --progress gdpa:iClima\ 1Photon 
 #+end_src
 
 * Initial project setup
-- [ ] Create a new (empty) repo at: https://gin.g-node.org/repo/create
-- [ ]  git annex init $HOSTNAME 
-  - [ ] git config annex.sshcaching true
 
-- [ ] set .gitignore
-- [ ] git annex add data/20240228\ MEF/
+- [ ] Create a new (empty) repo https://gin.g-node.org/repo/create
+- [ ] Run `git init`
+- [ ] Run `git annex init $HOSTNAME`
+- [ ] Run `git config annex.sshcaching true`
+- [ ] Edit .gitignore
+- [ ] Run git add .
+- [ ] Run git annex add data/
+- [ ] Run `pyenv local 3.X.X`
+- [ ] echo "layout hatch" > .envrc 
+- Alternatively use layout pyenv or layout python
+- [ ] direnv allow
+- [ ] Run `hatch env create`
+- [ ] Run `hatch run lint`
+- [ ] Run `hatch run init`
+
+** CLI installation
+
+To enable auto completion for the `cli` command, follow these steps:
+
+1.  Generate the completion script by running the following command:
+   
+#+begin_src sh :results output :exports both
+_{{ cookiecutter.cliname.upper() }}_COMPLETE=bash_source {{ cookiecutter.cliname }} > ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
+#+end_src
+
+2.  Source the generated completion script to enable auto completion:
+   
+#+begin_src sh :results output :exports both
+source ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
+#+end_src
+
+
+

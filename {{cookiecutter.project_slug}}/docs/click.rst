@@ -9,4 +9,3 @@ Command-line tool
 .. click:: {{ cookiecutter.project_slug }}.__main__:{{ cookiecutter.cliname }}
    :prog: {{ cookiecutter.cliname }}
    :nested: full
-

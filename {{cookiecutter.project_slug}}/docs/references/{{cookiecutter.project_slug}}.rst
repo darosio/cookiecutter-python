@@ -1,5 +1,5 @@
 {{ cookiecutter.project_name }}
-~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 Here is the UML for classes implementations.
 

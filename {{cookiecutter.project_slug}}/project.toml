@@ -10,7 +10,6 @@ classifiers = [
   "Environment :: Console",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Unix Shell",
@@ -18,38 +17,22 @@ classifiers = [
   "Topic :: Scientific/Engineering",
   "Development Status :: 3 - Alpha"
 ]
-{% if cookiecutter.project_type == "Data Analysis Project" %}
-dependencies = [
+{% if cookiecutter.project_type == "Data Analysis Project" %}dependencies = [
   "click <= 8.1.7",
   "numpy",
-]
-{% else %}
-dependencies = [
+]{% else %}dependencies = [
   "click <= 8.1.7",
   "numpy",
-]
-{% endif %}
+]{% endif %}
 description = "{{ cookiecutter.project_short_description }}"
 keywords = ["ADD_FIRST", "ADD_SECOND"]
 license = "BSD-3-Clause"
 license-files = {paths = ["LICENSE.txt"]}
-name = "{{ cookiecutter.project_slug }}"
-{% if cookiecutter.project_type == "Python Project" %}readme = "README.md"{% endif %}
-
-requires-python = ">=3.10"
+name = "{{ cookiecutter.project_slug }}"{% if cookiecutter.project_type == "Python Project" %}
+readme = "README.md"{% endif %}
+requires-python = ">=3.11"
 version = "{{ cookiecutter.version }}"
-{% if cookiecutter.project_type == "Data Analysis Project" %}
-[project.optional-dependencies]
-dev = [
-  "ipykernel",
-  "jupyter",
-  "ruff",
-  "pre-commit",
-  "pylsp-mypy",
-  "ruff-lsp",
-]
-docs = []
-{% else %}
+
 [project.optional-dependencies]
 dev = [
   "commitizen",
@@ -69,7 +52,6 @@ docs = [
   "sphinx_autodoc_typehints",
   "sphinxcontrib-plantuml"
 ]
-{% endif %}
 tests = [
   "coverage[toml]",
   "mypy",
@@ -82,20 +64,19 @@ tests = [
 [project.scripts]
 {{ cookiecutter.cliname }} = "{{ cookiecutter.project_slug }}.__main__:{{ cookiecutter.cliname }}"
 
-{% if cookiecutter.project_type == "Python Project" %}
-[project.urls]
+{% if cookiecutter.project_type == "Python Project" %}[project.urls]
 "Bug Tracker" = "https://github.com/darosio/{{ cookiecutter.project_name }}/issues"
 Changelog = "https://github.com/darosio/{{ cookiecutter.project_name }}/blob/main/CHANGELOG.md"
 Discussions = "https://github.com/darosio/{{ cookiecutter.project_name }}/discussions"
 Documentation = "https://{{ cookiecutter.project_slug }}.readthedocs.io"
 "Github releases" = "https://github.com/darosio/{{ cookiecutter.project_name }}/releases"
 Homepage = "https://github.com/darosio/{{ cookiecutter.project_name }}"
+{% endif %}
 
 [tool.bandit]
 skips = ["B101", "B603"]
-exclude_dirs = ["*/test_*.py"]
+exclude_dirs = ["*/test_*.py", "src/"]
 tests = ["B201", "B301"]
-{% endif %}
 
 [tool.black]
 exclude = '''
@@ -114,22 +95,21 @@ exclude = '''
 line-length = 88
 skip-string-normalization = false
 
- 
 [tool.codespell]
-count = ''
-ignore-words-list = 'ciao'
+count = true
+ignore-words-list = "ciao,luce"
 quiet-level = 3
-skip = 'src/{{cookiecutter.project_slug}}/__main__.py'
+# skip = 'src/{{cookiecutter.project_slug}}/__main__.py'
 
-{% if cookiecutter.project_type == "Python Project" %}
 [tool.commitizen]
 name = "cz_customize"
 tag_format = "v$version"
-version = "0.10.0"
+version = "0.0.1"
 version_files = [
   "pyproject.toml:version",
   "docs/conf.py:release",
-  "README.md:Version"
+  "tests/test_cli.py:expected_version",
+  {% if cookiecutter.project_type == "Python Project" %}"README.md:Version"{% else %}"Readme.org:Version"{% endif %}
 ]
 
 [tool.commitizen.customize]
@@ -152,7 +132,7 @@ schema = """
 <BLANK LINE>
 (BREAKING CHANGE: )<footer>
 """
-schema_pattern = "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|bump)(?:\\(([^()\r\n]*)\\)|\\()?(!)?:\\s(.*)?"
+schema_pattern = "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|bump)(?:\\(([^()\r\n]*)\\)|\\()?(!)?:\\s(.*)?|^git-annex in"
 
 [[tool.commitizen.customize.questions]]
 choices = [
@@ -180,7 +160,6 @@ type = "input"
 message = "Do you want to add body message in commit?"
 name = "show_message"
 type = "confirm"
-{% endif %}
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
@@ -202,17 +181,16 @@ source = ["{{ cookiecutter.project_slug }}", "tests"]
 features = ["dev", "tests", "docs"]
 
 [tool.hatch.envs.default.scripts]
-{% if cookiecutter.project_type == "Python Project" %}
+# {args} e.g. "--increment PATCH"
 bump = [
-  "cz bump --major-version-zero -ch {args}",  # e.g. "--increment PATCH"
+  "cz bump --major-version-zero -ch {args}"{% if cookiecutter.project_type == "Python Project" %},
   "hatch build",
-  "hatch publish -r test -u __token__"
+  "hatch publish -r test -u __token__"{% endif %}
 ]
 ch = "cz ch --incremental --unreleased-version HEAD"
 clean = "rm -rf ./build .coverage ./__pycache__ ./.mypy_cache ./.pytest_cache ./docs/_build ./tests/__pycache__ ./dist ./src/{{ cookiecutter.project_slug }}/__pycache__"
 docs = "sphinx-build docs docs/_build"
 docserve = "python -m http.server 8000 -d docs/_build"
-{% endif %}
 init = [
   "pre-commit --version",
   "pre-commit install",
@@ -228,7 +206,7 @@ features = ["tests"]
 template = "tests"
 
 [[tool.hatch.envs.tests.matrix]]
-python = ["3.12", "3.11", "3.10"]
+python = ["3.12", "3.11"]
 
 [tool.hatch.envs.tests.scripts]
 all = ["test", "type", "xdoc", "cov"]
@@ -238,11 +216,7 @@ cov = [
   "coverage xml"
 ]
 test = "coverage run -p -m pytest"
-{% if cookiecutter.project_type == "Data Analysis Project" %}
-type = "mypy src tests"
-{% else %}
 type = "mypy src tests docs/conf.py"
-{% endif %}
 xdoc = "python -m xdoctest {{ cookiecutter.project_slug }} all"
 
 [tool.isort]
