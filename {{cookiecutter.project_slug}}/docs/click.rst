@@ -1,7 +1,7 @@
 .. _cli:
 
-Command-line tool
-=================
+CLI
+====
 
 .. contents::
    :local:

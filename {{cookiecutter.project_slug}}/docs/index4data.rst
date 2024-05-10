@@ -7,12 +7,9 @@
 Welcome to the documentation for our project!
 
 .. toctree::
-   :hidden:
-   :caption: Contents:
+   :maxdepth: 2
 
    analyses
-   click
-   tutorials/tutorials
    api/api
+   click
    references/references
-   
