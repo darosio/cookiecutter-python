@@ -5,7 +5,7 @@
 * To download data
 
 #+begin_src sh :results output :exports both
-rclone --drive-shared-with-me sync --copy-links --progress gdpa:iClima\ 1Photon data/
+rclone --drive-shared-with-me sync --copy-links --progress --exclude *.lifext gdpa:iClima\ 1Photon data/
 #+end_src
 
 * Initial project setup
@@ -24,6 +24,10 @@ rclone --drive-shared-with-me sync --copy-links --progress gdpa:iClima\ 1Photon 
 - [ ] Run `hatch env create`
 - [ ] Run `hatch run lint`
 - [ ] Run `hatch run init`
+
+
+** Use 
+`git annex sync` instead of pushing after committing notable changes.
 
 ** CLI installation
 
