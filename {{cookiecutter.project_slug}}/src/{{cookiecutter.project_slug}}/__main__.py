@@ -24,4 +24,5 @@ def {{ cookiecutter.cliname }}(ctx: click.Context, verbose: int, out: str) -> No
 @click.argument("fpath", type=click.Path(exists=True))
 def subcommand(ctx: click.Context, fpath: Path) -> None:
     """Do something."""
-    pass
+    print(fpath)
+    print(ctx.obj["OUT"])
