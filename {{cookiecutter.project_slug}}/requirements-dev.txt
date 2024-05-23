@@ -1,7 +1,7 @@
 ipykernel==6.29.4
 ipython==8.24.0
 jupyter==1.0.0
-ruff==0.4.4
+ruff==0.4.5
 pre-commit==3.7.1
 pylsp-mypy==0.6.8
 ruff-lsp==0.0.53
