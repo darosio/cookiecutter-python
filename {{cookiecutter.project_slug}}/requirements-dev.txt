@@ -1,5 +1,5 @@
 ipykernel==6.29.4
-ipython==8.24.0
+ipython==8.25.0
 jupyter==1.0.0
 ruff==0.4.6
 pre-commit==3.7.1
