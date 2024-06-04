@@ -8,6 +8,9 @@ shutil.move("project.toml", "pyproject.toml")
 project_type = "{{ cookiecutter.project_type }}"
 if project_type == "Data Analysis Project":
     shutil.move("docs/index4data.rst", "docs/index.rst")
+    notebook = Path("docs/{{ cookiecutter.date }}.ipynb")
+    notebook.symlink_to("../analyses/{{ cookiecutter.date }}.ipynb")
+
 
 remove_paths = [
     '{% if cookiecutter.project_type != "Python Project" %}.github{% endif %}',

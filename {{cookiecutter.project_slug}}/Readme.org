@@ -12,15 +12,17 @@ rclone --drive-shared-with-me sync --copy-links --progress --exclude *.lifext gd
 
 - [ ] Create a new (empty) repo https://gin.g-node.org/repo/create
 - [ ] Run `git init`
+- [ ] Run `git add .`
+- [ ] Run `git remote add origin git@gin.g-node.org:/darosio/{{ cookiecutter.project_name }}.git`
+- [ ] Run `git commit -m "init"`
+- [ ] Run `git push --set-upstream origin main`
 - [ ] Run `git annex init $HOSTNAME`
 - [ ] Run `git config annex.sshcaching true`
 - [ ] Edit .gitignore
-- [ ] Run git add .
-- [ ] Run git annex add data/
-- [ ] Run `pyenv local 3.X.X`
-- [ ] echo "layout hatch" > .envrc 
-- Alternatively use layout pyenv or layout python
-- [ ] direnv allow
+- [ ] Run `git annex add data/`
+- [ ] Run `git annex sync`
+- Alternatively use `echo "layout pyenv" or "layout python" > .envrc`
+- [ ] Run `direnv allow`
 - [ ] Run `hatch env create`
 - [ ] Run `hatch run lint`
 - [ ] Run `hatch run init`

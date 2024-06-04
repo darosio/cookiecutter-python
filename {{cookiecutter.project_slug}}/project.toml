@@ -74,8 +74,8 @@ Homepage = "https://github.com/darosio/{{ cookiecutter.project_name }}"
 {% endif %}
 
 [tool.bandit]
-skips = ["B101", "B603"]
 exclude_dirs = ["*/test_*.py", "src/"]
+skips = ["B101", "B603"]
 tests = ["B201", "B301"]
 
 [tool.black]
