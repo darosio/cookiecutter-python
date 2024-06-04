@@ -1,4 +1,4 @@
-exclude: ^data/.*$
+{% if cookiecutter.project_type == "Data Analysis Project" %}exclude: ^data/.*${% endif %}
 
 ci:
   autoupdate_commit_msg: "build(pre-commit): update hooks"
@@ -14,7 +14,7 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
       - id: check-merge-conflict
-      # - id: check-symlinks
+      {% if cookiecutter.project_type == "Python Project" %}- id: check-symlinks{% endif %}
       - id: destroyed-symlinks
       - id: check-yaml
       - id: check-toml
@@ -90,6 +90,5 @@ repos:
     rev: v3.25.0
     hooks:
       - id: commitizen
-      # Remove the following with git-annex
-      - id: commitizen-branch
-        stages: [push]
+      {% if cookiecutter.project_type == "Python Project" %}- id: commitizen-branch
+        stages: [push]{% endif %}

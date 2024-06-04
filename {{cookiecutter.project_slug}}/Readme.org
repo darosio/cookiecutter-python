@@ -26,6 +26,8 @@ rclone --drive-shared-with-me sync --copy-links --progress --exclude *.lifext gd
 - [ ] Run `hatch env create`
 - [ ] Run `hatch run lint`
 - [ ] Run `hatch run init`
+- Double check .pre-commit-config.yaml do not push id: commitizen-branch
+
 
 
 ** Use 
