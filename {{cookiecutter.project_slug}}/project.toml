@@ -27,7 +27,6 @@ classifiers = [
 description = "{{ cookiecutter.project_short_description }}"
 keywords = ["ADD_FIRST", "ADD_SECOND"]
 license = "BSD-3-Clause"
-license-files = {paths = ["LICENSE.txt"]}
 name = "{{ cookiecutter.project_slug }}"{% if cookiecutter.project_type == "Python Project" %}
 readme = "README.md"{% endif %}
 requires-python = ">=3.11"
@@ -63,16 +62,14 @@ tests = [
 
 [project.scripts]
 {{ cookiecutter.cliname }} = "{{ cookiecutter.project_slug }}.__main__:{{ cookiecutter.cliname }}"
-
-{% if cookiecutter.project_type == "Python Project" %}[project.urls]
+{% if cookiecutter.project_type == "Python Project" %}
+[project.urls]
 "Bug Tracker" = "https://github.com/darosio/{{ cookiecutter.project_name }}/issues"
 Changelog = "https://github.com/darosio/{{ cookiecutter.project_name }}/blob/main/CHANGELOG.md"
 Discussions = "https://github.com/darosio/{{ cookiecutter.project_name }}/discussions"
 Documentation = "https://{{ cookiecutter.project_slug }}.readthedocs.io"
 "Github releases" = "https://github.com/darosio/{{ cookiecutter.project_name }}/releases"
-Homepage = "https://github.com/darosio/{{ cookiecutter.project_name }}"
-{% endif %}
-
+Homepage = "https://github.com/darosio/{{ cookiecutter.project_name }}"{% endif %}
 [tool.bandit]
 exclude_dirs = ["*/test_*.py", "src/"]
 skips = ["B101", "B603"]
@@ -99,7 +96,6 @@ skip-string-normalization = false
 count = true
 ignore-words-list = "ciao,luce"
 quiet-level = 3
-# skip = 'src/{{cookiecutter.project_slug}}/__main__.py'
 
 [tool.commitizen]
 name = "cz_customize"

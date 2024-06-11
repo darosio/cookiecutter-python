@@ -13,8 +13,8 @@ repos:
       - id: check-docstring-first
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
-      - id: check-merge-conflict
-      {% if cookiecutter.project_type == "Python Project" %}- id: check-symlinks{% endif %}
+      - id: check-merge-conflict{% if cookiecutter.project_type == "Python Project" %}
+      - id: check-symlinks{% endif %}
       - id: destroyed-symlinks
       - id: check-yaml
       - id: check-toml
@@ -89,6 +89,6 @@ repos:
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v3.25.0
     hooks:
-      - id: commitizen
-      {% if cookiecutter.project_type == "Python Project" %}- id: commitizen-branch
+      - id: commitizen{% if cookiecutter.project_type == "Python Project" %}
+      - id: commitizen-branch
         stages: [push]{% endif %}
