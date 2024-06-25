@@ -1,5 +1,4 @@
-# {% if cookiecutter.project_type == "Data Analysis Project" %}exclude: ^data/.*${% endif %}
-
+# DATA_ANALYSIS_EXCLUDE
 ci:
   autoupdate_commit_msg: "build(pre-commit): update hooks"
   autofix_commit_msg: "style: pre-commit fixes"
@@ -14,8 +13,7 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
       - id: check-merge-conflict
-        # {% if cookiecutter.project_type == "Python Project" %}
-      - id: check-symlinks{% endif %}
+      # OPTIONAL_PYTHON_PROJECT_HOOKS
       - id: destroyed-symlinks
       - id: check-yaml
       - id: check-toml
@@ -91,6 +89,4 @@ repos:
     rev: v3.25.0
     hooks:
       - id: commitizen
-      #   {% if cookiecutter.project_type == "Python Project" %}
-      # - id: commitizen-branch
-      #   stages: [push]{% endif %}
+      # OPTIONAL_COMMITIZEN_BRANCH
