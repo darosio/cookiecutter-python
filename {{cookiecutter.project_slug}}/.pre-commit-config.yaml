@@ -1,4 +1,4 @@
-{% if cookiecutter.project_type == "Data Analysis Project" %}exclude: ^data/.*${% endif %}
+# {% if cookiecutter.project_type == "Data Analysis Project" %}exclude: ^data/.*${% endif %}
 
 ci:
   autoupdate_commit_msg: "build(pre-commit): update hooks"
@@ -13,7 +13,8 @@ repos:
       - id: check-docstring-first
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
-      - id: check-merge-conflict{% if cookiecutter.project_type == "Python Project" %}
+      - id: check-merge-conflict
+        # {% if cookiecutter.project_type == "Python Project" %}
       - id: check-symlinks{% endif %}
       - id: destroyed-symlinks
       - id: check-yaml
@@ -89,6 +90,7 @@ repos:
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v3.25.0
     hooks:
-      - id: commitizen{% if cookiecutter.project_type == "Python Project" %}
-      - id: commitizen-branch
-        stages: [push]{% endif %}
+      - id: commitizen
+      #   {% if cookiecutter.project_type == "Python Project" %}
+      # - id: commitizen-branch
+      #   stages: [push]{% endif %}

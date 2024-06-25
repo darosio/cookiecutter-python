@@ -6,8 +6,20 @@ updates:
       interval: daily
       time: "05:00"
       timezone: "Europe/Rome"
+  - package-ecosystem: github-actions
+    directory: "/new-project-root"
+    schedule:
+      interval: daily
+      time: "05:00"
+      timezone: "Europe/Rome"
   - package-ecosystem: pip
-    directory: "/{{cookiecutter.project_slug}}"
+    directory: "/new-project-root/.github/workflows"
+    schedule:
+      interval: daily
+      time: "05:00"
+      timezone: "Europe/Rome"
+  - package-ecosystem: pip
+    directory: "/new-project-root"
     schedule:
       interval: daily
       time: "05:00"

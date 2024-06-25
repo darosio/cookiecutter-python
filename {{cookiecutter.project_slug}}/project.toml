@@ -71,31 +71,15 @@ Documentation = "https://{{ cookiecutter.project_slug }}.readthedocs.io"
 "Github releases" = "https://github.com/darosio/{{ cookiecutter.project_name }}/releases"
 Homepage = "https://github.com/darosio/{{ cookiecutter.project_name }}"{% endif %}
 [tool.bandit]
-exclude_dirs = ["*/test_*.py", "src/"]
-skips = ["B101", "B603"]
+#exclude_dirs = ["*/test_*.py"]  # excluded paths (directories or files)
+skips = ["B101", "B603"]  # assert, subprocess
 tests = ["B201", "B301"]
-
-[tool.black]
-exclude = '''
-/(
-    \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-)/
-'''
-line-length = 88
-skip-string-normalization = false
 
 [tool.codespell]
 count = true
 ignore-words-list = "ciao,luce"
 quiet-level = 3
+skip = "examples/*.ipynb"
 
 [tool.commitizen]
 name = "cz_customize"
@@ -170,7 +154,7 @@ show_missing = true
 
 [tool.coverage.run]
 branch = true
-omit = ["*__init__.py", "*/old/*"]
+omit = ["*__init__.py"]
 source = ["{{ cookiecutter.project_slug }}", "tests"]
 
 [tool.hatch.envs.default]
@@ -181,7 +165,7 @@ features = ["dev", "tests", "docs"]
 bump = [
   "cz bump --major-version-zero -ch {args}"{% if cookiecutter.project_type == "Python Project" %},
   "hatch build",
-  "hatch publish -r test -u __token__"{% endif %}
+  "export TEST_PYPI_TOKEN=$(pass show cloud/test_pypi | head -n 1) && hatch publish -r test -u __token__ -a $TEST_PYPI_TOKEN"{% endif %}
 ]
 ch = "cz ch --incremental --unreleased-version HEAD"
 clean = "rm -rf ./build .coverage ./__pycache__ ./.mypy_cache ./.pytest_cache ./docs/_build ./tests/__pycache__ ./dist ./src/{{ cookiecutter.project_slug }}/__pycache__"
@@ -211,7 +195,7 @@ cov = [
   "coverage report",
   "coverage xml"
 ]
-test = "coverage run -p -m pytest"
+test = "coverage run -p -m pytest -v"
 type = "mypy src tests docs/conf.py"
 xdoc = "python -m xdoctest {{ cookiecutter.project_slug }} all"
 
@@ -227,7 +211,7 @@ profile = "black"
 [tool.mypy]
 # enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 enable_error_code = ["redundant-expr", "truthy-bool"]
-exclude = ""
+# exclude = ""
 plugins = ["numpy.typing.mypy_plugin"]
 pretty = true
 show_column_numbers = true
@@ -281,13 +265,13 @@ select = [
   "EM",  # exceptions
   "ERA",  # eradicate
   "F",  # pyflakes
-  # "FBT",    # boolean-trap
+  "FBT",    # boolean-trap
   "I",  # isort
   "ICN",  # import conventions (opinionated)
   "ISC",  # implicit-str-concat
   "N",  # pep8-naming
   "PD",  # pandas-vet
-  # "PGH",  # pygrep WAIT
+  "PGH",  # pygrep WAIT
   "PL",  # pylint see PLR2004...
   "PT",  # pytest-style
   "PTH",  # use-pathlib
