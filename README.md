@@ -51,12 +51,6 @@ Python best practices project cookiecutter.
      (- [Publishing] setup new project)
      - Create project PYPI_TOKEN and copy into github secrets.
 
-## TODO
-
-- Tut2 is empty file.
-- Update readedocs.yml.
-- Update deps use dependabot?
-
 ## Check and edit
 
 - pyproject.toml

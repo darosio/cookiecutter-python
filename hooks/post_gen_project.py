@@ -73,6 +73,8 @@ def modify_pre_commit_config():
                 new_lines.append(
                     line.replace("# DATA_ANALYSIS_EXCLUDE", analysis_exclude)
                 )
+        elif 'exclude: "{{cookiecutter.project_slug}}/"' in line:
+            continue
         else:
             new_lines.append(line)
     # Write the new content back to the file
