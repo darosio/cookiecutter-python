@@ -17,64 +17,64 @@ classifiers = [
   "Topic :: Scientific/Engineering",
   "Development Status :: 3 - Alpha"
 ]
-{% if cookiecutter.project_type == "Data Analysis Project" %}dependencies = [
+dependencies = [
+  "bioio-bioformats <= 1.0.0",
   "click <= 8.1.7",
-  "numpy",
-]{% else %}dependencies = [
-  "click <= 8.1.7",
-  "numpy",
-]{% endif %}
+  "dask-image <= 2024.5.3",
+  "lmfit <= 1.3.1",
+  "matplotlib <= 3.9.0",
+  "numpy <= 2.0.0",
+  "pandas <= 2.2.2",
+  "pyarrow <= 16.1.0",
+  "readlif <= 0.6.5",
+  "scikit-image <= 0.24.0",
+  "scipy <= 1.14.0",
+  "scyjava <= 1.10.0",
+  "seaborn <= 0.13.2",
+  "tifffile <= 2024.6.18",
+  "zarr <= 2.18.2"
+]
 description = "{{ cookiecutter.project_short_description }}"
 keywords = ["ADD_FIRST", "ADD_SECOND"]
 license = "BSD-3-Clause"
-name = "{{ cookiecutter.project_slug }}"{% if cookiecutter.project_type == "Python Project" %}
-readme = "README.md"{% endif %}
+name = "{{ cookiecutter.project_slug }}"
+# README_MD
 requires-python = ">=3.11"
 version = "{{ cookiecutter.version }}"
 
 [project.optional-dependencies]
 dev = [
-  "commitizen",
-  "ipykernel",
-  "jupyter",
-  "ruff",
-  "pre-commit",
-  "pylsp-mypy",
+  "commitizen <= 3.27.0",
+  "ipykernel <= 6.29.4",
+  "ipython <= 8.25.0",
+  "jupyter <= 1.0.0",
+  "pre-commit <= 3.7.1",
+  "pylsp-mypy <= 0.6.8",
+  "ruff <= 0.4.10",
   "ruff-lsp == 0.0.53"
 ]
 docs = [
-  "autodocsumm",
-  "nbsphinx",
-  "pydata-sphinx-theme",
-  "Sphinx",
-  "sphinx-click",
-  "sphinx_autodoc_typehints",
-  "sphinxcontrib-plantuml"
+  "Sphinx <= 7.3.7",
+  "autodocsumm <= 0.2.12",
+  "nbsphinx <= 0.9.4",
+  "pydata-sphinx-theme <= 0.15.3",
+  "sphinx-click <= 6.0.0",
+  "sphinx_autodoc_typehints <= 2.2.2",
+  "sphinxcontrib-plantuml <= 0.30"
 ]
 tests = [
-  "coverage[toml]",
-  "mypy",
-  "pygments",  # color xdoctest
-  "pytest",
-  "types-click",
-  "xdoctest"
+  "Pygments <= 2.18.0",  # color xdoctest
+  "coverage[toml] <= 7.5.4",
+  "mypy <= 1.10.1",
+  "pandas-stubs <= 2.2.2.240603",
+  "pytest <= 8.2.2",
+  "types-click <= 7.1.8",
+  "xdoctest <= 1.1.5"
 ]
 
 [project.scripts]
-{{ cookiecutter.cliname }} = "{{ cookiecutter.project_slug }}.__main__:{{ cookiecutter.cliname }}"
-{% if cookiecutter.project_type == "Python Project" %}
-[project.urls]
-"Bug Tracker" = "https://github.com/darosio/{{ cookiecutter.project_name }}/issues"
-Changelog = "https://github.com/darosio/{{ cookiecutter.project_name }}/blob/main/CHANGELOG.md"
-Discussions = "https://github.com/darosio/{{ cookiecutter.project_name }}/discussions"
-Documentation = "https://{{ cookiecutter.project_slug }}.readthedocs.io"
-"Github releases" = "https://github.com/darosio/{{ cookiecutter.project_name }}/releases"
-Homepage = "https://github.com/darosio/{{ cookiecutter.project_name }}"{% endif %}
-[tool.bandit]
-#exclude_dirs = ["*/test_*.py"]  # excluded paths (directories or files)
-skips = ["B101", "B603"]  # assert, subprocess
-tests = ["B201", "B301"]
 
+# PROJECT_URLS
 [tool.codespell]
 count = true
 ignore-words-list = "ciao,luce"
@@ -88,8 +88,7 @@ version = "0.0.1"
 version_files = [
   "pyproject.toml:version",
   "docs/conf.py:release",
-  "tests/test_cli.py:expected_version",
-  {% if cookiecutter.project_type == "Python Project" %}"README.md:Version"{% else %}"Readme.org:Version"{% endif %}
+  "tests/test_cli.py:expected_version"
 ]
 
 [tool.commitizen.customize]
@@ -104,7 +103,7 @@ see the issue for details on the typos fixed\n
 closes issue #12
 """
 info_path = "cz_customize_info.txt"
-{% raw %}message_template = "{{change_type}}:{% if show_message %} {{message}}{% endif %}"{% endraw %}
+# MESSAGE_TEMPLATE
 schema = """
 <type>(<scope>): <subject>
 <BLANK LINE>
@@ -163,9 +162,7 @@ features = ["dev", "tests", "docs"]
 [tool.hatch.envs.default.scripts]
 # {args} e.g. "--increment PATCH"
 bump = [
-  "cz bump --major-version-zero -ch {args}"{% if cookiecutter.project_type == "Python Project" %},
-  "hatch build",
-  "export TEST_PYPI_TOKEN=$(pass show cloud/test_pypi | head -n 1) && hatch publish -r test -u __token__ -a $TEST_PYPI_TOKEN"{% endif %}
+  "cz bump --major-version-zero -ch {args}"  # HATCH_BUMP
 ]
 ch = "cz ch --incremental --unreleased-version HEAD"
 clean = "rm -rf ./build .coverage ./__pycache__ ./.mypy_cache ./.pytest_cache ./docs/_build ./tests/__pycache__ ./dist ./src/{{ cookiecutter.project_slug }}/__pycache__"
@@ -265,7 +262,7 @@ select = [
   "EM",  # exceptions
   "ERA",  # eradicate
   "F",  # pyflakes
-  "FBT",    # boolean-trap
+  "FBT",  # boolean-trap
   "I",  # isort
   "ICN",  # import conventions (opinionated)
   "ISC",  # implicit-str-concat
