@@ -4,14 +4,14 @@ updates:
     directory: "/"
     schedule:
       interval: daily
-      time: "07:55"
+      time: "08:06"
       timezone: "Europe/Rome"
-  # - package-ecosystem: github-actions
-  #   directory: "/new-project-root"
-  #   schedule:
-  #     interval: daily
-  #     time: "05:00"
-  #     timezone: "Europe/Rome"
+  - package-ecosystem: github-actions
+    directory: "/new-project-root"
+    schedule:
+      interval: daily
+      time: "08:06"
+      timezone: "Europe/Rome"
   # - package-ecosystem: pip
   #   directory: "/new-project-root/.github/workflows"
   #   schedule:
@@ -22,5 +22,5 @@ updates:
     directory: "/new-project-root"
     schedule:
       interval: daily
-      time: "07:55"
+      time: "08:06"
       timezone: "Europe/Rome"
