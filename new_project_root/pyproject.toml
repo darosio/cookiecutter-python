@@ -50,7 +50,7 @@ dev = [
   "jupyter <= 1.0.0",
   "pre-commit <= 3.7.1",
   "pylsp-mypy <= 0.6.8",
-  "ruff <= 0.4.10",
+  "ruff <= 0.5.0",
   "ruff-lsp == 0.0.53"
 ]
 docs = [
