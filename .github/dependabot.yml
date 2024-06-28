@@ -4,17 +4,17 @@ updates:
     directory: "/"
     schedule:
       interval: daily
-      time: "11:33"
+      time: "05:00"
       timezone: "Europe/Rome"
   - package-ecosystem: pip
     directory: "/new_project_root/.github/workflows"
     schedule:
       interval: daily
-      time: "11:33"
+      time: "05:00"
       timezone: "Europe/Rome"
   - package-ecosystem: pip
     directory: "/new_project_root"
     schedule:
       interval: daily
-      time: "11:33"
+      time: "05:00"
       timezone: "Europe/Rome"
