@@ -16,10 +16,10 @@ repos:
       # OPTIONAL_PYTHON_PROJECT_HOOKS
       - id: destroyed-symlinks
       - id: check-yaml
-        exclude: "{{cookiecutter.project_slug}}/"
+        exclude: "new_project_root/"
       - id: check-toml
       - id: debug-statements
-        exclude: "{{cookiecutter.project_slug}}/"
+        exclude: "new_project_root/"
       - id: end-of-file-fixer
       - id: mixed-line-ending
       - id: name-tests-test
@@ -42,11 +42,11 @@ repos:
       - id: ruff
         types_or: [python, pyi, jupyter]
         args: [--fix]
-        exclude: "{{cookiecutter.project_slug}}/"
+        exclude: "new_project_root/"
       # Run the formatter.
       - id: ruff-format
         types_or: [python, pyi, jupyter]
-        exclude: "{{cookiecutter.project_slug}}/"
+        exclude: "new_project_root/"
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
@@ -54,7 +54,7 @@ repos:
       - id: prettier
         files: \.(yaml|yml|md|html|css|scss|js|json)$
         args: [--prose-wrap=preserve]
-        exclude: "{{cookiecutter.project_slug}}/"
+        exclude: "new_project_root/"
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
@@ -69,7 +69,7 @@ repos:
     rev: 0.4.1
     hooks:
       - id: pydoclint
-        exclude: "{{cookiecutter.project_slug}}/"
+        exclude: "new_project_root/"
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.6
