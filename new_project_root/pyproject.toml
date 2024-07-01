@@ -206,8 +206,7 @@ multi_line_output = 3
 profile = "black"
 
 [tool.mypy]
-# enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
-enable_error_code = ["redundant-expr", "truthy-bool"]
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 # exclude = ""
 plugins = ["numpy.typing.mypy_plugin"]
 pretty = true
@@ -218,22 +217,35 @@ strict = true
 warn_unreachable = true
 warn_unused_configs = true
 
+[tool.pylint.format]
+ignore-long-lines = "^\\s*(# )?<?https?://\\S+>?$|# type: ignore|# noqa:|# nosec \"|# pylint:"
+max-line-length = 88
+max-module-lines = 1000
+
+[tool.pylint.main]
+ignore-paths = [""]
+jobs = 0
+py-version = "3.12"
+
+[tool.pylint.messages_control]
+disable = [
+  "invalid-name",
+  "design",
+  "fixme"
+]
+
+[tool.pylint.refactoring]
+# Maximum number of nested blocks for function / method body
+max-nested-blocks = 5
+
+[tool.pylint.reports]
+output-format = "colorized"
+
 [tool.pylsp-mypy]
 dmypy = false
 enabled = true
 live_mode = true
 strict = true
-
-[tool.pytest.ini_options]
-addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
-# xfail_strict = true
-# filterwarnings = ["ignore::DeprecationWarning", "ignore:OVER"]
-filterwarnings = ["ignore::DeprecationWarning"]
-log_cli_level = "INFO"
-minversion = "6.0"
-testpaths = [
-  "tests"
-]
 
 [tool.ruff]
 extend-exclude = [""]
