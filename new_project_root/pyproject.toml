@@ -304,7 +304,7 @@ select = [
   "TRY",  # tryceratops
   "UP",  # pyupgrade
   "W",  # pycodestyle
-  "YTT",  # 2020
+  "YTT"  # 2020
 ]
 isort.combine-as-imports = true
 isort.force-single-line = false
