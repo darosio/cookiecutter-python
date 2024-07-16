@@ -8,28 +8,52 @@
 rclone --drive-shared-with-me sync --copy-links --progress --exclude *.lifext gdpa:iClima\ 1Photon data/
 #+end_src
 
-* Initial project setup
 
-- [ ] Create a new (empty) repo https://gin.g-node.org/repo/create or `gin create --no-clone <NAME> <"DESCRIPTION">`
-- [ ] Run `git init`
-- [ ] Run `git add .`
-- [ ] Run `git remote add origin git@gin.g-node.org:/darosio/{{ cookiecutter.project_name }}.git`
-- [ ] Run `git commit -m "init"`
-- [ ] Run `git push --set-upstream origin main`
-- [ ] Run `git annex init $HOSTNAME`
-- [ ] Run `git config annex.sshcaching true`
-- [ ] Run `git config annex.backends MD5`
+* New cloning
+
+#+begin_src sh :results output :exports both
+git clone git@gin.g-node.org:/darosio/{{ cookiecutter.project_name }}.git
+cd ./{{ cookiecutter.project_name }}
+git annex init $HOSTNAME`
+git config annex.sshcaching true
+git config annex.backends MD5
+#+end_src
+
+** Initial project setup
+- [X] Create a new (empty) repo https://gin.g-node.org/repo/create and run:
+#+begin_src 
+git init
+git remote add origin git@gin.g-node.org:/darosio/{{ cookiecutter.project_name }}.git
+git add .
+git commit -m "init"
+git push --set-upstream origin main
+git annex init "$HOSTNAME"
+git config annex.sshcaching true
+git config annex.backends MD5
+#+end_src
 - [ ] Edit .gitignore
-- [ ] Run `git annex add data/`
-- [ ] Run `git annex sync`
-- Alternatively use `echo "layout pyenv" or "layout python" > .envrc`
-- [ ] Run `direnv allow`
-- [ ] Run `hatch env create`
-- [ ] Run `hatch run lint`
-- [ ] Run `hatch run init`
+#+begin_src 
+direnv allow
+hatch env create
+hatch run lint
+hatch run init
+
+git annex add data/
+git annex sync
+#+end_src
+
+*** Notes
 - Double check .pre-commit-config.yaml do not push id: commitizen-branch
-
-
+- Alternatively create repository using `gin`:
+#+begin_src 
+gin create --no-clone <NAME> <"DESCRIPTION">
+#+end_src
+- As alternative to hatch use pyenv or even python:
+#+begin_src 
+echo "layout pyenv" > .envrc`
+or:
+echo "layout python" > .envrc`
+#+end_src
 
 ** Use
 `git annex sync` instead of pushing after committing notable changes.
