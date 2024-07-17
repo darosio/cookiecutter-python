@@ -21,7 +21,7 @@ git config annex.backends MD5
 
 ** Initial project setup
 - [X] Create a new (empty) repo https://gin.g-node.org/repo/create and run:
-#+begin_src 
+#+begin_src
 git init
 git remote add origin git@gin.g-node.org:/darosio/{{ cookiecutter.project_name }}.git
 git add .
@@ -32,7 +32,7 @@ git config annex.sshcaching true
 git config annex.backends MD5
 #+end_src
 - [ ] Edit .gitignore
-#+begin_src 
+#+begin_src
 direnv allow
 hatch env create
 hatch run lint
@@ -45,11 +45,11 @@ git annex sync
 *** Notes
 - Double check .pre-commit-config.yaml do not push id: commitizen-branch
 - Alternatively create repository using `gin`:
-#+begin_src 
+#+begin_src
 gin create --no-clone <NAME> <"DESCRIPTION">
 #+end_src
 - As alternative to hatch use pyenv or even python:
-#+begin_src 
+#+begin_src
 echo "layout pyenv" > .envrc`
 or:
 echo "layout python" > .envrc`
