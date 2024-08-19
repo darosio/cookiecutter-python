@@ -51,7 +51,7 @@ dev = [
   "pre-commit <= 3.8.0",
   "pylsp-mypy <= 0.6.8",
   "ruff <= 0.6.1",
-  "ruff-lsp == 0.0.54"
+  "ruff-lsp == 0.0.55"
 ]
 docs = [
   "Sphinx <= 8.0.2",
