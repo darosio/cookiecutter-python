@@ -1,8 +1,6 @@
 # Compiled Python bytecode
+*.py[cod]
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
 
 # Log files
 *.log
@@ -68,12 +66,12 @@ docs/_build/
 
 # Emacs buffers
 .#*
-.ob-jupyter/
 # .python-version
 
 # Unit test / coverage reports
 htmlcov/
 .coverage*
+coverage.xml
 
 # Cache and temporary files
 .cache/
@@ -83,6 +81,7 @@ htmlcov/
 
 # MyPy cache
 .mypy_cache/
+.dmypy.json
 
 # Virtual environments
 .env/
