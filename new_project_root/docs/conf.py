@@ -18,15 +18,15 @@ copyright = f"{{ cookiecutter.year }}, {author}"  # noqa: A001
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
 extensions = [
-    "sphinx.ext.autodoc",
-    "autodocsumm",
-    "sphinx.ext.napoleon",
-    "sphinx_autodoc_typehints",
-    "sphinxcontrib.plantuml",
-    "nbsphinx",
-    "sphinx_click",
+    "sphinx.ext.autodoc",                     # Automatically document code
+    "autodocsumm",                            # Summarize autodoc
+    "sphinx.ext.napoleon",                    # Support for NumPy and Google style docstrings
+    "sphinx_autodoc_typehints",               # Include type hints in documentation
+    "sphinxcontrib.plantuml",                 # Support for PlantUML diagrams
+    "nbsphinx",                               # Uncomment if using Jupyter Notebooks
+    "sphinx_click",                           # Uncomment if documenting Click-based CLIs
+
 ]
 # Napoleon settings to Default
 napoleon_use_ivar = False
