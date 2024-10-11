@@ -54,7 +54,7 @@ dev = [
   "ruff-lsp == 0.0.57"
 ]
 docs = [
-  "Sphinx <= 8.0.2",
+  "Sphinx <= 8.1.0",
   "autodocsumm <= 0.2.13",
   "nbsphinx <= 0.9.5",
   "pydata-sphinx-theme <= 0.15.4",
