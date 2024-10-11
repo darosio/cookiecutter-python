@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "hatchling.build"
-requires = ["hatchling"]
+requires = ["hatchling", "pdm-pep517"]
 
 [project]
 authors = [
@@ -217,29 +217,8 @@ strict = true
 warn_unreachable = true
 warn_unused_configs = true
 
-[tool.pylint.format]
-ignore-long-lines = "^\\s*(# )?<?https?://\\S+>?$|# type: ignore|# noqa:|# nosec \"|# pylint:"
-max-line-length = 88
-max-module-lines = 1000
-
-[tool.pylint.main]
-ignore-paths = [""]
-jobs = 0
-py-version = "3.12"
-
-[tool.pylint.messages_control]
-disable = [
-  "invalid-name",
-  "design",
-  "fixme"
-]
-
-[tool.pylint.refactoring]
-# Maximum number of nested blocks for function / method body
-max-nested-blocks = 5
-
-[tool.pylint.reports]
-output-format = "colorized"
+[tool.pdm]
+hatch_compat = true
 
 [tool.pylsp-mypy]
 dmypy = false
