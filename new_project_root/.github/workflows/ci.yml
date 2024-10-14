@@ -87,7 +87,7 @@ jobs:
           restore-keys: ${{ runner.os }}|pip|${{ matrix.python }}|
           enableCrossOsArchive: true
           fail-on-cache-miss: false
-          
+
       - name: Install pip, hatch and pdm
         run: python -m pip install --constraint=.github/workflows/constraints.txt pip hatch pdm
 
