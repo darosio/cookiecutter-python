@@ -237,7 +237,7 @@ target-version = "py312"
 docstring-code-format = true
 
 [tool.ruff.lint]
-ignore = ["ANN101", "ANN102", "ISC001"]
+ignore = ["ISC001"]
 select = [
   "A",  # builtins
   "AIR",  # airflow
