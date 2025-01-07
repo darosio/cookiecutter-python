@@ -63,7 +63,7 @@ docs = [
   "sphinxcontrib-plantuml <= 0.30"
 ]
 tests = [
-  "Pygments <= 2.19.0",  # color xdoctest
+  "Pygments <= 2.19.1",  # color xdoctest
   "coverage[toml] <= 7.6.10",
   "mypy <= 1.14.1",
   "pandas-stubs <= 2.2.3.241126",
