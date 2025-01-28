@@ -75,11 +75,6 @@ tests = [
 [project.scripts]
 
 # PROJECT_URLS
-[tool.codespell]
-count = true
-ignore-words-list = "ciao,luce"
-quiet-level = 3
-skip = "examples/*.ipynb"
 
 [tool.commitizen]
 name = "cz_customize"
@@ -301,3 +296,17 @@ mccabe.max-complexity = 12
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
+
+[tool.typos]
+
+[tool.typos.default]
+# Ignore all metadata fields inside .ipynb cells
+extend-ignore-re = ["\"metadata\":\\s*\\{[^}]*\\}"]
+
+[tool.typos.default.extend-words]
+ND = "ND"
+Nd = "Nd"
+OME = "OME"
+arange = "arange"
+arosio = "Arosio"
+thr = "thr"
