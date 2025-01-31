@@ -74,8 +74,6 @@ tests = [
 
 [project.scripts]
 
-# PROJECT_URLS
-
 [tool.commitizen]
 name = "cz_customize"
 tag_format = "v$version"
