@@ -32,7 +32,7 @@ dependencies = [
   "scyjava <= 1.10.1",
   "seaborn <= 0.13.2",
   "tifffile <= 2025.1.10",
-  "zarr <= 3.0.1"
+  "zarr <= 3.0.2"
 ]
 description = "{{ cookiecutter.project_short_description }}"
 keywords = ["ADD_FIRST", "ADD_SECOND"]
