@@ -1,1 +1,89 @@
-{{cookiecutter.project_slug}}/.pre-commit-config.yaml
+# DATA_ANALYSIS_EXCLUDE
+ci:
+  autoupdate_commit_msg: "build(pre-commit): update hooks"
+  autofix_commit_msg: "style: pre-commit fixes"
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-merge-conflict
+      # OPTIONAL_PYTHON_PROJECT_HOOKS
+      - id: destroyed-symlinks
+      - id: check-yaml
+      - id: check-toml
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: name-tests-test
+        args: [--pytest-test-first]
+      - id: requirements-txt-fixer
+      - id: detect-private-key
+      - id: trailing-whitespace
+
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.14.0
+    hooks:
+      - id: pretty-format-ini
+        args: [--autofix]
+      - id: pretty-format-toml
+        args: [--autofix]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.7
+    hooks:
+      - id: ruff
+        types_or: [python, pyi, jupyter]
+        args: [--fix]
+      # Run the formatter.
+      - id: ruff-format
+        types_or: [python, pyi, jupyter]
+
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier (YAML, Markdown, JSON, etc.)
+        entry: npx prettier --write
+        language: node
+        types: [yaml, markdown, html, css, scss, javascript, json]
+        args: [--prose-wrap=preserve]
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: rst-backticks
+      - id: rst-directive-colons
+      - id: rst-inline-touching-normal
+
+  # should be replaced in the future ref https://github.com/astral-sh/ruff/issues/458
+  - repo: https://github.com/jsh9/pydoclint
+    rev: 0.6.2
+    hooks:
+      - id: pydoclint
+
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.29.9
+    hooks:
+      - id: typos
+        # args: [] # Turn off automatic fixing
+        stages: [pre-commit]
+      - id: typos
+        name: commit-msg-typos
+        stages: [commit-msg]
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        args: [-x]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.2.2
+    hooks:
+      - id: commitizen
+      # OPTIONAL_COMMITIZEN_BRANCH
