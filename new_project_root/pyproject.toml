@@ -44,7 +44,7 @@ version = "{{ cookiecutter.version }}"
 
 [project.optional-dependencies]
 dev = [
-  "commitizen <= 4.2.2",
+  "commitizen <= 4.4.1",
   "ipykernel <= 6.29.5",
   "ipython <= 8.32.0",
   "jupyter <= 1.1.1",
