@@ -35,7 +35,7 @@ repos:
         args: [--autofix]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.2
+    rev: v0.11.4
     hooks:
       - id: ruff
         types_or: [python, pyi, jupyter]
@@ -62,7 +62,7 @@ repos:
 
   # should be replaced in the future ref https://github.com/astral-sh/ruff/issues/458
   - repo: https://github.com/jsh9/pydoclint
-    rev: 0.6.4
+    rev: 0.6.5
     hooks:
       - id: pydoclint
 
@@ -83,7 +83,7 @@ repos:
         args: [-x]
 
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.4.1
+    rev: v4.5.0
     hooks:
       - id: commitizen
       # OPTIONAL_COMMITIZEN_BRANCH
