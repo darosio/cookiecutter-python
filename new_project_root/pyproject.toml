@@ -31,7 +31,7 @@ dependencies = [
   "scipy <= 1.15.3",
   "scyjava <= 1.12.0",
   "seaborn <= 0.13.2",
-  "tifffile <= 2025.3.30",
+  "tifffile <= 2025.5.10",
   "zarr <= 3.0.7"
 ]
 description = "{{ cookiecutter.project_short_description }}"
