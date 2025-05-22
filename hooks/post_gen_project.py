@@ -63,11 +63,6 @@ def modify_pre_commit_config():
                 new_lines.append(
                     line.replace("# OPTIONAL_PYTHON_PROJECT_HOOKS", python_hooks)
                 )
-        elif "# OPTIONAL_COMMITIZEN_BRANCH" in line:
-            if commitizen_hook:
-                new_lines.append(
-                    line.replace("# OPTIONAL_COMMITIZEN_BRANCH", commitizen_hook)
-                )
         elif "# DATA_ANALYSIS_EXCLUDE" in line:
             if analysis_exclude:
                 new_lines.append(

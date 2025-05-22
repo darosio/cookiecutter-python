@@ -2,7 +2,6 @@
 ci:
   autoupdate_commit_msg: "build(pre-commit): update hooks"
   autofix_commit_msg: "style: pre-commit fixes"
-
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
@@ -25,7 +24,6 @@ repos:
       - id: requirements-txt-fixer
       - id: detect-private-key
       - id: trailing-whitespace
-
   - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
     rev: v2.13.0
     hooks:
@@ -33,7 +31,6 @@ repos:
         args: [--autofix]
       - id: pretty-format-toml
         args: [--autofix]
-
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.4.3
     hooks:
@@ -43,7 +40,6 @@ repos:
       # Run the formatter.
       - id: ruff-format
         types_or: [python, pyi, jupyter]
-
   - repo: local
     hooks:
       - id: prettier
@@ -52,20 +48,17 @@ repos:
         language: node
         types: [yaml, markdown, html, css, scss, javascript, json]
         args: [--prose-wrap=preserve]
-
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
     hooks:
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
-
   # should be replaced in the future ref https://github.com/astral-sh/ruff/issues/458
   - repo: https://github.com/jsh9/pydoclint
     rev: 0.4.1
     hooks:
       - id: pydoclint
-
   - repo: https://github.com/crate-ci/typos
     rev: dictgen-v0.3.1
     hooks:
@@ -75,15 +68,19 @@ repos:
       - id: typos
         name: commit-msg-typos
         stages: [commit-msg]
-
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
         args: [-x]
-
-  - repo: https://github.com/commitizen-tools/commitizen
-    rev: v3.25.0
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.7.6
     hooks:
-      - id: commitizen
-      # OPTIONAL_COMMITIZEN_BRANCH
+      - id: uv-lock
+        stages: [pre-commit]
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.2.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: []
