@@ -4,7 +4,7 @@ requires = ["hatchling", "pdm-pep517"]
 
 [project]
 authors = [
-  {name = '{{ cookiecutter.author_name }}', email = '{{ cookiecutter.email }}'}
+  { name = '{{ cookiecutter.author_name }}', email = '{{ cookiecutter.email }}' },
 ]
 classifiers = [
   "Environment :: Console",
@@ -15,7 +15,7 @@ classifiers = [
   "Programming Language :: Unix Shell",
   "Intended Audience :: Science/Research",
   "Topic :: Scientific/Engineering",
-  "Development Status :: 3 - Alpha"
+  "Development Status :: 3 - Alpha",
 ]
 dependencies = [
   "bioio-bioformats <= 1.1.0",
@@ -32,7 +32,7 @@ dependencies = [
   "scyjava <= 1.12.0",
   "seaborn <= 0.13.2",
   "tifffile <= 2025.5.10",
-  "zarr <= 3.0.8"
+  "zarr <= 3.0.8",
 ]
 description = "{{ cookiecutter.project_short_description }}"
 keywords = ["ADD_FIRST", "ADD_SECOND"]
@@ -51,7 +51,7 @@ dev = [
   "pre-commit <= 4.2.0",
   "pylsp-mypy <= 0.7.0",
   "ruff <= 0.11.10",
-  "ruff-lsp == 0.0.62"
+  "ruff-lsp == 0.0.62",
 ]
 docs = [
   "Sphinx <= 8.2.3",
@@ -60,16 +60,16 @@ docs = [
   "pydata-sphinx-theme <= 0.16.1",
   "sphinx-click <= 6.0.0",
   "sphinx_autodoc_typehints <= 3.2.0",
-  "sphinxcontrib-plantuml <= 0.30"
+  "sphinxcontrib-plantuml <= 0.30",
 ]
 tests = [
-  "Pygments <= 2.19.1",  # color xdoctest
+  "Pygments <= 2.19.1",           # color xdoctest
   "coverage[toml] <= 7.8.0",
   "mypy <= 1.15.0",
   "pandas-stubs <= 2.2.3.250308",
   "pytest <= 8.3.5",
   "types-click <= 7.1.8",
-  "xdoctest <= 1.2.0"
+  "xdoctest <= 1.2.0",
 ]
 
 [project.scripts]
@@ -81,14 +81,24 @@ version = "0.0.1"
 version_files = [
   "pyproject.toml:version",
   "docs/conf.py:release",
-  "tests/test_cli.py:expected_version"
+  "tests/test_cli.py:expected_version",
 ]
 
 [tool.commitizen.customize]
-bump_map = {"^.+!:" = "MAJOR", "BREAKING CHANGE" = "MAJOR", "feat" = "MINOR", "fix" = "PATCH", "perf" = "PATCH", "refactor" = "PATCH"}
+bump_map = { "^.+!:" = "MAJOR", "BREAKING CHANGE" = "MAJOR", "feat" = "MINOR", "fix" = "PATCH", "perf" = "PATCH", "refactor" = "PATCH" }
 bump_pattern = "^(BREAKING CHANGE|feat|fix|perf|refactor)"
-change_type_map = {"feat" = "Feat", "fix" = "Fix", "docs" = "Docs", "build" = "Build", "style" = "Style", "refactor" = "Refactor", "perf" = "Perf", "test" = "Test", "ci" = "CI/CD"}
-change_type_order = ["BREAKING CHANGE", "Feat", "Fix", "Docs", "Style", "Perf", "Test", "Build", "CI/CD"]
+change_type_map = { "feat" = "Feat", "fix" = "Fix", "docs" = "Docs", "build" = "Build", "style" = "Style", "refactor" = "Refactor", "perf" = "Perf", "test" = "Test", "ci" = "CI/CD" }
+change_type_order = [
+  "BREAKING CHANGE",
+  "Feat",
+  "Fix",
+  "Docs",
+  "Style",
+  "Perf",
+  "Test",
+  "Build",
+  "CI/CD",
+]
 changelog_pattern = "^(feat|fix|docs|style|refactor|perf|test|build|ci)?(\\(.*\\))?(!)?"
 commit_parser = "^(?P<change_type>feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(?:\\((?P<scope>[^()\r\n]*)\\)|\\()?(?P<breaking>!)?:\\s(?P<message>.*)?"
 example = """fix(parser): correct minor typos in code\n
@@ -108,16 +118,16 @@ schema_pattern = "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert
 
 [[tool.commitizen.customize.questions]]
 choices = [
-  {value = "feat", name = "feat: A new feature. Correlates with MINOR in SemVer"},
-  {value = "fix", name = "fix: A bug fix. Correlates with PATCH in SemVer"},
-  {value = "perf", name = "perf: A code change that improves performance. Correlates with PATCH in SemVer"},
-  {value = "docs", name = "docs: Documentation only changes"},
-  {value = "style", name = "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"},
-  {value = "refactor", name = "refactor: A code change that neither fixes a bug nor adds a feature"},
-  {value = "test", name = "test: Adding missing or correcting existing tests"},
-  {value = "build", name = "build: Changes that update the build system, development tools or external dependencies"},
-  {value = "ci", name = "ci: Changes to our CI configuration files and scripts (example scopes: GitLabCI)"},
-  {value = "revert", name = "revert: Reverting to previous commit(s)."}
+  { value = "feat", name = "feat: A new feature. Correlates with MINOR in SemVer" },
+  { value = "fix", name = "fix: A bug fix. Correlates with PATCH in SemVer" },
+  { value = "perf", name = "perf: A code change that improves performance. Correlates with PATCH in SemVer" },
+  { value = "docs", name = "docs: Documentation only changes" },
+  { value = "style", name = "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)" },
+  { value = "refactor", name = "refactor: A code change that neither fixes a bug nor adds a feature" },
+  { value = "test", name = "test: Adding missing or correcting existing tests" },
+  { value = "build", name = "build: Changes that update the build system, development tools or external dependencies" },
+  { value = "ci", name = "ci: Changes to our CI configuration files and scripts (example scopes: GitLabCI)" },
+  { value = "revert", name = "revert: Reverting to previous commit(s)." },
 ]
 message = "Select the type of change you are committing"
 name = "change_type"
@@ -139,9 +149,7 @@ tests = ["tests", "*/tests"]
 
 [tool.coverage.report]
 # fail_under = 100
-exclude_lines = [
-  "pragma: no cover"
-]
+exclude_lines = ["pragma: no cover"]
 show_missing = true
 
 [tool.coverage.run]
@@ -155,7 +163,7 @@ features = ["dev", "tests", "docs"]
 [tool.hatch.envs.default.scripts]
 # {args} e.g. "--increment PATCH"
 bump = [
-  "cz bump --major-version-zero -ch {args}"  # HATCH_BUMP
+  "cz bump --major-version-zero -ch {args}", # HATCH_BUMP
 ]
 ch = "cz ch --incremental --unreleased-version HEAD"
 clean = "rm -rf ./build .coverage ./__pycache__ ./.mypy_cache ./.pytest_cache ./docs/_build ./tests/__pycache__ ./dist ./src/{{ cookiecutter.project_slug }}/__pycache__"
@@ -164,11 +172,11 @@ docserve = "python -m http.server 8000 -d docs/_build"
 init = [
   "pre-commit --version",
   "pre-commit install",
-  "pre-commit install --hook-type commit-msg --hook-type pre-push"
+  "pre-commit install --hook-type commit-msg --hook-type pre-push",
 ]
 lint = [
   "pre-commit --version",
-  "pre-commit run --all-files --show-diff-on-failure {args}"  # No need for --hook-stage=manual
+  "pre-commit run --all-files --show-diff-on-failure {args}", # No need for --hook-stage=manual
 ]
 
 [tool.hatch.envs.tests]
@@ -180,11 +188,7 @@ python = ["3.12", "3.11"]
 
 [tool.hatch.envs.tests.scripts]
 all = ["test", "type", "xdoc", "cov"]
-cov = [
-  "coverage combine",
-  "coverage report",
-  "coverage xml"
-]
+cov = ["coverage combine", "coverage report", "coverage xml"]
 test = "coverage run -p -m pytest -v"
 type = "mypy src tests docs/conf.py"
 xdoc = "python -m xdoctest {{ cookiecutter.project_slug }} all"
@@ -194,7 +198,7 @@ combine_as_imports = true
 force_single_line = false
 include_trailing_comma = true
 known_first_party = "{{ cookiecutter.project_slug }}"
-line_length = 88  # to match black's default line length
+line_length = 88                                      # to match black's default line length
 multi_line_output = 3
 profile = "black"
 
@@ -232,51 +236,62 @@ docstring-code-format = true
 [tool.ruff.lint]
 ignore = ["ISC001"]
 select = [
-  "A",  # builtins
-  "AIR",  # airflow
-  "ANN",  # typing annotation
-  "ARG",  # unused arguments
-  "B",  # bugbear
-  "BLE",  # blind-except
+  "A",     # builtins
+  "AIR",   # airflow
+  "ANN",   # typing annotation
+  "ARG",   # unused arguments
+  "ASYNC",
+  "B",     # bugbear
+  "BLE",   # blind-except
   "C",
-  "C4",  # comprehensions
-  "C90",  # mccabe
-  "D",  # pydocstyle
-  "DTZ",  # dates
-  "E",  # pycodestyle
-  "EM",  # exceptions
-  "ERA",  # eradicate
-  "F",  # pyflakes
-  "FBT",  # boolean-trap
-  "FLY",  # flyntp
+  "C4",    # comprehensions
+  "C90",   # mccabe
+  "D",     # pydocstyle
+  "DOC",
+  "DTZ",   # dates
+  "E",     # pycodestyle
+  "EM",    # exceptions
+  "ERA",   # eradicate
+  "EXE",
+  "F",     # pyflakes
+  "FA",    # future annotations
+  "FBT",   # boolean-trap
+  "FLY",   # flyntp
   "FURB",  # refurbishing and modernizing
-  "I",  # isort
-  "ICN",  # import conventions (opinionated)
-  "ISC",  # implicit-str-concat
-  "N",  # pep8-naming
+  "G",     # logging
+  "I",     # isort
+  "ICN",   # import conventions (opinionated)
+  "INP",   #inplict namespace
+  "INT",   #gettext
+  "ISC",   # implicit-str-concat
+  "LOG",   # logging
+  "N",     # pep8-naming
   "NPY",
-  "PD",  # pandas-vet
+  "PD",    # pandas-vet
   "PERF",  # pperformance anti pattern
-  "PGH",  # pygrep WAIT
-  "PL",  # pylint see PLR2004...
-  "PT",  # pytest-style
-  "PTH",  # use-pathlib
-  "Q",  # quotes
-  "RET",  # Return
-  "RSE",  # Raise
-  "RUF",  # Ruff
-  "S",  # bandit XXX
-  "SIM",  # simplify
-  "SLF",  # private self
+  "PGH",   # pygrep WAIT
+  "PIE",
+  "PL",    # pylint see PLR2004...
+  "PT",    # pytest-style
+  "PTH",   # use-pathlib
+  "PYI",   #lint typeshed
+  "Q",     # quotes
+  "RET",   # Return
+  "RSE",   # Raise
+  "RUF",   # Ruff
+  "S",     # bandit
+  "SIM",   # simplify
+  "SLF",   # private self
   "SLOT",  # __slot__
-  "TCH",  # TYPE_CHECKING
-  "TD",  # TODOs
-  "FIX",  # no fixme
-  "TID",  # tidy-imports
-  "TRY",  # tryceratops
-  "UP",  # pyupgrade
-  "W",  # pycodestyle
-  "YTT"  # 2020
+  "T10",   # debugger
+  "T20",   # print
+  "TC",    # TYPE_CHECKING
+  "TCH",   # TYPE_CHECKING
+  "TID",   # tidy-imports
+  "TRY",   # tryceratops
+  "UP",    # pyupgrade
+  "W",     # pycodestyle
+  "YTT",   # 2020
 ]
 isort.combine-as-imports = true
 isort.force-single-line = false
@@ -285,12 +300,9 @@ isort.split-on-trailing-comma = true
 mccabe.max-complexity = 12
 
 [tool.ruff.lint.per-file-ignores]
-"*.ipynb" = ["ERA"]
-"__init__.py" = ["I002"]  # don't need annotations
-"tests/*" = [
-  "PLR2004",
-  "S101"
-]
+"*.ipynb" = ["ERA", "T20"]
+"__init__.py" = ["I002"]        # don't need annotations
+"tests/*" = ["PLR2004", "S101"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
