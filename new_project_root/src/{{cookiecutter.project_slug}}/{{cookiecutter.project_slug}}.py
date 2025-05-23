@@ -9,4 +9,3 @@ def fist_project_function() -> None:
 
 
     """
-    pass
