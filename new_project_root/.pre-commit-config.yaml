@@ -4,7 +4,7 @@ ci:
   autofix_commit_msg: "style: pre-commit fixes"
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -60,7 +60,7 @@ repos:
     hooks:
       - id: pydoclint
   - repo: https://github.com/crate-ci/typos
-    rev: v0.4.0
+    rev: v1.32.0
     hooks:
       - id: typos
         # args: [] # Turn off automatic fixing
