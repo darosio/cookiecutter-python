@@ -64,7 +64,7 @@
         },
         {
             "matchFiles": [
-                "pyproject.toml"
+                ".*pyproject\\.toml$"
             ],
             "matchDepNames": [
                 "python"
