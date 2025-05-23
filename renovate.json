@@ -66,11 +66,11 @@
             "matchDatasources": [
                 "python"
             ],
-            "matchDepNames": [
-                "python"
+            "matchFileNames": [
+                "{{cookiecutter.project_slug}}/pyproject.toml"
             ],
-            "matchPaths": [
-                ".*pyproject\\.toml$"
+            "matchDepTypes": [
+                "python"
             ],
             "enabled": false
         }
