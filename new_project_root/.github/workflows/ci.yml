@@ -15,7 +15,6 @@ on:
     paths-ignore:
       - "*.md"
 
-{% raw %}
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -161,4 +160,3 @@ jobs:
           MERGE_METHOD: squash
           DELETE_BRANCH_AFTER_MERGE: true
           LOG: "TRACE" # or DEBUG
-{% endraw %}

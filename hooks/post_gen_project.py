@@ -44,15 +44,12 @@ def modify_pre_commit_config():
     project_type = "{{ cookiecutter.project_type }}"
     if project_type == "Python Project":
         python_hooks = "- id: check-symlinks"
-        commitizen_hook = "- id: commitizen-branch\n        stages: [push]"
         analysis_exclude = ""
     elif project_type == "Data Analysis Project":
         python_hooks = ""
-        commitizen_hook = ""
         analysis_exclude = "exclude: ^data/.*\n"
     else:
         python_hooks = ""
-        commitizen_hook = ""
         analysis_exclude = ""
     # Perform replacements and remove lines if they should be empty
     lines = content.splitlines()

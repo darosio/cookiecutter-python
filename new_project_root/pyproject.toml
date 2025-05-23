@@ -1,11 +1,9 @@
 [build-system]
 build-backend = "hatchling.build"
-requires = ["hatchling", "pdm-pep517"]
+requires = ["hatchling"]
 
 [project]
-authors = [
-  { name = '{{ cookiecutter.author_name }}', email = '{{ cookiecutter.email }}' },
-]
+authors = [{ name = '{{ cookiecutter.author_name }}', email = '{{ cookiecutter.email }}' }]
 classifiers = [
   "Environment :: Console",
   "Operating System :: OS Independent",
@@ -66,7 +64,15 @@ hatch = [
 ]
 
 [project.scripts]
+"{{ cookiecutter.project_name | lower }}" = "{{ cookiecutter.project_name | lower }}.__main__:{{ cookiecutter.project_name | lower }}"
 
+# PROJECT_URLS
+
+# version_files = [
+#   "pyproject.toml:version",
+#   "docs/conf.py:release",
+#   "README.md:Version"
+# ]
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
@@ -159,6 +165,10 @@ strict = true
 warn_unreachable = true
 warn_unused_configs = true
 
+# TODO: check
+[tool.pydoclint]
+check-class-attributes = false
+
 [tool.pylsp-mypy]
 dmypy = false
 enabled = true
@@ -166,6 +176,7 @@ live_mode = true
 strict = true
 
 [tool.ruff]
+# extend-exclude = ["/old/"]
 extend-include = ["*.ipynb"]
 fix = true
 force-exclude = true
