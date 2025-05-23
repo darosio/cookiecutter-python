@@ -63,11 +63,14 @@
             "commitMessagePrefix": "chore(hooks):"
         },
         {
-            "matchFileNames": [
-                ".*pyproject\\.toml$"
+            "matchDatasources": [
+                "python"
             ],
             "matchDepNames": [
                 "python"
+            ],
+            "matchPaths": [
+                ".*pyproject\\.toml$"
             ],
             "enabled": false
         }

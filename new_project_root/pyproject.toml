@@ -23,7 +23,7 @@ keywords = ["ADD_FIRST", "ADD_SECOND"]
 license = "BSD-3-Clause"
 name = "{{ cookiecutter.project_slug }}"
 # README_MD
-requires-python = ">=3.13.3"
+requires-python = ">=3.11"
 version = "{{ cookiecutter.version }}"
 
 [project.optional-dependencies]
