@@ -69,7 +69,7 @@
             "matchDepNames": [
                 "python"
             ],
-            "matchPaths": [
+            "matchFileNames": [
                 ".*pyproject\\.toml$"
             ],
             "enabled": false
