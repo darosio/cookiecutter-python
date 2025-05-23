@@ -67,7 +67,7 @@
                 "python"
             ],
             "matchFileNames": [
-                "{{cookiecutter.project_slug}}/pyproject.toml"
+                "new_project_root/pyproject.toml"
             ],
             "matchDepTypes": [
                 "python"
