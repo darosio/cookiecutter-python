@@ -48,12 +48,18 @@ repos:
     hooks:
       - id: taplo-format
         # - id: taplo-lint
+  - repo: https://github.com/sirwart/ripsecrets
+    rev: v0.1.5
+    hooks:
+      - id: ripsecrets
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.2
+    hooks:
+      - id: gitleaks
   - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
     rev: v2.14.0
     hooks:
       - id: pretty-format-ini
-        args: [--autofix]
-      - id: pretty-format-toml
         args: [--autofix]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.11.10
@@ -70,8 +76,9 @@ repos:
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
-  # should be replaced in the future ref https://github.com/astral-sh/ruff/issues/458
   - repo: https://github.com/jsh9/pydoclint
+    # should be replaced in the future ref https://github.com/astral-sh/ruff/issues/458
+
     rev: 0.6.7
     hooks:
       - id: pydoclint
@@ -88,7 +95,14 @@ repos:
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
-        args: [-x]
+        args: [-x, --severity=style] # Show errors, warnings, info and style
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.11.0-1
+    hooks:
+      # Choose one of:
+      - id: shfmt # prebuilt upstream executable
+        # - id: shfmt-src     # build from source (requires/installs Go to build)
+        # - id: shfmt-docker  # Docker image (requires Docker to run)
   - repo: https://github.com/astral-sh/uv-pre-commit
     rev: 0.7.6
     hooks:
