@@ -4,7 +4,7 @@ requires = ["hatchling", "pdm-pep517"]
 
 [project]
 authors = [
-  { name = '{{ cookiecutter.author_name }}', email = '{{ cookiecutter.email }}' },
+  {name = '{{ cookiecutter.author_name }}', email = '{{ cookiecutter.email }}'}
 ]
 classifiers = [
   "Environment :: Console",
@@ -15,11 +15,9 @@ classifiers = [
   "Programming Language :: Unix Shell",
   "Intended Audience :: Science/Research",
   "Topic :: Scientific/Engineering",
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 3 - Alpha"
 ]
-dependencies = [
-  "click>=8.2.1",
-]
+dependencies = ["click>=8.2.1"]
 description = "{{ cookiecutter.project_short_description }}"
 keywords = ["ADD_FIRST", "ADD_SECOND"]
 license = "BSD-3-Clause"
@@ -35,7 +33,7 @@ dev = [
   "mdformat-gfm==0.4.1",
   "pylsp-mypy==0.7.0",
   "ruff==0.11.11",
-  "ruff-lsp==0.0.62",
+  "ruff-lsp==0.0.62"
 ]
 docs = [
   "autodocsumm==0.2.14",
@@ -44,29 +42,24 @@ docs = [
   "nbsphinx==0.9.7",
   "pydata-sphinx-theme==0.16.1",
   "pygments==2.19.1",
-  "sphinx-autodoc-typehints<3.2", # TODO: wait nbsphinx
+  "sphinx-autodoc-typehints<3.2",  # TODO: wait nbsphinx
   "sphinx-click==6.0.0",
-  "sphinx<8.2", # TODO: wait nbsphinx
-  "sphinxcontrib-plantuml==0.30",
+  "sphinx<8.2",  # TODO: wait nbsphinx
+  "sphinxcontrib-plantuml==0.30"
 ]
-lint = [
-  "pre-commit==4.2.0",
-]
+hatch = ["hatch>=1.14.1"]
+lint = ["pre-commit==4.2.0"]
 tests = [
   "coverage[toml]>=7.8.1",
   "mypy>=1.15.0",
   "pandas-stubs>=2.2.3.250308",
-  "pygments>=2.19.1", # color xdoctest
+  "pygments>=2.19.1",  # color xdoctest
   "pytest>=8.3.5",
   "types-click >= 7.1.8",
-  "xdoctest>=1.2.0",
-]
-hatch = [
-  "hatch>=1.14.1",
+  "xdoctest>=1.2.0"
 ]
 
 [project.scripts]
-
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
@@ -77,7 +70,7 @@ exclude_lines = [
   "pragma: no cover",
   "def __repr__",
   "raise NotImplementedError",
-  "if __name__ == .__main__.:",
+  "if __name__ == .__main__.:"
 ]
 show_missing = true
 skip_covered = true
@@ -88,12 +81,11 @@ omit = ["*__init__.py"]
 source = ["{{ cookiecutter.project_slug }}"]
 
 [tool.hatch.envs.default]
-features = ["dev", "docs", "lint", "tests"] # separate docs and lint
+features = ["dev", "docs", "lint", "tests"]  # separate docs and lint
 installer = "uv"
 path = ".venv"
 
 [tool.hatch.envs.default.scripts]
-ch = "git cliff --bump --unreleased --prepend CHANGELOG.md"
 bump = """
 NEXT_VERSION=$(git cliff --bumped-version)
 uv version $NEXT_VERSION
@@ -104,32 +96,33 @@ git tag $NEXT_VERSION
 git push
 git push --tags
 """
+ch = "git cliff --bump --unreleased --prepend CHANGELOG.md"
 clean = "rm -rf ./build .coverage ./__pycache__ ./.mypy_cache ./.pytest_cache ./docs/_build ./tests/__pycache__ ./dist ./src/nima/__pycache__"
 
 [tool.hatch.envs.docs]
-type = "virtual"
 features = ["docs"]
 installer = "uv"
+type = "virtual"
 
 [tool.hatch.envs.docs.scripts]
 build = "sphinx-build docs docs/_build"
 serve = "python -m http.server 8000 -d docs/_build"
 
 [tool.hatch.envs.lint]
-type = "virtual"
 features = ["lint"]
 installer = "uv"
+type = "virtual"
 
 [tool.hatch.envs.lint.scripts]
 init = "pre-commit install"
 lint = "pre-commit run --all-files --show-diff-on-failure {args}"
 
 [tool.hatch.envs.tests]
-type = "virtual"
 features = ["tests"]
 installer = "uv"
-matrix = [{ python = ["3.13", "3.12", "3.11"] }]
-template = "tests" #built-in test template
+matrix = [{python = ["3.13", "3.12", "3.11"]}]
+template = "tests"  # built-in test template
+type = "virtual"
 
 [tool.hatch.envs.tests.scripts]
 all = ["test", "type", "xdoc", "cov"]
@@ -143,7 +136,7 @@ combine_as_imports = true
 force_single_line = false
 include_trailing_comma = true
 known_first_party = "{{ cookiecutter.project_slug }}"
-line_length = 88 # to match black's default line length
+line_length = 88  # to match black's default line length
 multi_line_output = 3
 profile = "black"
 
@@ -170,10 +163,10 @@ extend-include = ["*.ipynb"]
 fix = true
 force-exclude = true
 line-length = 88
-target-version = "py311"
-unsafe-fixes = true
 # Enable preview mode
 preview = false
+target-version = "py311"
+unsafe-fixes = true
 
 [tool.ruff.format]
 docstring-code-format = true
@@ -181,62 +174,62 @@ docstring-code-format = true
 [tool.ruff.lint]
 ignore = ["ISC001"]
 select = [
-  "A", # builtins
-  "AIR", # airflow
-  "ANN", # typing annotation
-  "ARG", # unused arguments
+  "A",  # builtins
+  "AIR",  # airflow
+  "ANN",  # typing annotation
+  "ARG",  # unused arguments
   "ASYNC",
-  "B", # bugbear
-  "BLE", # blind-except
+  "B",  # bugbear
+  "BLE",  # blind-except
   "C",
-  "C4", # comprehensions
-  "C90", # mccabe
-  "D", # pydocstyle
+  "C4",  # comprehensions
+  "C90",  # mccabe
+  "D",  # pydocstyle
   "DOC",
-  "DTZ", # dates
-  "E", # pycodestyle
-  "EM", # exceptions
-  "ERA", # eradicate
+  "DTZ",  # dates
+  "E",  # pycodestyle
+  "EM",  # exceptions
+  "ERA",  # eradicate
   "EXE",
-  "F", # pyflakes
-  "FA", # future annotations
-  "FBT", # boolean-trap
-  "FLY", # flyntp
-  "FURB", # refurbishing and modernizing
-  "G", # logging
-  "I", # isort
-  "ICN", # import conventions (opinionated)
-  "INP", #inplict namespace
-  "INT", #gettext
-  "ISC", # implicit-str-concat
-  "LOG", # logging
-  "N", # pep8-naming
+  "F",  # pyflakes
+  "FA",  # future annotations
+  "FBT",  # boolean-trap
+  "FLY",  # flyntp
+  "FURB",  # refurbishing and modernizing
+  "G",  # logging
+  "I",  # isort
+  "ICN",  # import conventions (opinionated)
+  "INP",  # inplict namespace
+  "INT",  # gettext
+  "ISC",  # implicit-str-concat
+  "LOG",  # logging
+  "N",  # pep8-naming
   "NPY",
-  "PD", # pandas-vet
-  "PERF", # pperformance anti pattern
-  "PGH", # pygrep WAIT
+  "PD",  # pandas-vet
+  "PERF",  # pperformance anti pattern
+  "PGH",  # pygrep WAIT
   "PIE",
-  "PL", # pylint see PLR2004...
-  "PT", # pytest-style
-  "PTH", # use-pathlib
-  "PYI", #lint typeshed
-  "Q", # quotes
-  "RET", # Return
-  "RSE", # Raise
-  "RUF", # Ruff
-  "S", # bandit
-  "SIM", # simplify
-  "SLF", # private self
-  "SLOT", # __slot__
-  "T10", # debugger
-  "T20", # print
-  "TC", # TYPE_CHECKING
-  "TCH", # TYPE_CHECKING
-  "TID", # tidy-imports
-  "TRY", # tryceratops
-  "UP", # pyupgrade
-  "W", # pycodestyle
-  "YTT", # 2020
+  "PL",  # pylint see PLR2004...
+  "PT",  # pytest-style
+  "PTH",  # use-pathlib
+  "PYI",  # lint typeshed
+  "Q",  # quotes
+  "RET",  # Return
+  "RSE",  # Raise
+  "RUF",  # Ruff
+  "S",  # bandit
+  "SIM",  # simplify
+  "SLF",  # private self
+  "SLOT",  # __slot__
+  "T10",  # debugger
+  "T20",  # print
+  "TC",  # TYPE_CHECKING
+  "TCH",  # TYPE_CHECKING
+  "TID",  # tidy-imports
+  "TRY",  # tryceratops
+  "UP",  # pyupgrade
+  "W",  # pycodestyle
+  "YTT"  # 2020
 ]
 isort.combine-as-imports = true
 isort.force-single-line = false
@@ -246,7 +239,7 @@ mccabe.max-complexity = 12
 
 [tool.ruff.lint.per-file-ignores]
 "*.ipynb" = ["ERA", "T20"]
-"__init__.py" = ["I002"] # don't need annotations
+"__init__.py" = ["I002"]  # don't need annotations
 "tests/*" = ["PLR2004", "S101"]
 
 [tool.ruff.lint.pydocstyle]
