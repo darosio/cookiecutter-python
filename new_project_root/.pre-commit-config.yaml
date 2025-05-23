@@ -1,12 +1,15 @@
 # DATA_ANALYSIS_EXCLUDE
-ci:
-  autoupdate_commit_msg: "build(pre-commit): update hooks"
-  autofix_commit_msg: "style: pre-commit fixes"
+default_install_hook_types:
+  - pre-commit
+  - commit-msg
+
 repos:
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
+        exclude: uv.lock
       - id: check-case-conflict
       - id: check-docstring-first
       - id: check-executables-have-shebangs
@@ -24,13 +27,50 @@ repos:
       - id: requirements-txt-fixer
       - id: detect-private-key
       - id: trailing-whitespace
+      - id: pretty-format-json
+        args: [--autofix, --indent, "4", --no-sort-keys]
+        exclude: \.ipynb$
+
+  - repo: https://github.com/google/yamlfmt
+    rev: v0.16.0
+    hooks:
+      - id: yamlfmt
+
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint
+
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.22
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm
+        exclude: CHANGELOG\.md$
+
+  - repo: https://github.com/ComPWA/taplo-pre-commit
+    rev: v0.9.3
+    hooks:
+      - id: taplo-format
+        # - id: taplo-lint
+
+  - repo: https://github.com/sirwart/ripsecrets
+    rev: v0.1.9
+    hooks:
+      - id: ripsecrets
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.26.0
+    hooks:
+      - id: gitleaks
+
   - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
     rev: v2.14.0
     hooks:
       - id: pretty-format-ini
         args: [--autofix]
-      - id: pretty-format-toml
-        args: [--autofix]
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.11.11
     hooks:
@@ -40,27 +80,22 @@ repos:
       # Run the formatter.
       - id: ruff-format
         types_or: [python, pyi, jupyter]
-  - repo: local
-    hooks:
-      - id: prettier
-        name: prettier (YAML, Markdown, JSON, etc.)
-        entry: npx prettier --write
-        language: node
-        types: [yaml, markdown, html, css, scss, javascript, json]
-        args: [--prose-wrap=preserve]
+
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
     hooks:
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
+
   # should be replaced in the future ref https://github.com/astral-sh/ruff/issues/458
   - repo: https://github.com/jsh9/pydoclint
     rev: 0.6.7
     hooks:
       - id: pydoclint
+
   - repo: https://github.com/crate-ci/typos
-    rev: v0.4.0
+    rev: v1.32.0
     hooks:
       - id: typos
         # args: [] # Turn off automatic fixing
@@ -68,16 +103,27 @@ repos:
       - id: typos
         name: commit-msg-typos
         stages: [commit-msg]
+
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
-        args: [-x]
+        args: [-x, --severity=style] # Show errors, warnings, info and style
+
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.11.0-1
+    hooks:
+      # Choose one of:
+      - id: shfmt # prebuilt upstream executable
+        # - id: shfmt-src     # build from source (requires/installs Go to build)
+        # - id: shfmt-docker  # Docker image (requires Docker to run)
+
   - repo: https://github.com/astral-sh/uv-pre-commit
     rev: 0.7.7
     hooks:
       - id: uv-lock
         stages: [pre-commit]
+
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.2.0
     hooks:
