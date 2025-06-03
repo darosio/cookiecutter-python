@@ -28,7 +28,7 @@ version = "{{ cookiecutter.version }}"
 
 [project.optional-dependencies]
 dev = [
-  "git-cliff==2.8.0",
+  "git-cliff==2.9.1",
   "mdformat==0.7.22",
   "mdformat-gfm==0.4.1",
   "pylsp-mypy==0.7.0",
