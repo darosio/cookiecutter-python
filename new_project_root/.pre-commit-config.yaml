@@ -119,7 +119,7 @@ repos:
         # - id: shfmt-docker  # Docker image (requires Docker to run)
 
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.7.20
+    rev: 0.7.21
     hooks:
       - id: uv-lock
         stages: [pre-commit]
