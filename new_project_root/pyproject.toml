@@ -37,7 +37,7 @@ dev = [
 ]
 docs = [
   "autodocsumm==0.2.14",
-  "ipykernel==6.29.5",
+  "ipykernel==6.30.0",
   "jupyter==1.1.1",
   "nbsphinx==0.9.7",
   "pydata-sphinx-theme==0.16.1",
