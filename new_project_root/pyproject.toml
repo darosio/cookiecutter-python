@@ -16,7 +16,7 @@ classifiers = [
   "Development Status :: 3 - Alpha",
 ]
 dependencies = [
-  "click>=8.2.2",
+  "click>=8.2.1",
 ]
 description = "{{ cookiecutter.project_short_description }}"
 keywords = ["ADD_FIRST", "ADD_SECOND"]
