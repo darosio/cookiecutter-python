@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install Cookiecutter
         run: |
           pip install cookiecutter
@@ -63,7 +63,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Merge PR
         uses: pascalgn/automerge-action@v0.16.4
         env:
