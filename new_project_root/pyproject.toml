@@ -32,7 +32,7 @@ dev = [
   "mdformat==0.7.22",
   "mdformat-gfm==0.4.1",
   "pylsp-mypy==0.7.0",
-  "ruff==0.12.11",
+  "ruff==0.12.12",
   "ruff-lsp==0.0.62",
 ]
 docs = [
@@ -45,7 +45,7 @@ docs = [
   "sphinx-autodoc-typehints<3.2", # TODO: wait nbsphinx
   "sphinx-click==6.0.0",
   "sphinx<8.2", # TODO: wait nbsphinx
-  "sphinxcontrib-plantuml==0.30",
+  "sphinxcontrib-plantuml==0.31",
 ]
 lint = [
   "pre-commit==4.3.0",
@@ -55,7 +55,7 @@ tests = [
   "mypy>=1.17.1",
   "pandas-stubs>=2.3.2.250827",
   "pygments>=2.19.2", # color xdoctest
-  "pytest>=8.4.1",
+  "pytest>=8.4.2",
   "types-click >= 7.1.8",
   "xdoctest>=1.2.0",
 ]
