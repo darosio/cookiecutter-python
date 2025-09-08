@@ -57,7 +57,7 @@ tests = [
   "pygments>=2.19.2", # color xdoctest
   "pytest>=8.4.2",
   "types-click >= 7.1.8",
-  "xdoctest>=1.2.0",
+  "xdoctest>=1.3.0",
 ]
 hatch = [
   "hatch>=1.14.1",
