@@ -7,9 +7,6 @@
 
 This package provides a command line interface for …
 
-- Version: "{{ cookiecutter.version }}"
-
-
 ## Installation
 
 You can get the library directly from [PyPI](https://pypi.org/project/{{ cookiecutter.project_name }}/)

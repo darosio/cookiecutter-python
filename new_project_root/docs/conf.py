@@ -11,7 +11,6 @@
 # TODO: Remove the unneeded.
 
 project = "{{ cookiecutter.project_name }}"
-release = "{{ cookiecutter.version }}"
 author = "{{ cookiecutter.author_name }}"
 copyright = f"{{ cookiecutter.year }}, {author}"  # noqa: A001
 

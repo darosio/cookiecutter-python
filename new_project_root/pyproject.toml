@@ -26,7 +26,7 @@ name = "{{ cookiecutter.project_slug }}"
 requires-python = ">=3.11"
 version = "{{ cookiecutter.version }}"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
   "git-cliff==2.10.0",
   "mdformat==0.7.22",
@@ -59,20 +59,11 @@ tests = [
   "types-click >= 7.1.8",
   "xdoctest>=1.3.0",
 ]
-hatch = [
-  "hatch>=1.14.1",
-]
 
 [project.scripts]
 "{{ cookiecutter.project_name | lower }}" = "{{ cookiecutter.project_name | lower }}.__main__:{{ cookiecutter.project_name | lower }}"
 
 # PROJECT_URLS
-
-# version_files = [
-#   "pyproject.toml:version",
-#   "docs/conf.py:release",
-#   "README.md:Version"
-# ]
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
@@ -92,57 +83,6 @@ skip_covered = true
 branch = true
 omit = ["*__init__.py"]
 source = ["{{ cookiecutter.project_slug }}"]
-
-[tool.hatch.envs.default]
-features = ["dev", "docs", "lint", "tests"] # separate docs and lint
-installer = "uv"
-path = ".venv"
-
-[tool.hatch.envs.default.scripts]
-ch = "git cliff --bump --unreleased --prepend CHANGELOG.md"
-bump = """
-NEXT_VERSION=$(git cliff --bumped-version)
-uv version $NEXT_VERSION
-uv sync --all-extras
-git add .
-git commit -m "chore: release $NEXT_VERSION"
-git tag $NEXT_VERSION
-git push
-git push --tags
-"""
-clean = "rm -rf ./build .coverage ./__pycache__ ./.mypy_cache ./.pytest_cache ./docs/_build ./tests/__pycache__ ./dist ./src/nima/__pycache__"
-
-[tool.hatch.envs.docs]
-type = "virtual"
-features = ["docs"]
-installer = "uv"
-
-[tool.hatch.envs.docs.scripts]
-build = "sphinx-build docs docs/_build"
-serve = "python -m http.server 8000 -d docs/_build"
-
-[tool.hatch.envs.lint]
-type = "virtual"
-features = ["lint"]
-installer = "uv"
-
-[tool.hatch.envs.lint.scripts]
-init = "pre-commit install"
-lint = "pre-commit run --all-files --show-diff-on-failure {args}"
-
-[tool.hatch.envs.tests]
-type = "virtual"
-features = ["tests"]
-installer = "uv"
-matrix = [{ python = ["3.13", "3.12", "3.11"] }]
-template = "tests" #built-in test template
-
-[tool.hatch.envs.tests.scripts]
-all = ["test", "type", "xdoc", "cov"]
-cov = ["coverage combine", "coverage report", "coverage xml"]
-test = "coverage run -p -m pytest -v"
-type = "mypy src tests docs/conf.py"
-xdoc = "python -m xdoctest {{ cookiecutter.project_slug }} all"
 
 [tool.isort]
 combine_as_imports = true
@@ -176,7 +116,7 @@ live_mode = true
 strict = true
 
 [tool.ruff]
-# extend-exclude = ["/old/"]
+extend-exclude = ["scripts/"]
 extend-include = ["*.ipynb"]
 fix = true
 force-exclude = true

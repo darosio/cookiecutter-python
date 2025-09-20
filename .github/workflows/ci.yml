@@ -15,40 +15,41 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
-      - name: Install Cookiecutter
-        run: |
-          pip install cookiecutter
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          python-version: "3.13"
+
       - name: Create new project
         run: |
-          cookiecutter https://github.com/darosio/cookiecutter-python --no-input
+          uvx cookiecutter https://github.com/darosio/cookiecutter-python --no-input
           cd complexity
           git init
-      - name: Cache pip
-        id: cache-pip
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}|pip|${{ matrix.python }}|${{ hashFiles('**/constraints.txt', '**/pyproject.toml') }}
-          restore-keys: ${{ runner.os }}|pip|${{ matrix.python }}|
-          enableCrossOsArchive: true
-          fail-on-cache-miss: false
-      - name: Install pip and hatch
+
+      - name: Sync project with tests deps
+        working-directory: complexity
         run: |
-          python -m pip install --constraint=.github/workflows/constraints.txt pip hatch
+          uv lock
+          uv sync --group tests --group lint --locked
+
       - name: Cache pre-commit
+        id: precommit-cache
         uses: actions/cache@v4
         with:
           path: /home/runner/.cache/pre-commit/
-          key: pre-commit|${{ runner.os }}|${{ hashFiles('.pre-commit-config.yaml') }}
-          restore-keys: pre-commit|${{ runner.os }}|
-      - name: Run lint and tests
-        run: |
-          cd complexity
-          hatch run lint:lint
+          key: pre-commit|${{ runner.os }}|${{ runner.arch }}|${{ hashFiles('complexity/.pre-commit-config.yaml', 'complexity/pyproject.toml', 'complexity/uv.lock') }}
+          restore-keys: |
+            pre-commit|${{ runner.os }}|${{ runner.arch }}|
+
+      - name: Run lint
+        working-directory: complexity
+        run: make lint
+
       - name: Run test
-        run: |
-          cd complexity
-          hatch run tests:all
+        working-directory: complexity
+        run: make all
 
   auto_merge_deps:
     name: Auto Merge dependencies labeled PRs
