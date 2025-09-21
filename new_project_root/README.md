@@ -71,3 +71,25 @@ and
 [development environment](https://darosio.github.io/{{ cookiecutter.project_name }}/references/development.html)
 guides, which outline the guidelines and conventions that we follow for
 contributing code, documentation, and other resources.
+
+## Dependency updates (Renovate)
+
+This project uses Renovate to keep dependencies up to date.
+
+Enable Renovate (GitHub):
+1. Install the Renovate GitHub App and grant it access to this repo (or your org): https://github.com/apps/renovate
+   From "Setting / Integrations / GitHub Apps" add select repo / all repositories.
+2. Renovate will open a “Dependency Dashboard” issue and then create update PRs according to the config.
+
+Notes about our config:
+- Commit messages: `build(deps): bump <dep> from <old> to <new>`
+- Unlimited concurrent PRs/hourly limit are allowed by default here (prConcurrentLimit/prHourlyLimit set to 0). If this is too noisy, set a limit or add a schedule (e.g., weekends).
+- Pre-commit updates:
+  - Grouped as “pre-commit hooks” with a custom commit prefix `chore(hooks):`.
+- Python version bumps in `pyproject.toml` are disabled.
+- Sphinx-related updates are currently disabled. nbsphinx is incompatible with Sphinx >=8.2.
+
+Migrating from Dependabot:
+- You can keep “Dependabot alerts” ON (the GitHub UI for vulnerabilities) while disabling automatic Dependabot security PRs.
+
+
