@@ -92,4 +92,25 @@ Notes about our config:
 Migrating from Dependabot:
 - You can keep “Dependabot alerts” ON (the GitHub UI for vulnerabilities) while disabling automatic Dependabot security PRs.
 
+## Template updates (Cruft)
+
+This project is linked to its Cookiecutter template with Cruft.
+
+- Check for updates: `cruft check`
+- Apply updates: `cruft update -y` (resolve conflicts, then commit)
+
+CI runs a scheduled job weekly to check for template updates and open a PR.
+
+First-time setup if you didn’t generate with Cruft:
+```bash
+pipx install cruft  # or: pip install --user cruft
+cruft link --checkout main https://github.com/darosio/cookiecutter-python.git
+
+Notes and options
+- Guard: The workflow uses if: hashFiles('.cruft.json') to skip repos that aren’t linked.
+- Branch/tag pinning: If you maintain a stable template branch (e.g., v1), instruct linking with that branch. If you want CI to always update within that line, you can change the update step to uv run cruft update -y --checkout v1.
+- Conflict reduction: Consider shipping .gitattributes in the template (merge=ours/union) for files that often diverge.
+- Do not include .cruft.json in the template; it must be generated per-project.
+
+If you want, I can adapt the workflow to follow a specific template branch/tag (v1) and add repo labels/assignees to the PRs by default.
 
