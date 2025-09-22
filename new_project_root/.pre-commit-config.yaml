@@ -28,7 +28,7 @@ repos:
       - id: detect-private-key
       - id: trailing-whitespace
       - id: pretty-format-json
-        args: [--autofix, --indent, "4", --no-sort-keys]
+        args: [--autofix, --indent, "2", --no-sort-keys]
         exclude: \.ipynb$
 
   - repo: https://github.com/google/yamlfmt
@@ -105,7 +105,7 @@ repos:
         stages: [commit-msg]
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
+    rev: v0.11.0.1
     hooks:
       - id: shellcheck
         args: [-x, --severity=style] # Show errors, warnings, info and style
