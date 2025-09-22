@@ -31,25 +31,22 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
-
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
           cache-dependency-glob: uv.lock
-
       - name: Sync project with lint deps
         run: uv sync --locked --group lint
-
       - name: Cache pre-commit
         uses: actions/cache@v4
         with:
           path: /home/runner/.cache/pre-commit/
           key: pre-commit|${{ runner.os }}|${{ hashFiles('.pre-commit-config.yaml') }}
           restore-keys: pre-commit|${{ runner.os }}|
-
       - name: Run lint
-        run: make lint
+        run: |
+          make lint
 
 
   tests:
@@ -110,10 +107,6 @@ jobs:
         with:
           enable-cache: true
           cache-dependency-glob: uv.lock
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version-file: .python-version
       - name: Sync project with docs deps
         run: uv sync --locked --group docs
       - name: Build docs
