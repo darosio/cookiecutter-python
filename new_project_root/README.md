@@ -111,6 +111,3 @@ Notes and options
 - Branch/tag pinning: If you maintain a stable template branch (e.g., v1), instruct linking with that branch. If you want CI to always update within that line, you can change the update step to uv run cruft update -y --checkout v1.
 - Conflict reduction: Consider shipping .gitattributes in the template (merge=ours/union) for files that often diverge.
 - Do not include .cruft.json in the template; it must be generated per-project.
-
-If you want, I can adapt the workflow to follow a specific template branch/tag (v1) and add repo labels/assignees to the PRs by default.
-
