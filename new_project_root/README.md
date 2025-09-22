@@ -1,60 +1,108 @@
 # {{ cookiecutter.project_name }}
 
-[![PyPI](https://img.shields.io/pypi/v/{{ cookiecutter.project_name }}.svg)](https://pypi.org/project/{{ cookiecutter.project_name }}/)
-[![CI](https://github.com/darosio/{{ cookiecutter.project_name }}/actions/workflows/ci.yml/badge.svg)](https://github.com/darosio/{{ cookiecutter.project_name }}/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/darosio/{{ cookiecutter.project_name }}/branch/main/graph/badge.svg?token=OU6F9VFUQ6)](https://codecov.io/gh/darosio/{{ cookiecutter.project_name }})
-[![RtD](https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/)](https://{{ cookiecutter.project_slug }}.readthedocs.io/)
+[![PyPI](https://img.shields.io/pypi/v/{{ cookiecutter.project_slug }}.svg)](https://pypi.org/project/{{ cookiecutter.project_slug }}/)
+[![CI](https://github.com/darosio/{{ cookiecutter.project_slug }}/actions/workflows/ci.yml/badge.svg)](https://github.com/darosio/{{ cookiecutter.project_slug }}/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/darosio/{{ cookiecutter.project_slug }}/branch/main/graph/badge.svg?token=OU6F9VFUQ6)](https://codecov.io/gh/darosio/{{ cookiecutter.project_slug }})
+[![Docs](https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/)](https://{{ cookiecutter.project_slug }}.readthedocs.io/)
 
-This package provides a command line interface for …
+{{ cookiecutter.project_name }} provides a command line interface and Python API for …
 
 ## Installation
 
-You can get the library directly from [PyPI](https://pypi.org/project/{{ cookiecutter.project_name }}/)
-using `pip`:
+From PyPI with pip:
 
-    pip install {{ cookiecutter.project_slug }}
+```bash
+pip install {{ cookiecutter.project_slug }}
+```
 
-Alternatively, you can use [pipx](https://pypa.github.io/pipx/) to install it in
-an isolated environment:
+Or isolate with pipx:
 
-    pipx install {{ cookiecutter.project_slug }}
+```bash
+pipx install {{ cookiecutter.project_slug }}
+```
 
-To enable auto completion for the `cli` command, follow these steps:
+Shell completion (Click/Typer):
+- Bash:
 
-1.  Generate the completion script by running the following command:
+```bash
+  _{{ cookiecutter.cliname|upper }}_COMPLETE=bash_source {{ cookiecutter.cliname }} > ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
+  source ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
+```
 
-        _{{ cookiecutter.cliname.upper() }}_COMPLETE=bash_source {{ cookiecutter.cliname }} > ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
+- Fish:
 
-2.  Source the generated completion script to enable auto completion:
-
-        source ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
+```bash
+  _{{ cookiecutter.cliname|upper }}_COMPLETE=fish_source {{ cookiecutter.cliname }} | source
+```
 
 ## Usage
 
-You can check out the documentation on <https://darosio.github.io/{{ cookiecutter.project_name }}> for
-up to date usage information and examples.
+Docs: https://{{ cookiecutter.project_slug }}.readthedocs.io/
 
-### CLI
+CLI:
 
-{{ cookiecutter.project_name }} provides several command line interface tools for …
+```bash
+{{ cookiecutter.cliname }} --help
+```
 
-    cliname --help
+Python:
 
-### Python
-
-{{ cookiecutter.project_name }} can be imported and used as a Python package. The following modules are
-available:
-
-    {{ cookiecutter.project_slug }}. - DESCRIBE
-
-To use {{ cookiecutter.project_name }} in your python:
-
-    from {{ cookiecutter.project_slug }} import …
+```python
+from {{ cookiecutter.project_slug }} import …
+```
 
 ## Features
 
-- FIRST.
-- SECOND.
+- FIRST
+- SECOND
+
+## Development
+
+Requires Python `uv`.
+
+With uv:
+```bash
+# one-time
+pre-commit install
+# dev tools and deps
+uv sync --group dev
+# lint/test
+uv run ruff check .  (or: make lint)
+uv run pytest -q  (or: make test)
+```
+
+## Dependency updates (Renovate)
+
+We use Renovate to keep dependencies current.
+
+Enable Renovate:
+1. Install the GitHub App: https://github.com/apps/renovate (Settings → Integrations → GitHub Apps → Configure → select this repo/org).
+2. This repo includes a `renovate.json` policy. Renovate will open a “Dependency Dashboard” issue and PRs accordingly.
+
+Notes:
+- Commit style: `build(deps): bump <dep> from <old> to <new>`
+- Pre-commit hooks are grouped and labeled; Python version bumps in `pyproject.toml` are disabled by policy.
+
+Migrating from Dependabot:
+- You may keep “Dependabot alerts” ON for vulnerability visibility, but disable Dependabot security PRs.
+
+## Template updates (Cruft)
+
+This project is linked to its Cookiecutter template with Cruft.
+
+- Check for updates: `cruft check`
+- Apply updates: `cruft update -y` (resolve conflicts, then commit)
+
+CI runs a weekly job to open a PR when template updates are available.
+
+First-time setup if you didn’t generate with Cruft:
+```bash
+pipx install cruft  # or: pip install --user cruft
+cruft link --checkout main https://github.com/darosio/cookiecutter-python.git
+```
+Notes:
+- The CI workflow skips if `.cruft.json` is absent.
+- If you maintain a stable template branch (e.g., `v1`), link with `--checkout v1`. You can also update within that line using `cruft update -y --checkout v1`.
 
 ## License
 
@@ -71,43 +119,3 @@ and
 [development environment](https://darosio.github.io/{{ cookiecutter.project_name }}/references/development.html)
 guides, which outline the guidelines and conventions that we follow for
 contributing code, documentation, and other resources.
-
-## Dependency updates (Renovate)
-
-This project uses Renovate to keep dependencies up to date.
-
-Enable Renovate (GitHub):
-1. Install the Renovate GitHub App and grant it access to this repo (or your org): https://github.com/apps/renovate
-   From "Setting / Integrations / GitHub Apps" add select repo / all repositories.
-2. Renovate will open a “Dependency Dashboard” issue and then create update PRs according to the config.
-
-Notes about our config:
-- Commit messages: `build(deps): bump <dep> from <old> to <new>`
-- Unlimited concurrent PRs/hourly limit are allowed by default here (prConcurrentLimit/prHourlyLimit set to 0). If this is too noisy, set a limit or add a schedule (e.g., weekends).
-- Pre-commit updates:
-  - Grouped as “pre-commit hooks” with a custom commit prefix `chore(hooks):`.
-- Python version bumps in `pyproject.toml` are disabled.
-- Sphinx-related updates are currently disabled. nbsphinx is incompatible with Sphinx >=8.2.
-
-Migrating from Dependabot:
-- You can keep “Dependabot alerts” ON (the GitHub UI for vulnerabilities) while disabling automatic Dependabot security PRs.
-
-## Template updates (Cruft)
-
-This project is linked to its Cookiecutter template with Cruft.
-
-- Check for updates: `cruft check`
-- Apply updates: `cruft update -y` (resolve conflicts, then commit)
-
-CI runs a scheduled job weekly to check for template updates and open a PR.
-
-First-time setup if you didn’t generate with Cruft:
-```bash
-pipx install cruft  # or: pip install --user cruft
-cruft link --checkout main https://github.com/darosio/cookiecutter-python.git
-
-Notes and options
-- Guard: The workflow uses if: hashFiles('.cruft.json') to skip repos that aren’t linked.
-- Branch/tag pinning: If you maintain a stable template branch (e.g., v1), instruct linking with that branch. If you want CI to always update within that line, you can change the update step to uv run cruft update -y --checkout v1.
-- Conflict reduction: Consider shipping .gitattributes in the template (merge=ours/union) for files that often diverge.
-- Do not include .cruft.json in the template; it must be generated per-project.
