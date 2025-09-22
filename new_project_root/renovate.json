@@ -34,6 +34,12 @@
             "enabled": false
         },
         {
+            "matchManagers": [
+                "pep621"
+            ],
+            "rangeStrategy": "update-lockfile"
+        },
+        {
             "matchPackageNames": [
                 "sphinx-autodoc-typehints"
             ],
