@@ -27,26 +27,10 @@
   },
   "packageRules": [
     {
-      "matchPackageNames": [
-        "sphinx"
-      ],
-      "allowedVersions": "<8.2",
-      "rangeStrategy": "update-lockfile",
-      "enabled": false
-    },
-    {
       "matchManagers": [
         "pep621"
       ],
       "rangeStrategy": "update-lockfile"
-    },
-    {
-      "matchPackageNames": [
-        "sphinx-autodoc-typehints"
-      ],
-      "allowedVersions": "<3.2",
-      "rangeStrategy": "update-lockfile",
-      "enabled": false
     },
     {
       "matchDepTypes": [
