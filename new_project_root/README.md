@@ -2,10 +2,16 @@
 
 [![PyPI](https://img.shields.io/pypi/v/{{ cookiecutter.project_slug }}.svg)](https://pypi.org/project/{{ cookiecutter.project_slug }}/)
 [![CI](https://github.com/darosio/{{ cookiecutter.project_slug }}/actions/workflows/ci.yml/badge.svg)](https://github.com/darosio/{{ cookiecutter.project_slug }}/actions/workflows/ci.yml)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/darosio/{{ cookiecutter.project_slug }}/main.svg)](https://results.pre-commit.ci/latest/github/darosio/{{ cookiecutter.project_slug }}/main)
 [![codecov](https://codecov.io/gh/darosio/{{ cookiecutter.project_slug }}/branch/main/graph/badge.svg?token=OU6F9VFUQ6)](https://codecov.io/gh/darosio/{{ cookiecutter.project_slug }})
-[![Docs](https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/)](https://{{ cookiecutter.project_slug }}.readthedocs.io/)
+[![RtD](https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/)](https://{{ cookiecutter.project_slug }}.readthedocs.io/)
 
 {{ cookiecutter.project_name }} provides a command line interface and Python API for …
+
+## Features
+
+- FIRST
+- SECOND
 
 ## Installation
 
@@ -22,6 +28,7 @@ pipx install {{ cookiecutter.project_slug }}
 ```
 
 Shell completion (Click/Typer):
+
 - Bash:
 
 ```bash
@@ -50,12 +57,6 @@ Python:
 ```python
 from {{ cookiecutter.project_slug }} import …
 ```
-
-## Features
-
-- FIRST
-- SECOND
-
 ## Development
 
 Requires Python `uv`.
@@ -77,13 +78,15 @@ We use Renovate to keep dependencies current.
 
 Enable Renovate:
 1. Install the GitHub App: https://github.com/apps/renovate (Settings → Integrations → GitHub Apps → Configure → select this repo/org).
-2. This repo includes a `renovate.json` policy. Renovate will open a “Dependency Dashboard” issue and PRs accordingly.
+1. This repo includes a `renovate.json` policy. Renovate will open a “Dependency Dashboard” issue and PRs accordingly.
 
 Notes:
+
 - Commit style: `build(deps): bump <dep> from <old> to <new>`
 - Pre-commit hooks are grouped and labeled; Python version bumps in `pyproject.toml` are disabled by policy.
 
 Migrating from Dependabot:
+
 - You may keep “Dependabot alerts” ON for vulnerability visibility, but disable Dependabot security PRs.
 
 ## Template updates (Cruft)
@@ -96,11 +99,13 @@ This project is linked to its Cookiecutter template with Cruft.
 CI runs a weekly job to open a PR when template updates are available.
 
 First-time setup if you didn’t generate with Cruft:
+
 ```bash
 pipx install cruft  # or: pip install --user cruft
 cruft link --checkout main https://github.com/darosio/cookiecutter-python.git
 ```
 Notes:
+
 - The CI workflow skips if `.cruft.json` is absent.
 - If you maintain a stable template branch (e.g., `v1`), link with `--checkout v1`. You can also update within that line using `cruft update -y --checkout v1`.
 
