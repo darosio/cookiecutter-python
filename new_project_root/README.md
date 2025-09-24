@@ -104,6 +104,7 @@ First-time setup if you didn’t generate with Cruft:
 pipx install cruft  # or: pip install --user cruft
 cruft link --checkout main https://github.com/darosio/cookiecutter-python.git
 ```
+
 Notes:
 
 - The CI workflow skips if `.cruft.json` is absent.
