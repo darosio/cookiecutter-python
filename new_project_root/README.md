@@ -78,6 +78,7 @@ uv run pytest -q  (or: make test)
 We use Renovate to keep dependencies current.
 
 Enable Renovate:
+
 1. Install the GitHub App: https://github.com/apps/renovate (Settings → Integrations → GitHub Apps → Configure → select this repo/org).
 1. This repo includes a `renovate.json` policy. Renovate will open a “Dependency Dashboard” issue and PRs accordingly.
 
