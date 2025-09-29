@@ -16,6 +16,7 @@ remove_paths = [
     '{% if cookiecutter.project_type != "Python Project" %}.github{% endif %}',
     '{% if cookiecutter.project_type != "Python Project" %}.readthedocs.yml{% endif %}',
     '{% if cookiecutter.project_type != "Python Project" %}README.md{% endif %}',
+    '{% if cookiecutter.project_type != "Python Project" %}renovate.json{% endif %}',
     '{% if cookiecutter.project_type != "Data Analysis Project" %}docs/tutorials{% endif %}',
     '{% if cookiecutter.project_type != "Data Analysis Project" %}Readme.org{% endif %}',
     '{% if cookiecutter.project_type != "Data Analysis Project" %}analyses{% endif %}',

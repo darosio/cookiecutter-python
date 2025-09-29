@@ -208,9 +208,6 @@ max-complexity = 12
 "__init__.py" = ["I002"] # don't need annotations
 "docs/*" = ["INP"]
 "*.ipynb" = ["ERA", "T20"]
-"src/{{ cookiecutter.project_slug }}/__main__.py" = [
-  "ANN001", # params are annotated using click
-]
 "tests/*" = ["PLR2004", "S101"]
 
 [tool.ruff.lint.pydocstyle]
