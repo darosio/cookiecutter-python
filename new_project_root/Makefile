@@ -25,36 +25,36 @@ ARGS       ?=
 docs:  ## Build docs
 	$(SPHINXBUILD) $(SPHINXOPTS) $(DOCS_SRC) $(DOCS_OUT)
 
-docs-clean:						## Cleans the documentation build directory
+docs-clean:  ## Cleans the documentation build directory
 	rm -rf $(DOCS_OUT)
 
-docs-serve:					## Serves the documentation locally
+docs-serve:  ## Serves the documentation locally
 	$(PYTHON) -m http.server 8000 -d $(DOCS_OUT)
 
 
 # Development setup
-init:							## Installs pre-commit hooks for version control.
+init:  ## Installs pre-commit hooks for version control.
 	$(PRECOMMIT) install
 
 
 # Code quality
-lint:							## Lints the codebase using pre-commit.
+lint:  ## Lints the codebase using pre-commit.
 	$(PRECOMMIT) run --all-files --show-diff-on-failure $(ARGS)
 
 
 # Testing
-test:							## Runs tests using pytest and coverage
+test:  ## Runs tests using pytest and coverage
 	$(COVERAGE) run -p -m pytest -v
 
-cov:							## Generates a coverage report in multiple formats (report, xml).
+cov:  ## Generates a coverage report in multiple formats (report, xml).
 	$(COVERAGE) combine
 	$(COVERAGE) report
 	$(COVERAGE) xml
 
-type:							## Checks the type annotations of Python files using mypy.
+type:  ## Checks the type annotations of Python files using mypy.
 	$(MYPY) src tests docs/conf.py
 
-xdoc:							## Runs xdoctest on the project.
+xdoc:  ## Runs xdoctest on the project.
 	$(XDOCTEST) {{ cookiecutter.project_slug }} all
 
 test-all: test type xdoc cov  ## Runs all tests: testing, type checking, xdoctesting, and generating coverage reports.
