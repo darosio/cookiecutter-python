@@ -114,7 +114,7 @@ repos:
     rev: v3.11.0-1
     hooks:
       - id: shfmt # prebuilt upstream executable
-        args: [-i, "4"] # Use 4 spaces for indentation
+        args: ["-w", "-i", "2", "-ci", "-sr"] # 2 spaces, indent case, simplify redirects
 
   - repo: https://github.com/astral-sh/uv-pre-commit
     rev: 0.8.22
