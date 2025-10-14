@@ -30,7 +30,7 @@ version = "{{ cookiecutter.version }}"
 [project.optional-dependencies]
 docs = [
   "autodocsumm>=0.2.14",
-  "ipykernel>=7.0.0",
+  "ipykernel>=7.0.1",
   "jupyter>=1.1.1",
   "nbsphinx>=0.9.7",
   "pydata-sphinx-theme>=0.16.1",
