@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import shutil
 import subprocess
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -10,6 +11,42 @@ import pytest
 
 if TYPE_CHECKING:
     from pytest_cookies.plugin import Cookies, Result
+
+
+def _init_git_repo(project_path: Path) -> None:
+    """Initialize a git repository in the project directory.
+
+    Parameters
+    ----------
+    project_path
+        Path to the project directory
+
+    """
+    subprocess.run(["git", "init"], cwd=project_path, check=True, capture_output=True)
+    subprocess.run(
+        ["git", "config", "user.email", "test@test.com"],
+        cwd=project_path,
+        check=True,
+        capture_output=True,
+    )
+    subprocess.run(
+        ["git", "config", "user.name", "Test User"],
+        cwd=project_path,
+        check=True,
+        capture_output=True,
+    )
+
+
+def _check_uv_available() -> bool:
+    """Check if uv is available in the system PATH.
+
+    Returns
+    -------
+    bool
+        True if uv is available, False otherwise
+
+    """
+    return shutil.which("uv") is not None
 
 
 def test_bake_project_python(cookies: Cookies) -> None:
@@ -178,6 +215,9 @@ def test_pyproject_toml_content(cookies: Cookies) -> None:
 @pytest.mark.slow
 def test_generated_project_installs(cookies: Cookies, tmp_path: Path) -> None:
     """Test that the generated Python project can be installed."""
+    if not _check_uv_available():
+        pytest.skip("uv not available for installation test")
+
     result: Result = cookies.bake(
         extra_context={
             "project_type": "Python Project",
@@ -189,19 +229,7 @@ def test_generated_project_installs(cookies: Cookies, tmp_path: Path) -> None:
     assert result.project_path is not None
 
     # Initialize git (required for some tools)
-    subprocess.run(["git", "init"], cwd=result.project_path, check=True, capture_output=True)
-    subprocess.run(
-        ["git", "config", "user.email", "test@test.com"],
-        cwd=result.project_path,
-        check=True,
-        capture_output=True,
-    )
-    subprocess.run(
-        ["git", "config", "user.name", "Test User"],
-        cwd=result.project_path,
-        check=True,
-        capture_output=True,
-    )
+    _init_git_repo(result.project_path)
 
     # Try to install the project with uv
     install_result = subprocess.run(
@@ -211,16 +239,15 @@ def test_generated_project_installs(cookies: Cookies, tmp_path: Path) -> None:
         text=True,
     )
 
-    # Check if uv is available, if not skip this test
-    if install_result.returncode != 0 and "uv" in install_result.stderr.lower():
-        pytest.skip("uv not available for installation test")
-
     assert install_result.returncode == 0, f"Install failed: {install_result.stderr}"
 
 
 @pytest.mark.slow
 def test_generated_project_tests_pass(cookies: Cookies) -> None:
     """Test that the generated Python project's tests pass."""
+    if not _check_uv_available():
+        pytest.skip("uv not available for test execution")
+
     result: Result = cookies.bake(
         extra_context={
             "project_type": "Python Project",
@@ -232,19 +259,7 @@ def test_generated_project_tests_pass(cookies: Cookies) -> None:
     assert result.project_path is not None
 
     # Initialize git
-    subprocess.run(["git", "init"], cwd=result.project_path, check=True, capture_output=True)
-    subprocess.run(
-        ["git", "config", "user.email", "test@test.com"],
-        cwd=result.project_path,
-        check=True,
-        capture_output=True,
-    )
-    subprocess.run(
-        ["git", "config", "user.name", "Test User"],
-        cwd=result.project_path,
-        check=True,
-        capture_output=True,
-    )
+    _init_git_repo(result.project_path)
 
     # Install the project
     install_result = subprocess.run(

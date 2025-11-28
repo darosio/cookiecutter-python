@@ -13,6 +13,8 @@ jobs:
   template-tests:
     name: Template Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
@@ -32,6 +34,8 @@ jobs:
   generated-project-tests:
     name: Generated Project Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
