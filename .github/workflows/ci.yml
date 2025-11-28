@@ -10,7 +10,27 @@ concurrency:
 
 jobs:
 
-  tests:
+  template-tests:
+    name: Template Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          python-version: "3.13"
+
+      - name: Install test dependencies
+        run: uv sync --group tests
+
+      - name: Run template tests
+        run: uv run pytest tests/ -v
+
+  generated-project-tests:
+    name: Generated Project Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -24,7 +44,7 @@ jobs:
 
       - name: Create new project
         run: |
-          uvx cookiecutter https://github.com/darosio/cookiecutter-python --no-input
+          uvx cookiecutter . --no-input
           cd complexity
           git init
 
@@ -49,11 +69,11 @@ jobs:
 
       - name: Run test
         working-directory: complexity
-        run: make all
+        run: make test-all
 
   auto_merge_deps:
     name: Auto Merge dependencies labeled PRs
-    needs: [tests]
+    needs: [template-tests, generated-project-tests]
     # Run only on pull_request labeled dependencies (e.g. by dependabot) or
     # with the pre-commit ci commit message.
     if: >
