@@ -3,8 +3,9 @@
 [![PyPI](https://img.shields.io/pypi/v/{{ cookiecutter.project_slug }}.svg)](https://pypi.org/project/{{ cookiecutter.project_slug }}/)
 [![CI](https://github.com/darosio/{{ cookiecutter.project_slug }}/actions/workflows/ci.yml/badge.svg)](https://github.com/darosio/{{ cookiecutter.project_slug }}/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/darosio/{{ cookiecutter.project_slug }}/branch/main/graph/badge.svg?token=OU6F9VFUQ6)](https://codecov.io/gh/darosio/{{ cookiecutter.project_slug }})
-[![RtD](https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/)](https://{{ cookiecutter.project_slug }}.readthedocs.io/)
 [![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue?logo=github)](https://darosio.github.io/{{ cookiecutter.project_slug }}/)
+[![RtD](https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/)](https://{{ cookiecutter.project_slug }}.readthedocs.io/)
+
 
 {{ cookiecutter.project_name }} provides a command line interface and Python API for …
 
@@ -15,44 +16,54 @@
 
 ## Installation
 
-From PyPI with pip:
+### From PyPI
+
+Using pip:
 
 ```bash
 pip install {{ cookiecutter.project_slug }}
 ```
 
-Or isolate with pipx:
+### Recommended: Using pipx
+
+For isolated installation (recommended):
 
 ```bash
 pipx install {{ cookiecutter.project_slug }}
 ```
 
-Shell completion (Click/Typer):
+### Shell Completion
 
-- Bash:
+Enable shell completion for the `clop` command:
+
+#### Bash
 
 ```bash
-  _{{ cookiecutter.cliname|upper }}_COMPLETE=bash_source {{ cookiecutter.cliname }} > ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
-  source ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
+_{{ cookiecutter.cliname|upper }}_COMPLETE=bash_source {{ cookiecutter.cliname }} > ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
+source ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash
+# Add to your ~/.bashrc to make it permanent:
+echo 'source ~/.local/bin/{{ cookiecutter.cliname }}-complete.bash' >> ~/.bashrc
 ```
 
-- Fish:
+#### Fish
 
 ```bash
-  _{{ cookiecutter.cliname|upper }}_COMPLETE=fish_source {{ cookiecutter.cliname }} | source
+_{{ cookiecutter.cliname|upper }}_COMPLETE=fish_source {{ cookiecutter.cliname }} | source
+# Add to fish config to make it permanent:
+_{{ cookiecutter.cliname|upper }}_COMPLETE=fish_source {{ cookiecutter.cliname }} > ~/.config/fish/completions/{{ cookiecutter.cliname }}.fish
 ```
 
 ## Usage
 
 Docs: https://{{ cookiecutter.project_slug }}.readthedocs.io/
 
-CLI:
+### CLI
 
 ```bash
 {{ cookiecutter.cliname }} --help
 ```
 
-Python:
+### Python
 
 ```python
 from {{ cookiecutter.project_slug }} import …

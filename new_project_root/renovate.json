@@ -4,6 +4,12 @@
     "config:recommended",
     ":dependencyDashboard"
   ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "before 9am on thursday"
+    ]
+  },
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
   "prFooter": " (#{{prNumber}})",
@@ -25,6 +31,63 @@
     "groupName": "pre-commit hooks"
   },
   "packageRules": [
+    {
+      "description": "Disable GitHub Actions updates - managed by cookiecutter template",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Disable dev/lint/test/docs dependency updates - managed by cookiecutter template",
+      "matchFileNames": [
+        "**/pyproject.toml"
+      ],
+      "matchDepTypes": [
+        "project.optional-dependencies",
+        "dependency-groups"
+      ],
+      "matchDepNames": [
+        "git-cliff",
+        "mdformat",
+        "mdformat-gfm",
+        "pylsp-mypy",
+        "ruff",
+        "python-lsp-ruff",
+        "cruft",
+        "pre-commit",
+        "coverage",
+        "mypy",
+        "pandas-stubs",
+        "pygments",
+        "pytest",
+        "scipy-stubs",
+        "types-click",
+        "types-setuptools",
+        "xdoctest",
+        "autodocsumm",
+        "graphviz",
+        "ipykernel",
+        "jupyter",
+        "nbsphinx",
+        "pydata-sphinx-theme",
+        "sphinx-autodoc-typehints",
+        "sphinx-click",
+        "sphinx",
+        "sphinxcontrib-plantuml"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Disable click updates - managed by cookiecutter template",
+      "matchFileNames": [
+        "**/pyproject.toml"
+      ],
+      "matchDepNames": [
+        "click"
+      ],
+      "enabled": false
+    },
     {
       "matchDepTypes": [
         "project.optional-dependencies",
