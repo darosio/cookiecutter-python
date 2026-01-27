@@ -1,12 +1,13 @@
 """Configuration file for the Sphinx documentation builder."""
 
-# Configuration file for the Sphinx documentation builder.
-#
-# For the full list of built-in configuration values, see the documentation:
+# This file only contains a selection of the most common options. For a full
+# list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
+#
+
+import os
 
 # -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 # TODO: Remove the unneeded.
 
@@ -15,7 +16,6 @@ author = "{{ cookiecutter.author_name }}"
 copyright = f"{{ cookiecutter.year }}, {author}"  # noqa: A001
 
 # -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -29,14 +29,9 @@ extensions = [
     "myst_nb",
     "sphinx_click",
 ]
+
 # Napoleon settings to Default
 napoleon_use_ivar = False
-# Use __init__ docstring
-napoleon_include_init_with_doc = False
-# Use _private docstring
-napoleon_include_private_with_doc = True
-# Use __special__ docstring
-napoleon_include_special_with_doc = True
 
 autodoc_default_options = {
     "members": True,
@@ -56,8 +51,6 @@ source_suffix = {
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
-# To prevent latex hanging on symbols supported by xelatex, but RtD uses latex.
 latex_elements = {
     "papersize": "a4paper",
     "pointsize": "10pt",
