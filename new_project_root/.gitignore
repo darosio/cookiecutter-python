@@ -60,6 +60,7 @@ docs/_build/
 .ipynb_checkpoints/
 .ob-jupyter/
 .virtual_documents/
+jupyter_execute/
 
 # R
 .Rhistory
