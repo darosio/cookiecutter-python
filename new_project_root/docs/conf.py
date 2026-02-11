@@ -3,6 +3,12 @@
 # This file only contains a selection of the most common options. For a full
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+# -- Path setup --------------------------------------------------------------
+
+# If extensions (or modules to document with autodoc) are in another directory,
+# add these directories to sys.path here. If the directory is relative to the
+# documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 
 import os
@@ -39,15 +45,14 @@ autodoc_default_options = {
     "undoc-members": False,
     "autosummary": True,
 }
-
-autodoc_typehints = "description"
+autodoc_typehints = "signature"  # signature(default), combined, description
 
 # The suffix of source filenames.
 source_suffix = {
     ".rst": "restructuredtext",
-    # ".md": "markdown",
+    ".md": "myst-nb",
+    ".ipynb": "myst-nb",
 }
-
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -83,16 +88,6 @@ nb_execution_timeout = 300  # Increase timeout to 5 minutes
 nb_execution_allow_errors = False
 nb_execution_raise_on_error = True
 nb_execution_show_tb = True
-
-# Avoid multiprocessing in notebooks during Sphinx builds (pickling issues with
-# functions defined in notebook cells under newer Python versions).
-os.environ.setdefault("CLOPHFIT_EMCEE_WORKERS", "1")
-
-# Keep notebooks fast when executed by Sphinx.
-os.environ.setdefault("CLOPHFIT_DOCS_EMCEE_STEPS", "300")
-os.environ.setdefault("CLOPHFIT_DOCS_EMCEE_BURN", "50")
-os.environ.setdefault("CLOPHFIT_DOCS_EMCEE_THIN", "10")
-os.environ.setdefault("CLOPHFIT_DOCS_EMCEE_NWALKERS", "10")
 
 
 # -- Options for HTML output -------------------------------------------------
