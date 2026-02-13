@@ -2,7 +2,7 @@ name: Lockfile update
 
 on:
   schedule:
-    - cron: "00 2 * * 6" # 02:00 UTC (03:00 Europe/Rome) on Fridays
+    - cron: "00 2 * * 6" # 02:00 UTC (03:00 Europe/Rome) on Saturdays
   workflow_dispatch:
 
 permissions:

@@ -2,7 +2,7 @@ name: Template update (Cruft)
 
 on:
   schedule:
-    - cron: "0 18 * * 4" # 18:00 UTC (19:00 Europe/Rome) on Thursdays
+    - cron: "0 18 * * 5" # 18:00 UTC (19:00 Europe/Rome) on Fridays
   workflow_dispatch:
 permissions:
   contents: write
