@@ -181,7 +181,18 @@ def condense_bumps(lines: list[str], allowed_tags: set) -> list[str]:
 
         out.append(line)
 
-    return out
+    # Deduplicate identical bullet lines (e.g. repeated "- Manual cruft update")
+    seen_lines: set[str] = set()
+    deduped: list[str] = []
+    for line in out:
+        stripped = line.strip()
+        if stripped.startswith("- ") and stripped in seen_lines:
+            continue
+        if stripped.startswith("- "):
+            seen_lines.add(stripped)
+        deduped.append(line)
+
+    return deduped
 
 
 def read_lines(path: str) -> list[str]:
