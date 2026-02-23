@@ -18,8 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
+          token: ${{ secrets.PAT_WORKFLOWS || github.token }}
           fetch-depth: 0
-          persist-credentials: false
 
       - name: Install uv
         run: |
