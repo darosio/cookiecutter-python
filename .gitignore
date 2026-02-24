@@ -40,4 +40,4 @@ ENV/
 
 # UV
 .uv/
-uv.lock
+
