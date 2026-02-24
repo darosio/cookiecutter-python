@@ -51,6 +51,8 @@ jobs:
           uvx cookiecutter . --no-input
           cd complexity
           git init
+          git config user.email "ci@test.com"
+          git config user.name "CI"
 
       - name: Sync project with tests deps
         working-directory: complexity
