@@ -9,7 +9,7 @@ requires-python = ">=3.11"
 [dependency-groups]
 tests = [
   "cookiecutter>=2.6.0",
-  "pytest>=9.0.1",
+  "pytest>=9.0.2",
   "pytest-cookies>=0.7.0",
 ]
 
