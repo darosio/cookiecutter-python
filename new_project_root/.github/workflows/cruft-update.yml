@@ -65,7 +65,7 @@ jobs:
           git add -A
           git commit -m "chore(template): apply cookiecutter updates via Cruft"
           git push -f origin "$BRANCH"
-          if gh pr view "$BRANCH" --json state -q .state 2>/dev/null; then
+          if gh pr view "$BRANCH" --json state -q .state 2>/dev/null | grep -q "OPEN"; then
             echo "PR already exists, updated branch."
           else
             gh pr create \
