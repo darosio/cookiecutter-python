@@ -1,0 +1,22 @@
+[project]
+name = "cookiecutter-python"
+version = "0.1.0"
+description = "Python best practices project cookiecutter template"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+
+[dependency-groups]
+tests = [
+  "cookiecutter>=2.6.0",
+  "pytest>=9.0.1",
+  "pytest-cookies>=0.7.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
