@@ -3,7 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/{{ cookiecutter.project_slug }}.svg)](https://pypi.org/project/{{ cookiecutter.project_slug }}/)
 [![CI](https://github.com/darosio/{{ cookiecutter.project_slug }}/actions/workflows/ci.yml/badge.svg)](https://github.com/darosio/{{ cookiecutter.project_slug }}/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/darosio/{{ cookiecutter.project_slug }}/branch/main/graph/badge.svg?token=OU6F9VFUQ6)](https://codecov.io/gh/darosio/{{ cookiecutter.project_slug }})
-[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue?logo=github)](https://darosio.github.io/{{ cookiecutter.project_slug }}/)
+[![](https://img.shields.io/badge/Pages-blue?logo=github)](https://darosio.github.io/{{ cookiecutter.project_slug }}/)
 [![RtD](https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/)](https://{{ cookiecutter.project_slug }}.readthedocs.io/)
 
 
