@@ -83,8 +83,11 @@ jobs:
     # Run only on pull_request labeled dependencies (e.g. by dependabot) or
     # with the pre-commit ci commit message.
     if: >
+      github.event_name == 'pull_request' &&
+      (
       startsWith(github.event.pull_request.title, 'build(pre-commit): update hooks') ||
       contains(github.event.pull_request.labels.*.name, 'dependencies')
+      )
     runs-on: ubuntu-latest
     permissions:
       contents: write
