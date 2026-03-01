@@ -5,12 +5,13 @@ from __future__ import annotations
 import os
 import shutil
 import subprocess
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 import pytest
 
 if TYPE_CHECKING:
+    from pathlib import Path
+
     from pytest_cookies.plugin import Cookies, Result
 
 # Subprocess env that prevents parent VIRTUAL_ENV from leaking into uv calls.
@@ -19,6 +20,7 @@ _CLEAN_ENV = {**os.environ, "VIRTUAL_ENV": ""}
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _init_git_repo(project_path: Path) -> None:
     """Initialize a git repository in the project directory."""
@@ -32,9 +34,7 @@ def _init_git_repo(project_path: Path) -> None:
 
 def _bake(cookies: Cookies, project_type: str = "Python Project", **extra) -> Result:
     """Bake the template and assert success."""
-    result: Result = cookies.bake(
-        extra_context={"project_type": project_type, **extra}
-    )
+    result: Result = cookies.bake(extra_context={"project_type": project_type, **extra})
     assert result.exit_code == 0, result.exception
     assert result.exception is None
     assert result.project_path is not None
@@ -48,6 +48,7 @@ _uv_available = shutil.which("uv") is not None
 # ---------------------------------------------------------------------------
 # Basic bake
 # ---------------------------------------------------------------------------
+
 
 @pytest.mark.parametrize("project_type", ["Python Project", "Data Analysis Project"])
 def test_bake_default(cookies: Cookies, project_type: str) -> None:
@@ -180,6 +181,7 @@ def test_data_analysis_docs_index(cookies: Cookies) -> None:
 # Content validation: pyproject.toml
 # ---------------------------------------------------------------------------
 
+
 def test_pyproject_content_python(cookies: Cookies) -> None:
     """Python Project pyproject.toml includes readme, urls, and no placeholders."""
     p = _bake(
@@ -230,6 +232,7 @@ def test_pyproject_cli_entry_point(cookies: Cookies) -> None:
 # Content validation: pre-commit config
 # ---------------------------------------------------------------------------
 
+
 def test_precommit_python_hooks(cookies: Cookies) -> None:
     """Python Project pre-commit has check-symlinks, no DATA_ANALYSIS_EXCLUDE."""
     content = (
@@ -243,8 +246,7 @@ def test_precommit_python_hooks(cookies: Cookies) -> None:
 def test_precommit_da_hooks(cookies: Cookies) -> None:
     """DA Project pre-commit excludes data dir, no OPTIONAL placeholder."""
     content = (
-        _bake(cookies, "Data Analysis Project").project_path
-        / ".pre-commit-config.yaml"
+        _bake(cookies, "Data Analysis Project").project_path / ".pre-commit-config.yaml"
     ).read_text()
     assert "check-symlinks" not in content
     assert "OPTIONAL_PYTHON_PROJECT_HOOKS" not in content
@@ -256,9 +258,12 @@ def test_precommit_da_hooks(cookies: Cookies) -> None:
 # Content validation: Makefile
 # ---------------------------------------------------------------------------
 
+
 def test_makefile_targets(cookies: Cookies) -> None:
     """Makefile contains essential make targets."""
-    content = _bake(cookies, "Python Project").project_path.joinpath("Makefile").read_text()
+    content = (
+        _bake(cookies, "Python Project").project_path.joinpath("Makefile").read_text()
+    )
     for target in ("lint:", "test:", "cov:", "type:", "xdoc:", "docs:", "bump:"):
         assert target in content, f"Missing target {target}"
 
@@ -267,9 +272,12 @@ def test_makefile_targets(cookies: Cookies) -> None:
 # Content validation: .envrc
 # ---------------------------------------------------------------------------
 
+
 def test_envrc_content(cookies: Cookies) -> None:
     """.envrc activates a uv-managed venv."""
-    content = _bake(cookies, "Python Project").project_path.joinpath(".envrc").read_text()
+    content = (
+        _bake(cookies, "Python Project").project_path.joinpath(".envrc").read_text()
+    )
     assert "uv" in content
     assert "VIRTUAL_ENV" in content
 
@@ -277,6 +285,7 @@ def test_envrc_content(cookies: Cookies) -> None:
 # ---------------------------------------------------------------------------
 # Source package scaffold
 # ---------------------------------------------------------------------------
+
 
 def test_source_package_files(cookies: Cookies) -> None:
     """Source package contains __init__.py, __main__.py, py.typed."""
@@ -295,6 +304,7 @@ def test_tests_directory(cookies: Cookies) -> None:
 # ---------------------------------------------------------------------------
 # Slow: install + test the generated project
 # ---------------------------------------------------------------------------
+
 
 @pytest.mark.slow
 @pytest.mark.skipif(not _uv_available, reason="uv not available")
@@ -338,6 +348,4 @@ def test_generated_project_tests_pass(cookies: Cookies) -> None:
         text=True,
         env=_CLEAN_ENV,
     )
-    assert proc.returncode == 0, (
-        f"Tests failed:\n{proc.stdout}\n{proc.stderr}"
-    )
+    assert proc.returncode == 0, f"Tests failed:\n{proc.stdout}\n{proc.stderr}"

@@ -2,8 +2,10 @@
 
 Python best practices project cookiecutter.
 
-    cookiecutter workspace/cookiecutter-python/
-    cookiecutter https://github.com/darosio/cookiecutter-python
+```
+cookiecutter workspace/cookiecutter-python/
+cookiecutter https://github.com/darosio/cookiecutter-python
+```
 
 ## Settings on github
 
@@ -13,23 +15,23 @@ Python best practices project cookiecutter.
      or where it is defined.
      **Workflow permissions**
      Read and Write Permissions
-     [x] Allow Github Actions to create and approve pull requests
+     \[x\] Allow Github Actions to create and approve pull requests
 
-2. Pages
+1. Pages
 
    - Source: Github Actions <https://github.com/darosio/imgread/settings/pages>.
      Deploy from a branch gh-pages as using `jamesives/github-pages-deploy-action@v4`
 
-3. RtD
+1. RtD
 
    - Go to <https://readthedocs.org/dashboard/> and import project.
 
-4. Codecov
+1. Codecov
 
    - Go to <https://app.codecov.io/gh/darosio> and setup.
    - add “CODECOV_TOKEN” as repository secrets.
 
-5. PyPI
+1. PyPI
 
    - For the first time you can simply
 
@@ -49,6 +51,7 @@ Python best practices project cookiecutter.
 
    - Go to <https://pypi.org/manage/account/>
      (- [Publishing] setup new project)
+
      - Create project PYPI_TOKEN and copy into github secrets.
 
 ## Check and edit

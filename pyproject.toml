@@ -7,6 +7,9 @@ license = "MIT"
 requires-python = ">=3.11"
 
 [dependency-groups]
+lint = [
+  "pre-commit==4.5.1",
+]
 tests = [
   "cookiecutter>=2.7.0",
   "pytest>=9.0.2",
@@ -18,5 +21,109 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
 markers = [
-    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+  "slow: marks tests as slow (deselect with '-m \"not slow\"')",
 ]
+
+[tool.mypy]
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+pretty = true
+show_column_numbers = true
+show_error_codes = true
+show_error_context = true
+strict = true
+warn_unreachable = true
+warn_unused_configs = true
+
+[tool.pydoclint]
+check-class-attributes = false
+
+[tool.ruff]
+extend-exclude = ["scripts/", "new_project_root/", "{{cookiecutter.project_slug}}/"]
+fix = true
+force-exclude = true
+line-length = 88
+target-version = "py311"
+unsafe-fixes = true
+preview = true
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+ignore = ["ISC001"]
+select = [
+  "A",
+  "ANN",
+  "ARG",
+  "ASYNC",
+  "B",
+  "BLE",
+  "C",
+  "C4",
+  "C90",
+  "D",
+  "DOC",
+  "DTZ",
+  "E",
+  "EM",
+  "ERA",
+  "EXE",
+  "F",
+  "FA",
+  "FBT",
+  "FLY",
+  "FURB",
+  "G",
+  "I",
+  "ICN",
+  "INP",
+  "ISC",
+  "LOG",
+  "N",
+  "PERF",
+  "PGH",
+  "PIE",
+  "PL",
+  "PT",
+  "PTH",
+  "PYI",
+  "Q",
+  "RET",
+  "RSE",
+  "RUF",
+  "S",
+  "SIM",
+  "SLF",
+  "SLOT",
+  "T10",
+  "T20",
+  "TC",
+  "TCH",
+  "TID",
+  "TRY",
+  "UP",
+  "W",
+  "YTT",
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 12
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["I002"]
+"tests/*" = ["PLR2004", "S101"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.typos]
+
+[tool.typos.default]
+extend-ignore-re = [
+  "\"id\":\\s*\"[^\"]+\"",
+]
+
+[tool.typos.default.extend-words]
+ND = "ND"
+Nd = "Nd"
+arosio = "Arosio"

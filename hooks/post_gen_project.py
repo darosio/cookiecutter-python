@@ -36,7 +36,7 @@ for path_str in remove_paths:
             shutil.rmtree(path)
 
 
-def modify_pre_commit_config():
+def modify_pre_commit_config() -> None:
     project_dir = Path.cwd()
     config_path = project_dir / ".pre-commit-config.yaml"
     # Read the current content of the file
@@ -74,7 +74,7 @@ def modify_pre_commit_config():
     config_path.write_text("\n".join(new_lines) + "\n")
 
 
-def modify_pyproject():
+def modify_pyproject() -> None:
     project_dir = Path.cwd()
     config_path = project_dir / "pyproject.toml"
     # Read the current content of the file
