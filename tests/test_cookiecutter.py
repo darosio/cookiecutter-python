@@ -33,7 +33,22 @@ def _init_git_repo(project_path: Path) -> None:
 
 
 def _bake(cookies: Cookies, project_type: str = "Python Project", **extra) -> Result:
-    """Bake the template and assert success."""
+    """Bake the template and assert success.
+
+    Parameters
+    ----------
+    cookies : Cookies
+        The pytest-cookies fixture.
+    project_type : str
+        The project type to bake.
+    **extra
+        Extra context passed to the cookiecutter template.
+
+    Returns
+    -------
+    Result
+        The baked project result.
+    """
     result: Result = cookies.bake(extra_context={"project_type": project_type, **extra})
     assert result.exit_code == 0, result.exception
     assert result.exception is None
@@ -320,6 +335,7 @@ def test_generated_project_installs(cookies: Cookies, project_type: str) -> None
         capture_output=True,
         text=True,
         env=_CLEAN_ENV,
+        check=False,
     )
     assert proc.returncode == 0, f"Install failed:\n{proc.stderr}"
 
@@ -337,6 +353,7 @@ def test_generated_project_tests_pass(cookies: Cookies) -> None:
         capture_output=True,
         text=True,
         env=_CLEAN_ENV,
+        check=False,
     )
     if proc.returncode != 0:
         pytest.skip(f"Installation failed: {proc.stderr}")
@@ -347,5 +364,6 @@ def test_generated_project_tests_pass(cookies: Cookies) -> None:
         capture_output=True,
         text=True,
         env=_CLEAN_ENV,
+        check=False,
     )
     assert proc.returncode == 0, f"Tests failed:\n{proc.stdout}\n{proc.stderr}"

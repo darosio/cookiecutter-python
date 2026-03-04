@@ -3,8 +3,6 @@
 import shutil
 from pathlib import Path
 
-# shutil.move("project.toml", "pyproject.toml")
-
 project_type = "{{ cookiecutter.project_type }}"
 if project_type == "Data Analysis Project":
     shutil.move("docs/index4data.rst", "docs/index.rst")
@@ -24,7 +22,6 @@ remove_paths = [
     '{% if cookiecutter.project_type != "Data Analysis Project" %}docs/index4data.rst{% endif %}',
     '{% if cookiecutter.project_type != "Data Analysis Project" %}docs/analyses.rst{% endif %}',
     '{% if cookiecutter.project_type != "Data Analysis Project" %}docs/20240101.ipynb{% endif %}',
-    # '{% if cookiecutter.project_type != "Data Analysis Project" %}.envrc{% endif %}',
 ]
 
 for path_str in remove_paths:
@@ -37,6 +34,7 @@ for path_str in remove_paths:
 
 
 def modify_pre_commit_config() -> None:
+    """Modify .pre-commit-config.yaml based on project type."""
     project_dir = Path.cwd()
     config_path = project_dir / ".pre-commit-config.yaml"
     # Read the current content of the file
@@ -75,6 +73,7 @@ def modify_pre_commit_config() -> None:
 
 
 def modify_pyproject() -> None:
+    """Modify pyproject.toml based on project type."""
     project_dir = Path.cwd()
     config_path = project_dir / "pyproject.toml"
     # Read the current content of the file
