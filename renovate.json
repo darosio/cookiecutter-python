@@ -25,29 +25,13 @@
     "managerFilePatterns": [
       "/^\\.pre-commit-config\\.yaml$/"
     ],
-    "commitMessagePrefix": "build(hooks):",
     "groupName": "pre-commit hooks"
   },
   "packageRules": [
     {
-      "matchPackageNames": [
-        "sphinx"
-      ],
-      "allowedVersions": "<8.2",
-      "rangeStrategy": "update-lockfile",
-      "enabled": false
-    },
-    {
-      "matchPackageNames": [
-        "sphinx-autodoc-typehints"
-      ],
-      "allowedVersions": "<3.2",
-      "rangeStrategy": "update-lockfile",
-      "enabled": false
-    },
-    {
       "matchDepTypes": [
-        "project.optional-dependencies"
+        "project.optional-dependencies",
+        "dependency-groups"
       ],
       "groupName": "optional dependencies",
       "labels": [
