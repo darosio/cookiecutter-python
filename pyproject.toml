@@ -11,7 +11,7 @@ lint = [
   "pre-commit==4.5.1",
 ]
 tests = [
-  "cookiecutter>=2.7.0",
+  "cookiecutter>=2.7.1",
   "pytest>=9.0.2",
   "pytest-cookies>=0.7.0",
 ]
