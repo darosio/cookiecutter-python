@@ -69,6 +69,7 @@ repos:
     rev: v0.1.11
     hooks:
       - id: ripsecrets
+        exclude: (^|/)\.github/workflows/(cruft-update|lockfile-update)\.yml$
 
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.30.0
