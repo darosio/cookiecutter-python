@@ -37,7 +37,7 @@ docs = [
   "pygments>=2.19.2",
   "sphinx-autoapi>=3.8.0",
   "sphinx-click>=6.2.0",
-  "sphinx>=8.2.3",
+  "sphinx>=9.1.0",
   "sphinxcontrib-plantuml>=0.31",
 ]
 
