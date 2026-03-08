@@ -9,4 +9,4 @@ classes and functions.
 .. toctree::
    :maxdepth: 1
 
-   {{ cookiecutter.project_slug }}
+   ../autoapi/nima_io/index

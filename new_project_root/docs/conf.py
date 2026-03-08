@@ -27,10 +27,8 @@ copyright = f"{{ cookiecutter.year }}, {author}"  # noqa: A001
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
-    "autodocsumm",
+    "autoapi.extension",
     "sphinx.ext.napoleon",
-    "sphinx_autodoc_typehints",
     "sphinxcontrib.plantuml",
     "myst_nb",
     "sphinx_click",
@@ -39,13 +37,17 @@ extensions = [
 # Napoleon settings to Default
 napoleon_use_ivar = False
 
-autodoc_default_options = {
-    "members": True,
-    "member-order": "bysource",
-    "undoc-members": False,
-    "autosummary": True,
-}
-autodoc_typehints = "signature"  # signature(default), combined, description
+# -- sphinx-autoapi configuration --------------------------------------------
+autoapi_dirs = ["../src"]
+autoapi_options = [
+    "members",
+    "show-inheritance",
+    "show-module-summary",
+]
+autoapi_member_order = "bysource"
+autoapi_add_toctree_entry = False
+autoapi_keep_files = True
+# suppress_warnings = ["autoapi.python_import_resolution"]
 
 # The suffix of source filenames.
 source_suffix = {

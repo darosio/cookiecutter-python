@@ -59,9 +59,8 @@ Building docs
    make docs
    make docs-serve
 
-When needed (e.g. API updates)::
-
-   uv run sphinx-apidoc -f -o docs/api/ src/{{ cookiecutter.project_slug }}/
+sphinx-autoapi automatically discovers and documents the API from ``src/``.
+No manual ``sphinx-apidoc`` run is needed.
 
 Bump and releasing
 ~~~~~~~~~~~~~~~~~~
