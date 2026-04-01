@@ -48,7 +48,7 @@ dev = [
   "mdformat-gfm>=1.0.0",
   "pylsp-mypy>=0.7.1",
   "ruff>=0.15.8",
-  "python-lsp-ruff>=2.3.0",
+  "python-lsp-ruff>=2.3.1",
   "cruft>=2.16.0",
 ]
 lint = [
