@@ -12,7 +12,7 @@ lint = [
 ]
 tests = [
   "cookiecutter>=2.7.1",
-  "pytest>=9.0.2",
+  "pytest>=9.0.3",
   "pytest-cookies>=0.7.0",
 ]
 
