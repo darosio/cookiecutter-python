@@ -47,7 +47,7 @@ dev = [
   "mdformat>=1.0.0",
   "mdformat-gfm>=1.0.0",
   "pylsp-mypy>=0.7.1",
-  "ruff>=0.15.14",
+  "ruff>=0.15.15",
   "python-lsp-ruff>=2.3.1",
   "cruft>=2.16.0",
 ]
@@ -55,7 +55,7 @@ lint = [
   "pre-commit==4.6.0",
 ]
 tests = [
-  "coverage[toml]>=7.14.0",
+  "coverage[toml]>=7.14.1",
   "mypy>=2.1.0",
   "pandas-stubs>=3.0.0.260204",
   "pygments>=2.20.0", # color xdoctest
