@@ -51,6 +51,15 @@
       "commitMessagePrefix": "chore(hooks):"
     },
     {
+      "matchManagers": [
+        "pre-commit"
+      ],
+      "matchDepNames": [
+        "crate-ci/typos"
+      ],
+      "enabled": false
+    },
+    {
       "matchFileNames": [
         "**/pyproject.toml"
       ],
