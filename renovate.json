@@ -4,10 +4,6 @@
     "config:recommended",
     ":dependencyDashboard"
   ],
-  "includePaths": [
-    "**",
-    "new_project_root/**"
-  ],
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
   "prFooter": " (#{{prNumber}})",
