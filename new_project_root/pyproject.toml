@@ -47,7 +47,7 @@ dev = [
   "mdformat>=1.0.0",
   "mdformat-gfm>=1.0.0",
   "pylsp-mypy>=0.7.1",
-  "ruff>=0.15.16",
+  "ruff>=0.15.17",
   "python-lsp-ruff>=2.3.1",
   "cruft>=2.16.0",
 ]
@@ -59,7 +59,7 @@ tests = [
   "mypy>=2.1.0",
   "pandas-stubs>=3.0.3.260530",
   "pygments>=2.20.0", # color xdoctest
-  "pytest>=9.0.3",
+  "pytest>=9.1.0",
   "scipy-stubs>=1.17.1.5",
   "types-click >= 7.1.8",
   "types-setuptools>=82.0.0.20260518",
