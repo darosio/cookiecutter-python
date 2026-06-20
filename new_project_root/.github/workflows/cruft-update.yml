@@ -48,6 +48,7 @@ jobs:
       - name: Create Pull Request
         if: ${{ steps.cruft_update.outputs.has_changes == 'true' }}
         env:
+          # PAT_WORKFLOWS is needed when Cruft changes workflow files; github.token is a fallback for ordinary updates.
           GH_TOKEN: ${{ secrets.PAT_WORKFLOWS || github.token }}
         run: |
           git config user.name "github-actions[bot]"
