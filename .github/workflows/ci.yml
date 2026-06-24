@@ -80,12 +80,16 @@ jobs:
   auto_merge_deps:
     name: Auto Merge dependencies labeled PRs
     needs: [template-tests, generated-project-tests]
-    # Run only on pull_request labeled dependencies (e.g. by dependabot) or
-    # with the pre-commit ci commit message.
+    # Run only on dependency PRs. Renovate can add labels after the initial
+    # pull_request payload, so also match Renovate branches directly.
     if: >
       github.event_name == 'pull_request' &&
       (
       startsWith(github.event.pull_request.title, 'build(pre-commit): update hooks') ||
+      (
+      github.event.pull_request.user.login == 'renovate[bot]' &&
+      startsWith(github.event.pull_request.head.ref, 'renovate/')
+      ) ||
       contains(github.event.pull_request.labels.*.name, 'dependencies')
       )
     runs-on: ubuntu-latest
