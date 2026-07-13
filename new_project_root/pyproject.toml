@@ -56,7 +56,7 @@ lint = [
 ]
 tests = [
   "coverage[toml]>=7.15.1",
-  "mypy>=2.2.0",
+  "mypy>=2.3.0",
   "pandas-stubs>=3.0.3.260530",
   "pygments>=2.20.0", # color xdoctest
   "pytest>=9.1.1",
