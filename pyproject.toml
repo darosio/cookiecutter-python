@@ -8,7 +8,7 @@ requires-python = ">=3.11"
 
 [dependency-groups]
 lint = [
-  "pre-commit==4.6.0",
+  "pre-commit==4.6.1",
 ]
 tests = [
   "cookiecutter>=2.7.1",
