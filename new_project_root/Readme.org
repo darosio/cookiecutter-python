@@ -14,22 +14,26 @@ rclone --drive-shared-with-me sync --copy-links --progress --exclude *.lifext gd
 #+begin_src sh :results output :exports both
 git clone git@gin.g-node.org:/darosio/{{ cookiecutter.project_name }}.git
 cd ./{{ cookiecutter.project_name }}
-git annex init $HOSTNAME`
-git config annex.sshcaching true
-git config annex.backends MD5
+
+# Preferred (from ~/workspace/dotfiles/bash/.bashrc.d/git_annex.sh):
+ga_repo_bootstrap "$HOSTNAME"
+
+# Manual fallback if helper is unavailable:
+# git annex init --version=10 "$HOSTNAME"
+# git config annex.addunlocked true
+# git config annex.thin true
+# git config annex.sshcaching true
+# git config annex.stalldetection true
 #+end_src
 
 ** Initial project setup
 - [X] Create a new (empty) repo https://gin.g-node.org/repo/create and run:
 #+begin_src
 git init
-git remote add origin git@gin.g-node.org:/darosio/{{ cookiecutter.project_name }}.git
+ga_repo_bootstrap_hosted "{{ cookiecutter.project_slug }}" "darosio" "darosio"
 git add .
 git commit -m "init"
 git push --set-upstream origin main
-git annex init "$HOSTNAME"
-git config annex.sshcaching true
-git config annex.backends MD5
 #+end_src
 - [ ] Edit .gitignore
 #+begin_src
@@ -39,7 +43,7 @@ hatch run lint
 hatch run init
 
 git annex add data/
-git annex sync
+git annex sync --content
 #+end_src
 
 *** Notes
@@ -57,6 +61,71 @@ echo "layout python" > .envrc`
 
 ** Use
 `git annex sync` instead of pushing after committing notable changes.
+
+** Preferred remote layout (scientific datasets)
+- `origin` -> GIN (annex-aware)
+- `github` -> GitHub metadata mirror (`annex-ignore=true`)
+- `server` -> main storage (`annex-ignore=true`)
+- `backup` -> USB/offline storage (`annex-ignore=true`)
+
+#+begin_src sh :results output :exports both
+# add local storage remotes after bootstrap
+ga_add_storage_remotes /srv/data/{{ cookiecutter.project_slug }} /media/usb/{{ cookiecutter.project_slug }}
+#+end_src
+
+** Bundle cold archive (milestones/yearly)
+#+begin_src sh :results output :exports both
+ga_bundle_create
+# or explicit name:
+ga_bundle_create {{ cookiecutter.project_slug }}-milestone.bundle
+#+end_src
+
+** Operations (if dotfiles helpers are available)
+#+begin_src sh :results output :exports both
+# one-page repository audit
+gaa
+
+# routine health checks (long-lived repos)
+gam
+
+# missing file recovery flow
+gafm data/raw/example.dat
+
+# Git's modern maintenance framework
+gmaint
+# optional once per machine/user:
+ga_git_maintenance_start
+
+# unused annex content cleanup is separate and explicit
+git annex unused
+gauclean --yes
+#+end_src
+
+** Scientific raw-data immutability (recommended)
+Use three layers:
+1. Repository policy: treat `data/raw/` as immutable.
+2. Filesystem: make `data/raw/` read-only.
+3. Git hook: reject commits that modify `data/raw/**` unless explicit override is provided.
+
+#+begin_src sh :results output :exports both
+# Layer 2
+ga_raw_lock data/raw
+
+# Layer 3
+ga_raw_hook_install data/raw
+
+# If an intentional exception is needed:
+GA_ALLOW_RAW=1 git commit -m "intentional raw data correction"
+#+end_src
+
+For already present files, a stronger filesystem lock is possible with the immutable bit:
+#+begin_src sh :results output :exports both
+# stronger lock (example)
+chattr +i data/raw/*.tif
+
+# to allow a deliberate change later
+chattr -i data/raw/*.tif
+#+end_src
 
 ** CLI installation
 
