@@ -19,6 +19,8 @@ remove_paths = [
     '{% if cookiecutter.project_type != "Data Analysis Project" %}Readme.org{% endif %}',
     '{% if cookiecutter.project_type != "Data Analysis Project" %}analyses{% endif %}',
     '{% if cookiecutter.project_type != "Data Analysis Project" %}data{% endif %}',
+    '{% if cookiecutter.project_type != "Data Analysis Project" %}.gitattributes{% endif %}',
+    '{% if cookiecutter.project_type != "Data Analysis Project" %}scripts/protect_raw_data.sh{% endif %}',
     '{% if cookiecutter.project_type != "Data Analysis Project" %}docs/index4data.rst{% endif %}',
     '{% if cookiecutter.project_type != "Data Analysis Project" %}docs/analyses.rst{% endif %}',
     '{% if cookiecutter.project_type != "Data Analysis Project" %}docs/20240101.ipynb{% endif %}',
@@ -41,15 +43,30 @@ def modify_pre_commit_config() -> None:
     content = config_path.read_text()
     # Prepare the replacement content based on project type
     project_type = "{{ cookiecutter.project_type }}"
+    # Guards data/raw originals. always_run/pass_filenames because the
+    # analysis_exclude above hides data paths from file-based hooks; the script
+    # runs its own diff. Versioned here rather than in .git/hooks so it reaches
+    # every clone.
+    raw_data_hook = """  - repo: local
+    hooks:
+      - id: protect-raw-data
+        name: protect raw data (data/raw originals are immutable)
+        entry: scripts/protect_raw_data.sh
+        language: script
+        stages: [pre-commit]
+        always_run: true
+        pass_filenames: false"""
     if project_type == "Python Project":
         python_hooks = "- id: check-symlinks"
         analysis_exclude = ""
+        raw_data_hook = ""
     elif project_type == "Data Analysis Project":
         python_hooks = ""
         analysis_exclude = "exclude: ^data/.*\n"
     else:
         python_hooks = ""
         analysis_exclude = ""
+        raw_data_hook = ""
     # Perform replacements and remove lines if they should be empty
     lines = content.splitlines()
     new_lines = []
@@ -59,6 +76,9 @@ def modify_pre_commit_config() -> None:
                 new_lines.append(
                     line.replace("# OPTIONAL_PYTHON_PROJECT_HOOKS", python_hooks)
                 )
+        elif "# RAW_DATA_HOOK" in line:
+            if raw_data_hook:
+                new_lines.append(line.replace("  # RAW_DATA_HOOK", raw_data_hook))
         elif "# DATA_ANALYSIS_EXCLUDE" in line:
             if analysis_exclude:
                 new_lines.append(

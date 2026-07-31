@@ -1,0 +1,6 @@
+# Original instrument data: always annexed, never fewer than two copies.
+# Note: annex.addunlocked is NOT read from .gitattributes -- git-annex takes it
+# only from .git/config and the git-annex branch. The locked-raw policy is set
+# by ga_repo_bootstrap as:
+#   git annex config --set annex.addunlocked "exclude=data/raw/*"
+data/raw/** annex.largefiles=anything annex.numcopies=2

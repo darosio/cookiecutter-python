@@ -20,11 +20,16 @@ ga_repo_bootstrap "$HOSTNAME"
 
 # Manual fallback if helper is unavailable:
 # git annex init --version=10 "$HOSTNAME"
-# git config annex.addunlocked true
+# git annex config --set annex.addunlocked "exclude=data/raw/*"
 # git config annex.thin true
 # git config annex.sshcaching true
 # git config annex.stalldetection true
 #+end_src
+
+Do *not* set =git config annex.addunlocked true=: a local value shadows the
+repo-wide policy carried in the git-annex branch, and everything under
+=data/raw/= would be added unlocked. The expression above keeps raw data locked
+while every other path is added unlocked.
 
 ** Initial project setup
 - [X] Create a new (empty) repo https://gin.g-node.org/repo/create and run:
@@ -44,7 +49,35 @@ hatch run init
 
 git annex add data/
 git annex sync --content
+# Raw data is now locked: symlinks into .git/annex/objects, immutable in place.
 #+end_src
+
+*** Raw data policy
+=data/raw/= holds originals and is protected in two layers:
+1. =annex.addunlocked=exclude=data/raw/*= (git-annex branch, inherited by every
+   clone) -- =git annex add= stores raw files locked: symlinks into mode-444
+   annex objects, so they cannot be edited in place without an explicit
+   =git annex unlock=. =.gitattributes= adds
+   =annex.largefiles=anything annex.numcopies=2=, so raw files are always
+   annexed and always kept in at least two copies.
+2. The =protect-raw-data= hook in =.pre-commit-config.yaml= (wired up by
+   =make init=) refuses any staged modification, rename or deletion under
+   =data/raw/=; adding new originals is allowed. Override a deliberate
+   exception with =GA_ALLOW_RAW=1 git commit=.
+
+To ingest more originals later, just add them:
+#+begin_src sh
+git annex add data/raw/<new-files>
+#+end_src
+
+Use =git annex add=, never =git add=, for raw data: =git add= always stores
+files unlocked and ignores =annex.addunlocked=.
+
+No filesystem =chmod= is applied to =data/raw/=. Making the directory read-only
+does block stray writes, but it also blocks =git annex add= and, worse, makes
+=git merge= fail with "cannot create directory ... Permission denied" whenever
+a pull brings new files under =data/raw/=. The two layers above already make
+committed originals immutable, which is the property that matters.
 
 *** Notes
 - Double check .pre-commit-config.yaml do not push id: commitizen-branch
@@ -102,30 +135,27 @@ gauclean --yes
 #+end_src
 
 ** Scientific raw-data immutability (recommended)
-Use three layers:
-1. Repository policy: treat `data/raw/` as immutable.
-2. Filesystem: make `data/raw/` read-only.
-3. Git hook: reject commits that modify `data/raw/**` unless explicit override is provided.
+Use two layers:
+1. Repository policy: `annex.addunlocked=exclude=data/raw/*` in the git-annex
+   branch, so `git annex add` stores raw files locked as symlinks into mode-444
+   annex objects; `.gitattributes` keeps them annexed with `numcopies=2`.
+2. Pre-commit hook: reject commits that modify, rename or delete anything under
+   `data/raw/**` unless an explicit override is provided.
 
 #+begin_src sh :results output :exports both
-# Layer 2
-ga_raw_lock data/raw
-
-# Layer 3
-ga_raw_hook_install data/raw
+# Layer 2 -- the protect-raw-data hook is versioned in .pre-commit-config.yaml,
+# so it reaches every clone. Wire it into .git/hooks with:
+make init                     # = pre-commit install
 
 # If an intentional exception is needed:
 GA_ALLOW_RAW=1 git commit -m "intentional raw data correction"
 #+end_src
 
-For already present files, a stronger filesystem lock is possible with the immutable bit:
-#+begin_src sh :results output :exports both
-# stronger lock (example)
-chattr +i data/raw/*.tif
-
-# to allow a deliberate change later
-chattr -i data/raw/*.tif
-#+end_src
+Do *not* add a filesystem lock (`chmod -R a-w data/raw`, or `chattr +i`) on top.
+It blocks `git annex add`, and it makes `git merge` abort with "cannot create
+directory ... Permission denied" as soon as a pull introduces a new directory
+under `data/raw/`. Locked annex objects are already mode 444 and cannot be
+edited in place, which is the guarantee that matters for originals.
 
 ** CLI installation
 
