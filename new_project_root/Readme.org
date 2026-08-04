@@ -62,16 +62,40 @@ git annex sync --content
    annexed and always kept in at least two copies.
 2. The =protect-raw-data= hook in =.pre-commit-config.yaml= (wired up by
    =make init=) refuses any staged modification, rename or deletion under
-   =data/raw/=; adding new originals is allowed. Override a deliberate
-   exception with =GA_ALLOW_RAW=1 git commit=.
+   =data/raw/=, and any addition that is *unlocked*. Adding new locked
+   originals is allowed. Override a deliberate exception with
+   =GA_ALLOW_RAW=1 git commit=.
 
-To ingest more originals later, just add them:
+To ingest more originals later, add them *from the repository root*:
 #+begin_src sh
 git annex add data/raw/<new-files>
 #+end_src
 
 Use =git annex add=, never =git add=, for raw data: =git add= always stores
 files unlocked and ignores =annex.addunlocked=.
+
+Run it from the repository root. =annex.addunlocked= is a matching expression
+evaluated against the path *relative to the current directory*, so the same
+command from inside a session folder silently stores files unlocked:
+#+begin_src sh
+cd data/raw/L6-130913 && git annex add info/   # WRONG: sees "info/...", adds unlocked
+git annex add data/raw/L6-130913/info/         # right: matches data/raw/*, adds locked
+git -C "$(git rev-parse --show-toplevel)" annex add data/raw/...  # right from anywhere
+#+end_src
+
+The same applies to =git annex import=, which writes into the current
+directory and is therefore always matched against a path that misses the
+policy. Whatever the route, repair the result from the repository root -- this
+stages the conversion, so do not follow it with =git add=, which would re-stage
+the files unlocked:
+#+begin_src sh
+git annex lock data/raw
+#+end_src
+
+Note that =git annex sync= runs the hook and its commit is rejected, but sync
+still exits 0 and continues, so an unlocked ingest leaves the originals staged,
+uncommitted and unpushed rather than failing loudly. =ga_monthly= asserts that
+=data/raw/= has no unlocked and no uncommitted files.
 
 No filesystem =chmod= is applied to =data/raw/=. Making the directory read-only
 does block stray writes, but it also blocks =git annex add= and, worse, makes
