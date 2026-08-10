@@ -80,29 +80,30 @@ jobs:
   auto_merge_deps:
     name: Auto Merge dependencies labeled PRs
     needs: [template-tests, generated-project-tests]
-    # Run only on dependency PRs. Renovate can add labels after the initial
-    # pull_request payload, so also match Renovate branches directly.
-    if: >
-      github.event_name == 'pull_request' &&
-      (
-      startsWith(github.event.pull_request.title, 'build(pre-commit): update hooks') ||
-      (
-      github.event.pull_request.user.login == 'renovate[bot]' &&
-      startsWith(github.event.pull_request.head.ref, 'renovate/')
-      ) ||
-      contains(github.event.pull_request.labels.*.name, 'dependencies')
-      )
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
+      # Eligibility is read from the API, not from github.event.pull_request:
+      # Renovate labels the PR a second *after* opening it, so the "opened"
+      # payload snapshot can still show no labels (and "labeled" does not
+      # re-trigger CI).
       - name: Merge PR
-        uses: pascalgn/automerge-action@v0.16.4
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: ""
-          MERGE_METHOD: squash
-          DELETE_BRANCH_AFTER_MERGE: true
-          LOG: "TRACE" # or DEBUG
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          title=$(gh pr view "$PR_URL" --json title --jq .title)
+          labels=$(gh pr view "$PR_URL" --json labels --jq '[.labels[].name] | join(" ")')
+          echo "title=$title"
+          echo "labels=$labels"
+          if [[ " $labels " == *" dependencies "* ]] ||
+             [[ "$title" == "build(pre-commit): update hooks"* ]]; then
+            gh pr merge --auto --squash --delete-branch "$PR_URL"
+          else
+            echo "Not a dependency update; leaving PR open."
+          fi
