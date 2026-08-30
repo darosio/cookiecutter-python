@@ -33,9 +33,9 @@ docs = [
   "ipykernel>=7.3.0",
   "jupyter>=1.1.1",
   "myst-nb>=1.4.0",
-  "pydata-sphinx-theme>=0.20.0",
+  "pydata-sphinx-theme>=0.21.0",
   "pygments>=2.21.0",
-  "sphinx-autoapi>=3.8.0",
+  "sphinx-autoapi>=3.8.1",
   "sphinx-click>=6.2.0",
   "sphinx>=9.1.0",
   "sphinxcontrib-plantuml>=0.31",
@@ -47,7 +47,7 @@ dev = [
   "mdformat>=1.0.0",
   "mdformat-gfm>=1.0.0",
   "pylsp-mypy>=0.8.0",
-  "ruff>=0.16.4",
+  "ruff>=0.16.5",
   "python-lsp-ruff>=2.3.3",
   "cruft>=2.16.0",
 ]
@@ -55,7 +55,7 @@ lint = [
   "pre-commit==4.6.2",
 ]
 tests = [
-  "coverage[toml]>=7.15.4",
+  "coverage[toml]>=7.16.0",
   "mypy>=2.3.1",
   "pandas-stubs>=3.0.5.260730",
   "pygments>=2.21.0", # color xdoctest
