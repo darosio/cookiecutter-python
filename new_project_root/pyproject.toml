@@ -30,7 +30,7 @@ version = "{{ cookiecutter.version }}"
 [project.optional-dependencies]
 docs = [
   "graphviz>=0.21",
-  "ipykernel>=7.3.0",
+  "ipykernel>=7.4.0",
   "jupyter>=1.1.1",
   "myst-nb>=1.4.0",
   "pydata-sphinx-theme>=0.22.0",
@@ -47,7 +47,7 @@ dev = [
   "mdformat>=1.0.0",
   "mdformat-gfm>=1.0.0",
   "pylsp-mypy>=0.8.0",
-  "ruff>=0.16.9",
+  "ruff>=0.16.10",
   "python-lsp-ruff>=2.3.4",
   "cruft>=2.16.0",
 ]
@@ -55,8 +55,8 @@ lint = [
   "pre-commit==4.6.2",
 ]
 tests = [
-  "coverage[toml]>=7.16.1",
-  "mypy>=2.3.1",
+  "coverage[toml]>=7.16.2",
+  "mypy>=2.4.0",
   "pandas-stubs>=3.0.5.260914",
   "pygments>=2.21.0", # color xdoctest
   "pytest>=9.1.1",
