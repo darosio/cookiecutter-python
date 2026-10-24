@@ -95,7 +95,14 @@ Enable Renovate:
 Notes:
 
 - Commit style: `build(deps): bump <dep> from <old> to <new>`
-- Pre-commit hooks are grouped and labeled; Python version bumps in `pyproject.toml` are disabled by policy.
+- Pre-commit hooks are grouped and labeled.
+
+Python upgrades are **not** managed by Renovate. Bumping `.python-version`
+on its own would make local dev and the release workflow use an interpreter
+that CI never tests. Upgrade Python in a single manual PR that updates
+`.python-version`, the `requires-python`/classifier/ruff settings in
+`pyproject.toml`, the CI matrix in `.github/workflows/ci.yml` and the version
+in `.readthedocs.yml`, then refresh `uv.lock`.
 
 Migrating from Dependabot:
 

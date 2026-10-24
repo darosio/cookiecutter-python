@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
+import tomllib
 from typing import TYPE_CHECKING
 
 import pytest
+import yaml
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -58,6 +61,20 @@ def _bake(cookies: Cookies, project_type: str = "Python Project", **extra) -> Re
 
 
 _uv_available = shutil.which("uv") is not None
+
+
+def _supported_python_versions(minimum: str, latest: str) -> list[str]:
+    """Return every 3.x minor version from minimum to latest inclusive.
+
+    Returns
+    -------
+    list[str]
+        Minor versions formatted as ``3.<minor>``.
+    """
+    min_major, min_minor = (int(part) for part in minimum.split("."))
+    max_major, max_minor = (int(part) for part in latest.split("."))
+    assert min_major == max_major == 3, (minimum, latest)
+    return [f"3.{minor}" for minor in range(min_minor, max_minor + 1)]
 
 
 # ---------------------------------------------------------------------------
@@ -241,6 +258,52 @@ def test_pyproject_cli_entry_point(cookies: Cookies) -> None:
     content = (p / "pyproject.toml").read_text()
     assert "[project.scripts]" in content
     assert "complexity" in content
+
+
+# ---------------------------------------------------------------------------
+# Python version consistency
+# ---------------------------------------------------------------------------
+
+
+def test_python_versions_are_consistent(cookies: Cookies) -> None:
+    """Python versions agree across .python-version, pyproject, CI and RTD.
+
+    A Python upgrade is a coordinated change, not a dependency bump. Renovate
+    is configured not to touch ``.python-version``, and this test guarantees
+    that a manual upgrade cannot update one file while forgetting the others.
+    """
+    p = _bake(cookies, "Python Project").project_path
+
+    dev_version = (p / ".python-version").read_text().strip()
+    assert re.fullmatch(r"3\.\d+", dev_version), dev_version
+
+    pyproject = tomllib.loads((p / "pyproject.toml").read_text())
+    project = pyproject["project"]
+
+    requires_python = project["requires-python"]
+    match = re.fullmatch(r">=(3\.\d+)", requires_python)
+    assert match, requires_python
+    min_version = match.group(1)
+
+    supported = _supported_python_versions(min_version, dev_version)
+    assert dev_version == supported[-1]
+
+    classifiers = {
+        classifier.rsplit(" :: ", 1)[-1]
+        for classifier in project["classifiers"]
+        if classifier.startswith("Programming Language :: Python :: 3.")
+    }
+    assert classifiers == set(supported)
+
+    ruff_target = pyproject["tool"]["ruff"]["target-version"]
+    assert ruff_target == f"py{min_version.replace('.', '')}"
+
+    workflow = yaml.safe_load((p / ".github" / "workflows" / "ci.yml").read_text())
+    matrix = workflow["jobs"]["tests"]["strategy"]["matrix"]
+    assert set(matrix["python"]) == set(supported)
+
+    readthedocs = yaml.safe_load((p / ".readthedocs.yml").read_text())
+    assert readthedocs["build"]["tools"]["python"] in supported
 
 
 # ---------------------------------------------------------------------------

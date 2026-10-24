@@ -25,6 +25,13 @@
   },
   "packageRules": [
     {
+      "description": "Python upgrades must be coordinated manually across .python-version, pyproject.toml, the CI matrix and Read the Docs; never bump .python-version in isolation",
+      "matchManagers": [
+        "pyenv"
+      ],
+      "enabled": false
+    },
+    {
       "matchDepTypes": [
         "project.optional-dependencies",
         "dependency-groups"
@@ -47,6 +54,7 @@
       "commitMessagePrefix": "chore(hooks):"
     },
     {
+      "description": "requires-python is part of the coordinated Python upgrade; see .python-version",
       "matchFileNames": [
         "**/pyproject.toml"
       ],

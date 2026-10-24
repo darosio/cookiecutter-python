@@ -54,6 +54,26 @@ cookiecutter https://github.com/darosio/cookiecutter-python
 
      - Create project PYPI_TOKEN and copy into github secrets.
 
+## Python version policy
+
+Renovate does not bump `.python-version`. Adding or dropping a Python version
+is a coordinated change: bumping `.python-version` alone makes local dev and
+the release workflow use an interpreter that CI never exercises, and often
+pulls in dependencies that do not support it yet.
+
+Do the upgrade in one PR and update **all** of the following:
+
+- `.python-version` — the newest supported version (local dev/release default)
+- `pyproject.toml` — `requires-python`, the `Programming Language :: Python :: 3.x`
+  classifiers, and `[tool.ruff] target-version` (the minimum supported)
+- `.github/workflows/ci.yml` — the `tests.strategy.matrix.python` list, which
+  must contain every supported version
+- `.readthedocs.yml` — `build.tools.python`
+- run `uv lock` and commit the refreshed lock file
+
+`tests/test_cookiecutter.py::test_python_versions_are_consistent` fails CI if
+these files drift apart, so a future isolated bump cannot be merged.
+
 ## Check and edit
 
 - pyproject.toml
