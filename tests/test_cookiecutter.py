@@ -149,8 +149,17 @@ def test_python_project_structure(cookies: Cookies) -> None:
 def test_python_project_workflows(cookies: Cookies) -> None:
     """Python Project ships CI, cruft-update, lockfile-update, release workflows."""
     wf = _bake(cookies, "Python Project").project_path / ".github" / "workflows"
-    for name in ("ci.yml", "cruft-update.yml", "release.yml"):
+    for name in ("ci.yml", "cruft-update.yml", "lockfile-update.yml", "release.yml"):
         assert (wf / name).is_file(), f"Missing workflow {name}"
+
+    cruft = (wf / "cruft-update.yml").read_text()
+    lockfile = (wf / "lockfile-update.yml").read_text()
+    for content in (cruft, lockfile):
+        assert "create-github-app-token" in content
+        assert "PAT_WORKFLOWS" not in content
+    # Conflicts must fail the run, not be silently deleted.
+    assert 'find . -name "*.rej" -type f -delete' not in cruft
+    assert "exit 1" in cruft
 
 
 # ---------------------------------------------------------------------------

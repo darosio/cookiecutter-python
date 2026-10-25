@@ -131,13 +131,15 @@ Notes:
 
 ### Enabling the CI push (GitHub App, one-time per repo)
 
-The `cruft-update` workflow needs write access to push its update branch and
-open a PR, and `github.token` alone cannot push changes under
-`.github/workflows/*`. Rather than a personal access token (which expires and
-must be rotated), this template uses a GitHub App installation token via
+The `cruft-update` and `lockfile-update` workflows need write access to push
+their update branches and open PRs, and `github.token` alone cannot push
+changes under `.github/workflows/*`. Rather than a personal access token
+(which expires and must be rotated), this template uses a GitHub App
+installation token via
 [`actions/create-github-app-token`](https://github.com/actions/create-github-app-token).
-The workflow falls back to `github.token` automatically if the App isn't
-configured, but that fallback fails whenever Cruft touches workflow files.
+Both workflows fall back to `github.token` automatically if the App isn't
+configured; the `cruft-update` fallback fails whenever Cruft touches workflow
+files.
 
 One-time setup (shared across all your repos once the App exists):
 
